@@ -1,0 +1,12 @@
+node_modules
+dist/
+*.tsbuildinfo
+.wrangler/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+*.log
+.DS_Store

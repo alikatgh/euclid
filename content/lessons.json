@@ -1,0 +1,240 @@
+{
+  "application": {
+    "name": "Euclid"
+  },
+  "algorithm": {
+    "id": "algorithm-e",
+    "title": "Algorithm E (Euclid's Algorithm)",
+    "subtitle": "Donald Knuth, The Art of Computer Programming, Vol. 1, §1.1",
+    "description": "Finds the Greatest Common Divisor (GCD) of two positive integers through repeated remainder division.",
+    "visualization": {
+      "target": "Target rod",
+      "measure": "Measuring stick",
+      "copies": "{q} copies of n = {n}",
+      "oneCopy": "1 copy of n = {n}",
+      "remainder": "Remainder · r = {r}",
+      "dummy": "No whole stick fits. The entire target remains.",
+      "next": "Next: m ← {n}, n ← {r}",
+      "exact": "Exact fit · r = 0",
+      "verification": "Both original inputs are multiples of {n}.",
+      "ready": "m ≥ n · ready to divide",
+      "grouped": "{q} equal pieces · n = {n}",
+      "tilingDummy": "No square of side {n} fits inside width {m}.",
+      "tilingNext": "Step E3 exchanges the dimensions.",
+      "tilingReduction": "Rotate the remainder to form the next rectangle.",
+      "rotate": "Rotate",
+      "reassignment": "The measuring stick becomes the target (m ← n). The remainder becomes the new measuring stick (n ← r).",
+      "swapExplanation": "m < n ({m} < {n}): exchange the rods before dividing, avoiding one wasted division pass.",
+      "fromStick": "From measuring stick",
+      "fromRemainder": "From remainder",
+      "fromTarget": "From target rod",
+      "newTarget": "New target rod",
+      "newMeasure": "New measuring stick",
+      "readyForDivision": "Ready for Step E1",
+      "nextPass": "Next pass: stick {n} fits into rod {m} {q} time(s).",
+      "predictedRemainder": "Predicted remainder: r = {r} · gcd invariant conserved.",
+      "invariant": "gcd({m}, {n}) = gcd({nextM}, {nextN})"
+    },
+    "codeWalkthrough": {
+      "title": "Algorithm E in code",
+      "intro": "Next and Play follow the highlighted code with the rods.",
+      "explanationTabLabel": "Explanation",
+      "continueLabel": "Continue in code",
+      "sourceLabel": "Complete program",
+      "executionLabel": "Current step",
+      "variablesLabel": "Variables",
+      "beforeAfterLabel": "Before → after",
+      "resultLabel": "Returned GCD",
+      "copyLabel": "Copy source",
+      "copiedLabel": "Copied",
+      "copyFailedLabel": "Clipboard unavailable. Select and copy the source below.",
+      "languageLabels": { "c": "C", "python": "Python" },
+      "languages": {
+        "c": {
+          "lines": [
+            { "id": "include", "text": "#include <stdio.h>" },
+            { "id": "include-space", "text": "" },
+            { "id": "function", "text": "int gcd(int m, int n) {" },
+            { "id": "e0-condition", "text": "    if (m < n) {", "phase": "E0", "operation": "e0-check", "onlyWithE0": true },
+            { "id": "e0-temp", "text": "        int temp = m;", "phase": "E0", "operation": "e0-save", "onlyWithE0": true },
+            { "id": "e0-m", "text": "        m = n;", "phase": "E0", "operation": "e0-swap", "onlyWithE0": true },
+            { "id": "e0-n", "text": "        n = temp;", "phase": "E0", "operation": "e0-swap", "onlyWithE0": true },
+            { "id": "e0-end", "text": "    }", "phase": "E0", "onlyWithE0": true },
+            { "id": "loop", "text": "    while (1) {" },
+            { "id": "e1-q", "text": "        int q = m / n;", "phase": "E1", "operation": "e1-divide" },
+            { "id": "e1-r", "text": "        int r = m - q * n;", "phase": "E1", "operation": "e1-remainder" },
+            { "id": "e2-condition", "text": "        if (r == 0) {", "phase": "E2", "operation": "e2-check" },
+            { "id": "e2-return", "text": "            return n;", "phase": "E2", "operation": "e2-return" },
+            { "id": "e2-end", "text": "        }", "phase": "E2" },
+            { "id": "e3-m", "text": "        m = n;", "phase": "E3", "operation": "e3-reduce" },
+            { "id": "e3-n", "text": "        n = r;", "phase": "E3", "operation": "e3-reduce" },
+            { "id": "loop-end", "text": "    }" },
+            { "id": "function-end", "text": "}" },
+            { "id": "main-space", "text": "" },
+            { "id": "main", "text": "int main(void) {" },
+            { "id": "example", "text": "    printf(\"%d\\n\", gcd({initialM}, {initialN}));" },
+            { "id": "main-return", "text": "    return 0;" },
+            { "id": "main-end", "text": "}" }
+          ],
+          "explanations": {
+            "e0Swap": {
+              "title": "E0 · exchange the inputs",
+              "explanation": "The test {m} < {n} is true. Save m in temp = {temp}, then assign m: {m} → {nextM} and n: {n} → {nextN}. The temporary variable preserves the original m. The exchanged rods are ready for E1."
+            },
+            "e0Noop": {
+              "title": "E0 · keep the inputs",
+              "explanation": "The test {m} < {n} is false, so skip the swap block. m stays {m} → {nextM}, and n stays {n} → {nextN}. temp is never declared. The rods are already ordered; continue to E1."
+            },
+            "e1": {
+              "title": "E1 · division, pass {pass}",
+              "explanation": "For positive integers, division gives q = {q}; r = m − q × n = {r}, equivalent to m % n. Fresh C locals start uninitialized; m and n stay unchanged. The rods show {q} whole sticks and remainder {r}."
+            },
+            "e1Dummy": {
+              "title": "E1 · zero quotient, pass {pass}",
+              "explanation": "Stick {n} exceeds rod {m}. Fresh locals become q: uninitialized → 0 and r: uninitialized → {r}. Computing m − q × n leaves the entire rod. The next zero check fails, and E3 exchanges the inputs."
+            },
+            "e3": {
+              "title": "E2 → E3 · reduce, pass {pass}",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline combines that E2 check with E3. Assign m: {m} → {nextM}, then n: {n} → {nextN}. Sequential assignment preserves r. Repeat E1 with the new rods."
+            },
+            "e3Dummy": {
+              "title": "E2 → E3 · exchange by reduction",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline includes that check in E3. Assign m: {m} → {nextM}, then n: {n} → {nextN}. Since q was 0, this exchanges the rods. Repeat E1; optional E0 avoids this division."
+            },
+            "e2": {
+              "title": "E2 · return the GCD",
+              "explanation": "r == 0 is true. return n exits with {n}; skip E3. m stays {m} → {m}, and n stays {n} → {n}. The example prints {n}, the value of gcd({initialM}, {initialN}). The final stick divides both original inputs."
+            }
+          }
+        },
+        "python": {
+          "lines": [
+            { "id": "function", "text": "def gcd(m, n):" },
+            { "id": "e0-condition", "text": "    if m < n:", "phase": "E0", "operation": "e0-check", "onlyWithE0": true },
+            { "id": "e0-swap", "text": "        m, n = n, m", "phase": "E0", "operation": "e0-swap", "onlyWithE0": true },
+            { "id": "loop", "text": "    while True:" },
+            { "id": "e1-divmod", "text": "        q, r = divmod(m, n)", "phase": "E1", "operation": "e1-divide" },
+            { "id": "e2-condition", "text": "        if r == 0:", "phase": "E2", "operation": "e2-check" },
+            { "id": "e2-return", "text": "            return n", "phase": "E2", "operation": "e2-return" },
+            { "id": "e3-pair", "text": "        m, n = n, r", "phase": "E3", "operation": "e3-reduce" },
+            { "id": "example-space", "text": "" },
+            { "id": "example", "text": "print(gcd({initialM}, {initialN}))" }
+          ],
+          "explanations": {
+            "e0Swap": {
+              "title": "E0 · exchange the inputs",
+              "explanation": "The test {m} < {n} is true. Python evaluates n, m using both old values before assigning either variable: m: {m} → {nextM}, n: {n} → {nextN}. No temporary variable is needed. The exchanged rods are ready for E1."
+            },
+            "e0Noop": {
+              "title": "E0 · keep the inputs",
+              "explanation": "The test {m} < {n} is false, so skip the parallel assignment. m stays {m} → {nextM}, and n stays {n} → {nextN}. The rods are already ordered; continue to E1."
+            },
+            "e1": {
+              "title": "E1 · division, pass {pass}",
+              "explanation": "divmod({m}, {n}) assigns q = {q} and r = {r}, equivalent to m // n and m % n. The table shows their previous values; they start uninitialized. m and n stay unchanged. The rods show {q} whole sticks and remainder {r}."
+            },
+            "e1Dummy": {
+              "title": "E1 · zero quotient, pass {pass}",
+              "explanation": "Stick {n} exceeds rod {m}. divmod({m}, {n}) assigns q: uninitialized → 0 and r: uninitialized → {r}. The entire original rod remains. The next zero check fails, and E3 exchanges the inputs."
+            },
+            "e3": {
+              "title": "E2 → E3 · reduce, pass {pass}",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline combines that E2 check with E3. Python evaluates n, r before assigning m: {m} → {nextM} and n: {n} → {nextN} together. Repeat E1 with the new rods."
+            },
+            "e3Dummy": {
+              "title": "E2 → E3 · exchange by reduction",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline includes that check in E3. The parallel assignment changes m: {m} → {nextM}, n: {n} → {nextN}. Since q was 0, this exchanges the rods. Repeat E1; optional E0 avoids this division."
+            },
+            "e2": {
+              "title": "E2 · return the GCD",
+              "explanation": "r == 0 is true. return n exits with {n}; skip E3. m stays {m} → {m}, and n stays {n} → {n}. The example prints {n}, the value of gcd({initialM}, {initialN}). The final stick divides both original inputs."
+            }
+          }
+        }
+      }
+    },
+    "mathematicalReading": {
+      "title": "Worked example",
+      "currentStepTitle": "What is happening",
+      "sourceNote": "Following Algorithm E · The Art of Computer Programming, Vol. 1, §1.1.",
+      "intro": {
+        "standard": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We begin at E1 and follow the successive divisions. In each pass, the quotient and remainder determine either a new pair of integers or the answer.",
+        "withE0Swap": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We include the optional step E0 before E1. Since ${initialM}<{initialN}$, this comparison will exchange the inputs before the first division, avoiding the initial division with quotient zero.",
+        "withE0Noop": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We include the optional step E0 before E1. Since ${initialM}\\ge {initialN}$, its comparison will leave the inputs unchanged; the first division uses the given pair."
+      },
+      "division": {
+        "properFraction": "Dividing ${m}$ by ${n}$ gives the proper fraction $\\frac{{m}}{{n}}<1$. The quotient is therefore $q=0$, and we set $r\\leftarrow {r}$: indeed, ${m}=0\\cdot {n}+{r}$, with $0<{r}<{n}$.",
+        "mixedNumber": "The division $\\frac{{m}}{{n}}={q}\\frac{{r}}{{n}}$ gives quotient $q={q}$ and remainder $r\\leftarrow {r}$. Thus ${m}={q}\\cdot {n}+{r}$, where $0<{r}<{n}$.",
+        "exact": "The division is exact: $\\frac{{m}}{{n}}={q}$, or ${m}={q}\\cdot {n}$. We obtain quotient $q={q}$ and set the remainder $r\\leftarrow 0$."
+      },
+      "nextCheck": "Next, E2 tests whether $r=0$; this test determines whether to return the present value of $n$ or proceed to E3.",
+      "e0Swap": "Because ${m}<{n}$, E0 exchanges the inputs, giving $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$. Exchanging the arguments leaves their common divisors unchanged. We proceed to E1 with the pair $({nextM},{nextN})$.",
+      "e0Noop": "Here ${m}\\ge {n}$, so the condition $m<n$ is false. E0 leaves $m={m}$ and $n={n}$ unchanged, and we proceed to E1 with this pair.",
+      "reduction": "At E2 the test $r=0$ is false, since $r={r}\\ne 0$. E3 therefore assigns $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, then returns to E1. The new pair has the same greatest common divisor: $\\gcd({m},{n})=\\gcd({nextM},{nextN})$.",
+      "reductionDummy": "At E2 the test $r=0$ is false, since $r={r}\\ne 0$. E3 therefore assigns $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, then returns to E1. Since the quotient was zero and the remainder was ${m}$, these assignments exchange the pair: $({m},{n})$ becomes $({nextM},{nextN})$.",
+      "workedReduction": "Since $r={r}\\ne 0$, E2 does not terminate. E3 sets $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, preserving $\\gcd({m},{n})=\\gcd({nextM},{nextN})$, and we repeat E1.",
+      "workedReductionDummy": "Since $r={r}\\ne 0$, E2 does not terminate. E3 sets $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, exchanging the inputs before returning to E1.",
+      "e0Aside": "This suggests optional E0: if $m<n$, exchange $m\\leftrightarrow n$. The exchange preserves the greatest common divisor and skips precisely this initial division with quotient zero.",
+      "termination": "At E2 the remainder is zero, so the algorithm terminates with $n={n}$. Hence $\\gcd({initialM},{initialN})={n}$. Both original integers are multiples of this answer: ${initialM}={factorM}\\cdot {n}$ and ${initialN}={factorN}\\cdot {n}$.",
+      "principles": {
+        "title": "Why the calculation works",
+        "invariant": "If $d$ divides both $m$ and $n$, then it divides $r=m-qn$. Conversely, if $d$ divides both $n$ and $r$, then it divides $m=qn+r$. The two pairs therefore have exactly the same common divisors, and $\\gcd(m,n)=\\gcd(n,r)$.",
+        "termination": "Every remainder satisfies $0\\le r<n$. If $r>0$, E3 makes it the next value of $n$, so the positive values of $n$ strictly decrease. They cannot decrease indefinitely; eventually $r=0$. At that point $\\gcd(m,n)=\\gcd(n,0)=n$, and the preserved common divisors identify the answer for the original inputs."
+      }
+    },
+    "presets": [
+      { "name": "119 & 544 (Knuth TAOCP)", "m": 119, "n": 544 },
+      { "name": "144 & 89 (Lamé Fibonacci)", "m": 144, "n": 89 },
+      { "name": "35 & 64 (Coprime, GCD=1)", "m": 35, "n": 64 },
+      { "name": "48 & 18 (m > n)", "m": 48, "n": 18 },
+      { "name": "252 & 105", "m": 252, "n": 105 },
+      { "name": "2166 & 6099 (Large)", "m": 2166, "n": 6099 }
+    ],
+    "steps_definition": [
+      {
+        "id": "E0",
+        "name": "Ensure m ≥ n",
+        "description": "If m < n, exchange m ↔ n directly in memory.",
+        "rule": "If m < n, m ↔ n",
+        "is_optional": true
+      },
+      {
+        "id": "E1",
+        "name": "Find remainder",
+        "description": "Divide m by n and let r be the remainder (0 ≤ r < n).",
+        "rule": "m = q · n + r",
+        "is_optional": false
+      },
+      {
+        "id": "E2",
+        "name": "Is it zero?",
+        "description": "If r = 0, the algorithm terminates; n is the answer.",
+        "rule": "r == 0 ⟹ terminate, answer is n",
+        "is_optional": false
+      },
+      {
+        "id": "E3",
+        "name": "Reduce",
+        "description": "Set m ← n, n ← r, and go back to step E1.",
+        "rule": "m ← n, n ← r",
+        "is_optional": false
+      }
+    ],
+    "knuth_prose": {
+      "opening": "This explanation follows Knuth's Algorithm E. Track the pair of integers and its remainder through each phase to see how the computation reaches their greatest common divisor.",
+      "start_example": "For the worked example, begin with m = 119 and n = 544. Standard Algorithm E starts at E1; the optional E0 variant compares the inputs first.",
+      "e1_dummy": "When m < n, E1 gives q = 0 and r = m: m = 0 × n + m. E2 will test this unchanged remainder before execution continues.",
+      "e2_noop": "At E2, a nonzero remainder sends execution to E3. The current divisor is not yet the greatest common divisor, so another reduction is needed.",
+      "e3_swap": "With q = 0, the remainder equals the original m. The E3 assignments m ← n and n ← r therefore exchange the inputs. The next E1 divides the larger integer by the smaller one.",
+      "e0_proposal": "Optional E0 compares the inputs before division. When m < n, exchange m and n. This preserves gcd(m, n) while avoiding the initial division with quotient zero.",
+      "e2_terminate": "At E2, r = 0 means that n divides m exactly. Return n: the preceding reductions preserved the common divisors, so this value is also the greatest common divisor of the original inputs."
+    },
+    "pedagogical_notes": {
+      "dummy_pass_explanation": "Because m < n (119 < 544), stick 544 fits 0 times into rod 119. The remainder is the entire original 119. Step E3 then sets m to 544 and n to 119. This entire division pass was wasted solely on swapping the inputs.",
+      "e0_benefit": "Step E0 inspects both integers upfront. If m < n, it executes a simple variable swap, avoiding the expensive division operation completely and reducing total passes by 1.",
+      "geometric_intuition": "Euclid's algorithm measures rod m using stick n. What remains (r) becomes the new ruler to measure the previous stick n. When a ruler fits with 0 leftover, it divides both numbers perfectly and is their Greatest Common Divisor.",
+      "invariant_explanation": "Euclidean Invariant Lemma: gcd(m, n) = gcd(n, r). Any common divisor of m and n must divide the linear combination m - q·n = r. Therefore, the GCD is conserved at every single step.",
+      "verification_explanation": "Final Verification: The resulting GCD evenly divides both initial inputs without remainder."
+    }
+  }
+}

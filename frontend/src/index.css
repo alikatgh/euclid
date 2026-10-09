@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@theme {
+  --color-rod-m: #38bdf8;
+  --color-rod-n: #f59e0b;
+  --color-rod-q: #a855f7;
+  --color-rod-r: #ef4444;
+  --color-rod-gcd: #10b981;
+  --font-serif: "KaTeX_Main", "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+  --font-math: "KaTeX_Math", "KaTeX_Main", "Latin Modern Math", "Computer Modern", "Times New Roman", serif;
+}
+
+:root {
+  --bg-page: #0b0f14;
+  --bg-surface: #141a23;
+  --bg-surface-elevated: #1a222f;
+  --border-color: #273142;
+  --border-focus: #3b82f6;
+
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-dim: #6b7280;
+
+  --color-m: #38bdf8;
+  --color-n: #f59e0b;
+  --color-q: #a855f7;
+  --color-r: #ef4444;
+  --color-gcd: #10b981;
+
+  /* Callout Card Tokens (Dark Mode) */
+  --bg-callout: rgba(245, 158, 11, 0.08);
+  --border-callout: rgba(245, 158, 11, 0.25);
+  --text-callout-title: #f59e0b;
+  --text-callout-body: #fde68a;
+
+  /* SVG Geometry Fills */
+  --fill-rod-m: rgba(56, 189, 248, 0.15);
+  --fill-rod-n: rgba(245, 158, 11, 0.15);
+  --fill-rod-r: rgba(239, 68, 68, 0.2);
+  --fill-rod-gcd: rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="light"] {
+  --bg-page: #f6f8fa;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eaeef2;
+  --border-color: #d0d7de;
+  --border-focus: #0969da;
+
+  --text-main: #1f2328;
+  --text-muted: #424a53;
+  --text-dim: #59636e;
+
+  --color-m: #0969da;
+  --color-n: #b45309;
+  --color-q: #8250df;
+  --color-r: #cf222e;
+  --color-gcd: #1a7f37;
+
+  /* Callout Card Tokens (Light Mode - WCAG AAA Compliant) */
+  --bg-callout: #fef9c3;
+  --border-callout: #fde047;
+  --text-callout-title: #854d0e;
+  --text-callout-body: #713f12;
+
+  /* SVG Geometry Fills (Light Mode) */
+  --fill-rod-m: rgba(9, 105, 218, 0.12);
+  --fill-rod-n: rgba(180, 83, 9, 0.12);
+  --fill-rod-r: rgba(207, 34, 46, 0.12);
+  --fill-rod-gcd: rgba(26, 127, 55, 0.15);
+}
+
+.bg-page { background-color: var(--bg-page); }
+.bg-surface { background-color: var(--bg-surface); }
+.bg-surface-elevated { background-color: var(--bg-surface-elevated); }
+.border-border { border-color: var(--border-color); }
+.bg-border { background-color: var(--border-color); }
+.text-main { color: var(--text-main); }
+.text-muted { color: var(--text-muted); }
+.text-dim { color: var(--text-dim); }
+.text-rod-m { color: var(--color-m); }
+.text-rod-n { color: var(--color-n); }
+.text-rod-q { color: var(--color-q); }
+.text-rod-r { color: var(--color-r); }
+.text-rod-gcd { color: var(--color-gcd); }
+
+.bg-callout { background-color: var(--bg-callout); }
+.border-callout { border-color: var(--border-callout); }
+.text-callout-title { color: var(--text-callout-title); }
+.text-callout-body { color: var(--text-callout-body); }
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-math {
+  font-family: var(--font-math);
+}

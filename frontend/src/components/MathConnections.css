@@ -1,0 +1,63 @@
+.math-connections-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.math-connections [data-math-value],
+.math-connections [data-math-values] { cursor: pointer; }
+.math-connections input[data-math-value] { cursor: text; }
+
+.math-connections [data-math-linked="true"] {
+  --math-link-color: color-mix(in srgb, var(--border-focus) 55%, transparent);
+  background-color: color-mix(in srgb, var(--border-focus) 12%, transparent);
+  box-shadow: 0 1px 0 var(--math-link-color);
+}
+
+/* Preserve the rod's role fill/stroke and D3 transforms. The small outside
+   shadow adds a shared cue without replacing an existing diagram color. */
+.math-connections svg [data-math-linked="true"] {
+  background-color: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 0 2px var(--math-link-color));
+}
+.math-connections svg text[data-math-linked="true"],
+.math-connections svg tspan[data-math-linked="true"] {
+  text-decoration: underline;
+  text-decoration-color: var(--math-link-color);
+  text-underline-offset: 2px;
+}
+
+.math-connections .linked-number:focus-visible {
+  outline: 1px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.math-connection-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 1.5rem;
+  color: var(--text-muted);
+  font: 0.75rem/1.35 var(--font-sans, sans-serif);
+}
+.math-connection-status strong { color: var(--text-main); font-weight: 500; }
+.math-connection-status button {
+  padding: 0.1rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.math-connection-status button:hover { color: var(--text-main); }
+.math-connection-status button:focus-visible { outline: 1px solid var(--border-focus); outline-offset: 2px; }

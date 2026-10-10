@@ -10,6 +10,3 @@ __pycache__/
 .venv/
 *.log
 .DS_Store
-
-# Vite dependency-optimizer scratch files
-.vite/

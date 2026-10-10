@@ -239,15 +239,3 @@ export function MathConnectionStatus({ className }: { className?: string }) {
     </div>
   );
 }
-
-/** A symbolic name linked to its current numeric binding, without hiding its meaning. */
-export function LinkedSymbol({ symbol, value }: { symbol: string; value: number | string }) {
-  const context = useContext(MathConnectionContext);
-  const key = normalizeMathValue(value);
-  return <span className="linked-number linked-symbol" data-symbol={symbol} data-math-value={key ?? undefined}
-    data-math-keyboard={key !== null ? 'true' : undefined} tabIndex={key !== null ? 0 : undefined}
-    role={key !== null ? 'button' : undefined} aria-label={`${symbol} currently equals ${value}`}
-    aria-describedby={context?.helpId} aria-pressed={key !== null ? context?.pinned.includes(key) ?? false : undefined}>
-    {symbol}
-  </span>;
-}

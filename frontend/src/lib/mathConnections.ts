@@ -159,31 +159,11 @@ function serializeHtml(node: HtmlNode): string {
 }
 
 /** Public KaTeX rendering with root-scoped numeric HTML hooks and intact MathML. */
-export function renderLinkedMath(tex: string, options: KatexOptions = {}, bindings: Record<string, number | string> = {}): string {
+export function renderLinkedMath(tex: string, options: KatexOptions = {}): string {
   const html = katex.renderToString(tex, { trust: false, output: 'htmlAndMathml', ...options });
   const root = parseGeneratedHtml(html);
   const annotate = (node: HtmlNode) => {
-    if (node.classes.has('katex-html')) {
-      annotateHtmlNumbers(node);
-      const bindSymbols = (element: HtmlNode) => {
-        // A decorated name is a different mathematical symbol: a_0 is not a,
-        // a-prime is not a, and an approximation accent is not the exact value.
-        // Numeric literals were already annotated above and remain linked.
-        const decorated = element.classes.has('msupsub') || element.classes.has('katex-accent') || element.classes.has('accent')
-          || element.children.some((child) => typeof child !== 'string' && child.classes.has('msupsub'));
-        if (decorated) return;
-        if (element.classes.has('mathnormal') && element.children.length === 1 && typeof element.children[0] === 'string') {
-          const symbol = element.children[0];
-          if (Object.hasOwn(bindings, symbol)) element.value = normalizeMathValue(bindings[symbol]) ?? undefined;
-        }
-        for (const [index, child] of element.children.entries()) if (typeof child !== 'string') {
-          const next = element.children[index + 1];
-          const hasUnicodePrime = typeof next !== 'string' && next?.children.length === 1 && /^[′″‴]$/.test(String(next.children[0]));
-          if (!hasUnicodePrime) bindSymbols(child);
-        }
-      };
-      bindSymbols(node);
-    }
+    if (node.classes.has('katex-html')) annotateHtmlNumbers(node);
     else for (const child of node.children) if (typeof child !== 'string') annotate(child);
   };
   annotate(root);

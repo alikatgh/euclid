@@ -6,11 +6,10 @@ interface MathematicalTextProps {
   text: string;
   className?: string;
   interactive?: boolean;
-  bindings?: Record<string, number | string>;
 }
 
 /** Ordinary prose interspersed with inline TeX, delimited by single dollar signs. */
-export function MathematicalText({ text, className, interactive = true, bindings }: MathematicalTextProps) {
+export function MathematicalText({ text, className, interactive = true }: MathematicalTextProps) {
   const segments = useMemo(() => {
     const result: Array<{ text: string; html?: string }> = [];
     const math = /\$([^$]+)\$/g;
@@ -24,13 +23,13 @@ export function MathematicalText({ text, className, interactive = true, bindings
           throwOnError: false,
           trust: false,
           output: 'htmlAndMathml',
-        }, bindings),
+        }),
       });
       end = match.index + match[0].length;
     }
     if (end < text.length) result.push({ text: text.slice(end) });
     return result;
-  }, [text, bindings]);
+  }, [text]);
 
   return (
     <span className={className}>

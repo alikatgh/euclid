@@ -64,7 +64,7 @@ export const Sidebar = ({ step, steps, stepsDefinitions, content, withE0, panels
   }, [step.stepIndex, paragraphs, panels.example, panels.formula, panels.steps]);
 
   return (
-    <aside ref={sidebarRef} className="explanation-stack" aria-label="Algorithm explanation">
+    <aside ref={sidebarRef} className="explanation-stack">
       {/* 1. Live Formula & Current Values */}
       <section className="bg-surface border border-border p-3 shrink-0 shadow-sm">
         <div className={`panel-heading ${panels.formula ? 'mb-2' : ''}`}>

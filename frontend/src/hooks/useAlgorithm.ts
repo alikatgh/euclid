@@ -7,13 +7,6 @@ export function computeAlgorithmSteps(
   withE0: boolean,
   lesson: LessonData | null
 ): AlgorithmStep[] {
-  // The visualization promises a finite trace only for this explicit domain.
-  // In particular, n = 0 would produce NaN remainders and never terminate.
-  for (const [name, value] of [['m', initM], ['n', initN]] as const) {
-    if (!Number.isFinite(value) || !Number.isInteger(value) || value < 1 || value > 9999) {
-      throw new RangeError(`${name} must be a finite positive integer from 1 to 9999`);
-    }
-  }
   let m = initM;
   let n = initN;
   const steps: AlgorithmStep[] = [];

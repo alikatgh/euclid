@@ -21,7 +21,7 @@ test('every Euclid package reconstructs its value from the fixed original pair',
 test('all authored main and smaller-help states are renderable, finite and genuinely change object positions',()=>{
  for(const lesson of lessons)for(const section of lesson.sections)for(const passage of section.passages){
   const d=passage.demonstration,main=d.states.map((state,i)=>render({exampleId:passage.id,frameIndex:i,frame:{id:state.id},visual:{model:d.model,state}}));
-  const help=[-1,...d.simplerHelp.steps.map((_,i)=>i)].map(i=>render({exampleId:passage.id,visual:{model:d.model,helpMode:true,helpStepIndex:i,helpContent:d.simplerHelp}}));
+  const help=d.simplerHelp.states?d.simplerHelp.states.map((state,i)=>render({exampleId:passage.id,visual:{model:d.model,state,helpMode:true,helpStepIndex:i,helpContent:d.simplerHelp}})):[-1,...d.simplerHelp.steps.map((_,i)=>i)].map(i=>render({exampleId:passage.id,visual:{model:d.model,helpMode:true,helpStepIndex:i,helpContent:d.simplerHelp}}));
   for(const html of [...main,...help]){assert.match(html,/<svg/);assert.doesNotMatch(html,/NaN|undefined|Infinity/);assert.match(html,/data-motion-id=/);}
   assert.ok(new Set(main.map(targets)).size>1,`${passage.id}: main demo must move`);
   assert.ok(new Set(help.map(targets)).size>1,`${passage.id}: smaller help must move`);
@@ -69,8 +69,8 @@ test('smaller predecessor scenes distinguish two bases, capacity, and forward pr
  assert.match(bases,/data-motion-id="base-pile-1"[^>]*data-o="0"/);
  assert.match(help('The next pile combines the previous two piles.',1),/data-motion-id="base-pile-1"[^>]*data-o="1"/);
  const capacity=help('If one pile fits in two small boxes and the other fits in one, together they fit in three.',1);
- assert.match(capacity,/Outlines represent capacity, not actual sequence values/);
- assert.match(capacity,/2 places \+ 1 place = 3 places ≤ 4 places/);
+ assert.match(capacity,/Actual counters: 1 \+ 1 = 2. Their spaces: 2 \+ 1 = 3/);
+ assert.match(capacity,/3 spaces fit in 4/);
  const scope=help('Before opening box 3, inspect the labels on boxes 1 and 2.',1);
  assert.match(scope,/P\(1\) and P\(2\) → P\(3\)/);
  assert.match(scope,/data-teaching="operation-arrow"/);
@@ -163,4 +163,112 @@ test('paused foundation motion goes idle and resumes without advancing paused ti
  element.dataset.x='300';svg.dataset.paused='false';svg.dataset.reduced='false';notify();
  const beforeDetach=writes;svg.isConnected=false;frame(13000);
  assert.equal(callbacks.size,0);assert.equal(writes,beforeDetach);
+});
+
+test('Bezout replacements retain the stored equation, outside sign, distribution and collection',()=>{
+ const p=lessons.find(l=>l.order===9).sections.find(s=>s.id==='substitute').passages[0],states=p.demonstration.states;
+ assert.equal(states.length,12);
+ for(let start=0;start<12;start+=4){
+  const group=states.slice(start,start+4);
+  assert.deepEqual(group.map(s=>s.scene.bridge.phase),[0,1,2,3]);
+  for(const state of group){
+   const b=state.scene.bridge,html=render({visual:{model:p.demonstration.model,state}});
+   assert.equal(b.positive-b.negative,1);assert.ok(html.includes(b.equation));
+   assert.ok(html.includes(b.lines[b.phase]));assert.ok(html.includes(b.notes[b.phase]));
+   assert.match(html,/data-teaching="substitution-bridge"/);
+  }
+ }
+ assert.equal(states[1].scene.bridge.lines[1],'1 = 4 − (11 − 2 × 4)');
+ assert.equal(states[2].scene.bridge.lines[2],'1 = 4 − 11 + 2 × 4');
+ assert.equal(states[3].scene.bridge.lines[3],'1 = (1 + 2) × 4 − 11 = 3 × 4 − 11');
+ for(const state of states.filter(s=>s.scene.bridge.phase===3)){
+  const html=render({visual:{model:p.demonstration.model,state}}),b=state.scene.bridge;
+  const get=(id)=>{const m=html.match(new RegExp(`data-motion-id="${id}" data-x="([^\"]+)" data-y="([^\"]+)"`));return m.slice(1);};
+  for(let i=0;i<b.negative;i++)assert.deepEqual(get('bridge-positive-'+i),get('bridge-negative-'+i));
+ }
+});
+test('new Euclid coefficients are visibly subtracted in fixed original columns',()=>{
+ const l=lessons.find(l=>l.order===10);
+ for(const sec of l.sections)for(const p of sec.passages)for(const state of p.demonstration.states.filter(s=>s.scene.recipeCycle!==undefined)){
+  const html=render({visual:{model:p.demonstration.model,state}}),rows=euclidPackages(26,15),i=state.scene.recipeCycle,r=rows[i+2],c=rows[i],d=rows[i+1];
+  assert.match(html,/copies of 26/);assert.match(html,/copies of 15/);
+  if(state.scene.recipePhase===3)assert.ok(html.includes(`(${c.a}, ${c.b}) − ${r.q} × (${d.a}, ${d.b}) = (${r.a}, ${r.b})`));
+ }
+ const h=l.sections[0].passages[0].demonstration.simplerHelp;
+ for(const state of h.states){const html=render({visual:{model:'extended-euclid',state,helpMode:true}});assert.match(html,/copies of 14/);assert.match(html,/copies of 6/);assert.doesNotMatch(html,/copies of 26/);}
+ assert.match(render({visual:{model:'extended-euclid',state:h.states[3],helpMode:true}}),/\(1, 0\) − 2 × \(0, 1\) = \(1, -2\)/);
+});
+test('expanded algebra source links name actual frames and authored helper equations remain smaller',()=>{
+ for(const lesson of lessons.filter(l=>l.order>=9))for(const sec of lesson.sections)for(const p of sec.passages){
+  const links=p.visualLinks;if(!links)continue;const ids=p.demonstration.states.map(s=>s.id);
+  for(const id of [links.definition,...links.paragraphs,links.takeaway])assert.ok(ids.includes(id),`${p.id}: ${id}`);
+  for(const state of p.demonstration.simplerHelp.states||[]){assert.doesNotMatch(state.formula,/26|15/);if(state.formula&&!state.scene?.legacyHelper)assert.match(state.formula,/14|12/);}
+ }
+});
+
+test('failed swap includes the second no-op write and explains the permanently lost seven',()=>{
+ const p=lessons.find(l=>l.order===4).sections.find(s=>s.id==='lost-value').passages[0];
+ assert.deepEqual(p.demonstration.states.map(s=>s.id),['start','bad-first','bad-second']);
+ assert.match(p.demonstration.states.at(-1).caption,/current a=12.*changes nothing.*7 is already lost/);
+ const html=render({visual:{model:p.demonstration.model,state:p.demonstration.states.at(-1)}});assert.match(html,/b ← a/);assert.match(html,/original 7 is lost/);
+});
+test('particular-prime trace tests every small divisor then justifies the square-root stopping bound',()=>{
+ const p=lessons.find(l=>l.order===6).sections.find(s=>s.id==='one-value').passages[0],d=p.demonstration;
+ for(const divisor of [2,3,4]){
+  const state=d.states[divisor-1],html=render({visual:{model:d.model,state}});
+  assert.ok(html.includes(`17 = ${divisor} × ${Math.floor(17/divisor)} + ${17%divisor}`));assert.notEqual(17%divisor,0);
+ }
+ const final=render({visual:{model:d.model,state:d.states.at(-1)}});assert.match(final,/5 × 5 = 25 &gt; 17/);assert.match(final,/17 is prime/);assert.doesNotMatch(final,/121/);
+ const h=d.simplerHelp,small=render({visual:{model:d.model,state:h.states.at(-1),helpMode:true}});assert.match(small,/3 × 3 = 9 &gt; 7/);assert.match(small,/7 is prime/);
+});
+test('predecessor bound moves actual counters with their distinct capacities into a larger bound',()=>{
+ const p=lessons.find(l=>l.order===7).sections.find(s=>s.id==='preserve-bound').passages[0],d=p.demonstration;
+ const initial=render({visual:{model:d.model,state:d.states[0]}}),merged=render({visual:{model:d.model,state:d.states[1]}}),final=render({visual:{model:d.model,state:d.states[3]}});
+ assert.equal((final.match(/data-motion-id="bound-counter-/g)||[]).length,5);
+ assert.equal((final.match(/data-motion-id="bound-space-/g)||[]).length,12);
+ assert.notEqual(targets(initial),targets(merged));assert.match(final,/4 spaces stay unused/);
+ assert.match(final,/2\^\(k−2\) \+ 2\^\(k−3\) = 3·2\^\(k−3\) ≤ 4·2\^\(k−3\) = 2\^\(k−1\)/);
+ const small=render({visual:{model:d.model,state:d.simplerHelp.states.at(-1),helpMode:true}});assert.match(small,/1 space stays unused/);assert.equal((small.match(/data-motion-id="bound-counter-/g)||[]).length,2);
+});
+
+test('new authored helper frames keep the displayed formula, explanation and exact scene in sync',async()=>{
+ const {adaptLessons}=await import('../recovered/adaptLessons.js');
+ for(const lesson of lessons)for(const section of lesson.sections)for(const passage of section.passages){
+  const h=passage.demonstration.simplerHelp;if(!h.states)continue;
+  const adapted=adaptLessons([{...lesson,sections:[{...section,passages:[passage]}]}])[0].sections[0].examples[1].frames;
+  assert.equal(adapted.length,h.states.length);
+  for(const [i,frame]of adapted.entries()){
+   assert.equal(frame.visual.state,h.states[i]);assert.equal(frame.formula,h.states[i].formula?`$${h.states[i].formula}$`:'');assert.equal(frame.explanation,h.states[i].caption);
+   assert.equal(frame.visual.helpStepIndex,i);
+   const html=render({visual:frame.visual});assert.match(html,/data-teaching="(?:substitution-bridge|coefficient-bridge|predecessor-bound|trial-prime|legacy-helper)"/);
+  }
+ }
+});
+
+test('all legacy helper operations have explicit matching steps, formulas and renderer phases',()=>{
+ let count=0;
+ for(const lesson of lessons)for(const section of lesson.sections){const h=section.passages[0].demonstration.simplerHelp;if(!h.states?.[0].scene?.legacyHelper)continue;count++;
+  assert.equal(h.states.length,h.steps.length);
+  h.states.forEach((state,i)=>{assert.equal(state.scene.helperPhase,i-1);assert.equal(state.caption,h.steps[i].text);assert.equal(state.teachingExplanation,state.caption);assert.equal(state.formula,h.steps[i].formula);});
+ }
+ assert.equal(count,23);
+});
+test('legacy no-spare helper never shows a temporary save, while the safe swap does',()=>{
+ const lesson=lessons.find(l=>l.order===4);const help=(id,i)=>{const d=lesson.sections.find(s=>s.id===id).passages[0].demonstration;return render({visual:{model:d.model,state:d.simplerHelp.states[i],helpMode:true}});};
+ assert.match(help('lost-value',1),/a ← b/);assert.match(help('lost-value',2),/b ← a/);
+ assert.match(help('lost-value',2),/original 7 is lost/);assert.doesNotMatch(help('lost-value',1),/t ← a|>t<\/text>/);
+ assert.match(help('safe-swap',1),/t ← a/);assert.match(help('safe-swap',3),/b ← t/);
+ assert.match(help('simultaneous',1),/\(12, 7\) saved/);assert.match(help('simultaneous',2),/Write new pair: \(12, 7\)/);
+});
+test('legacy receipt, saved-equation and attached-row helpers enact their exact next action',()=>{
+ const help=(order,id,i)=>{const d=lessons.find(l=>l.order===order).sections.find(s=>s.id===id).passages[0].demonstration;return render({visual:{model:d.model,state:d.simplerHelp.states[i],helpMode:true}});};
+ assert.match(help(8,'termination',1),/k = 1/);assert.match(help(8,'termination',1),/2 cards uncounted/);
+ assert.match(help(8,'transient',1),/k = 1/);assert.match(help(8,'transient',1),/s = 7/);assert.match(help(8,'transient',2),/k = 2/);
+ assert.match(help(9,'goal',1),/data-motion-id="six-group-0"[^>]*data-o="0"/);assert.match(help(9,'goal',2),/Twelve removals match twelve units/);
+ assert.match(help(9,'record',1),/14 = 2 × 6 \+ 2/);assert.match(help(9,'record',2),/2 = 14 − 2 × 6/);assert.match(help(9,'record',2),/14 = 2 × 6 \+ 2/);
+ assert.match(help(9,'certificate',2),/14 = 7 × 2/);assert.match(help(9,'certificate',2),/6 = 3 × 2/);
+ assert.match(help(10,'shift',1),/data-motion-id="small-package-two" data-x="70" data-y="246"/);
+ assert.match(help(10,'shift',2),/data-motion-id="small-package-two" data-x="70" data-y="181"/);
+ assert.match(help(10,'finish',1),/6 = 3 × 2 \+ 0/);assert.match(help(10,'finish',2),/Return d = 2, a = 1, b = −2/);
+ assert.doesNotMatch(help(6,'factor',2),/One allowed failure refutes/);
 });

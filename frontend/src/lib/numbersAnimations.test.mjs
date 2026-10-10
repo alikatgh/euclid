@@ -8,6 +8,8 @@ import {join,resolve} from 'node:path';
 const root=resolve(import.meta.dirname,'../..'),temp=mkdtempSync(join(tmpdir(),'euclid-number-scenes-'));
 execFileSync(join(root,'node_modules/.bin/tsc'),['--ignoreConfig','--jsx','react-jsx','--module','commonjs','--target','es2023','--moduleResolution','node','--ignoreDeprecations','6.0','--skipLibCheck','--outDir',temp,join(root,'src/components/NumbersAnimatedDemo.tsx'),join(root,'src/components/numbersDemoMotion.ts')]);
 writeFileSync(join(temp,'package.json'),'{"type":"commonjs"}');
+// Resolve the new shared browser annotation helper from the source checkout.
+writeFileSync(join(temp,'NumbersAnimatedDemo.js'),readFileSync(join(temp,'NumbersAnimatedDemo.js'),'utf8').replaceAll('../lib/symbolConnections.js',join(root,'src/lib/symbolConnections.js')));
 const require=createRequire(join(root,'package.json'));
 // The temporary emitted files resolve the application's existing React install.
 const Module=require('node:module');process.env.NODE_PATH=join(root,'node_modules');Module._initPaths();
@@ -34,7 +36,7 @@ test('number scenes conserve identities while coordinates, units, and signed cou
  const helpSigned=moves(render('signed-arithmetic-pairing',3,true));
  assert.equal([...helpSigned].filter(([id,a])=>id.startsWith('pair-unit-')&&a['data-o']==='1').length,4);
  const paired=moves(render('arithmetic-pairing',4));assert.equal([...paired].filter(([id,a])=>id.startsWith('pair-unit-')&&a['data-o']==='1').length,30);
- const shifted=moves(render('geometric-shift',2));assert.equal(shifted.get('geometric-copy-0')['data-x'],'205');assert.equal(shifted.get('geometric-original-0')['data-x'],'105');
+ const shifted=moves(render('geometric-shift',15));assert.equal(shifted.get('geometric-copy-0')['data-x'],'205');assert.equal(shifted.get('geometric-original-0')['data-x'],'105');
  const canceled=moves(render('geometric-signed-cancellation',3));
  assert.deepEqual([...canceled].filter(([id,a])=>/^geometric-(copy|original)-\d$/.test(id)&&a['data-o']==='1').map(([id])=>id),['geometric-original-0','geometric-copy-3']);
  const root=moves(render('root-power-reciprocal',3));assert.equal([...root].filter(([id,a])=>id.startsWith('root-cell-')&&a['data-o']==='1').length,64);
@@ -46,7 +48,7 @@ test('reciprocal, fractional log, and zoom scenes expose truthful scales and cer
   const html=render('reciprocal-exponent-track',s),width=Number(html.match(/data-move="power-length"[^>]*data-w="([^"]+)"/)[1]);
   assert.equal(width,110*2**(2-s));assert(html.includes('Amount scale: 1 unit = one quarter of this bar'));
  }
- const log=render('log-exponent-interval',2);assert(log.includes('81 &lt; 128'));assert(log.includes('data-move="value-dot" data-x="174.375"'));
+ const log=render('log-exponent-interval',5);assert(log.includes('81 &lt; 128'));assert(log.includes('data-move="log-certified-interval" data-x="320"'));
  assert(render('decreasing-power-log',2).includes('Right on the exponent axis moves left on the value axis.'));
  assert.equal((520-515.8)*100,420.00000000000455);
  const rounding=render('exact-rounded-strips',2);assert(rounding.includes('0.99'));assert(rounding.includes('1.00'));assert(rounding.includes('100× magnified gap: 0.01'));
@@ -66,4 +68,105 @@ test('causal phases hide conclusions until objects settle, and pause freezes pha
  bindNumbersMotion(svg,'phase:false:1',false);step(1100);step(1800);assert.equal(result.getAttribute('opacity'),'1');assert.equal(attrs.get('data-motion-phase'),'settled');assert.equal(unit.getAttribute('transform'),'translate(100 0)');
  source.setAttribute('data-x','0');unit.setAttribute('data-x','0');bindNumbersMotion(svg,'phase:false:0');assert.equal(result.getAttribute('opacity'),'1');assert.equal(unit.getAttribute('transform'),'translate(0 0)');
  global.matchMedia=()=>({matches:true});unit.setAttribute('data-x','100');bindNumbersMotion(svg,'phase:false:1');assert.equal(result.getAttribute('opacity'),'1');assert.equal(attrs.get('data-motion-phase'),'settled');
+});
+
+test('reindexing tells a ten-step story with stable physical squares and a self-contained final frame',()=>{
+ const book=JSON.parse(readFileSync(join(root,'../content/first20/lessons11-20.json'),'utf8'));
+ const passage=book.find(l=>l.order===18).sections[0].passages[0],demo=passage.demonstration;
+ for(const [help,authored,offset] of [[false,demo,3],[true,demo.simplerHelp,1]]){
+  assert.equal(authored.states.length,10);assert.equal(authored.transitions.length,9);
+  const original=render('reindex-square-cards',0,help);
+  for(let step=0;step<10;step++){
+   const html=render('reindex-square-cards',step,help);
+   assert(!/NaN|Infinity|undefined/.test(html));
+   for(let i=0;i<3;i++){
+    assert.equal([...html.matchAll(new RegExp(`data-reindex-cell="${i}"`,'g'))].length,(offset+i)**2);
+    const positions=value=>[...value.matchAll(new RegExp(`<g data-move="reindex-cell-${i}-[^>]+`,'g'))].map(m=>m[0]);
+    assert.deepEqual(positions(html),positions(original),'relabeling preserves every cell coordinate');
+    assert(html.includes(`old k = ${offset+i}`),'old label remains as an explicit bridge');
+   }
+   if(step>0&&step<4)assert(html.includes(`New address ${step-1} still selects`));
+  }
+  assert(render('reindex-square-cards',4,help).includes(`Add ${offset} to BOTH sides`));
+  const bounds=render('reindex-square-cards',5,help);assert(bounds.includes(`FIRST: k = ${offset}`));assert(bounds.includes(`LAST: k = ${offset+2}`));
+  const final=render('reindex-square-cards',9,help);
+  assert(final.includes(`j=0: (0+${offset})²=${offset**2}`));assert(final.includes(`${offset} × ${offset} = ${offset**2} ${offset===1?'piece':'pieces'}`));
+  assert(final.includes(help?'1 + 4 + 9 = 14':'9 + 16 + 25 = 50'));assert(!final.includes('WRONG'));
+  const wrong=render('reindex-square-cards',8,help);assert(wrong.includes('WRONG'));assert(wrong.includes(help?'5 ≠ 14':'5 ≠ 50'));
+ }
+ assert.equal(passage.visualLinks.takeaway,'same-sum-confirmed');
+});
+
+test('rounding bound is constructed from decimal spacing before measuring or scaling actual error',()=>{
+ const book=JSON.parse(readFileSync(join(root,'../content/first20/lessons11-20.json'),'utf8'));
+ const passage=book.find(l=>l.order===16).sections.flatMap(s=>s.passages).find(p=>p.demonstration.model.kind==='additive-error-bound');
+ const fraction=s=>s.split('/').map(Number).reduce((a,b)=>a/b);
+ for(const [help,d,den,c] of [[false,passage.demonstration,100,33],[true,passage.demonstration.simplerHelp,10,3]]){
+  assert.equal(d.states.length,8);assert.equal(d.transitions.length,7);
+  for(const state of d.states){const x=state.computed;assert.equal(fraction(x.gap),1/den);assert.equal(fraction(x.halfGap),1/(2*den));assert.ok(Math.abs(fraction(x.actual)-(1/3-c/den))<1e-15);assert.equal(fraction(x.totalActual),x.copies/(3*den));assert.equal(fraction(x.totalBound),x.copies/(2*den));}
+  assert(render('additive-error-bound',1,help).includes(help?'0.4 − 0.3 = 0.1':'0.34 − 0.33 = 0.01'));
+  const mids=render('additive-error-bound',2,help);assert(mids.includes(help?'0.25':'0.325'));assert(mids.includes(help?'0.35':'0.335'));assert(mids.includes('tie rule chooses a neighbor'));
+  assert(render('additive-error-bound',3,help).includes(help?'0.1 ÷ 2 = 0.05':'0.01 ÷ 2 = 0.005'));
+  const final=render('additive-error-bound',7,help);assert(final.includes(help?'0.1 ≤ 0.15':'0.01 ≤ 0.015'));assert(final.includes('half-gap bound holds either way'));
+  const widths=prefix=>[...final.matchAll(new RegExp(`data-move="${prefix}-\\d"[^>]*><rect width="([^"]+)"`,'g'))].map(m=>Number(m[1]));
+  assert.deepEqual(widths('actual-error-copy'),Array(3).fill(440*2/9));assert.deepEqual(widths('bound-copy'),Array(3).fill(440/3));
+  assert.ok(Math.abs(widths('actual-error-copy').reduce((a,b)=>a+b)/widths('bound-copy').reduce((a,b)=>a+b)-2/3)<1e-14);
+ }
+});
+
+test('log bounds use midpoint candidates, exact power comparisons, then inverse roots before tightening',()=>{
+ const book=JSON.parse(readFileSync(join(root,'../content/first20/lessons11-20.json'),'utf8'));
+ const p=book.find(l=>l.order===14).sections.flatMap(s=>s.passages).find(p=>p.demonstration.model.kind==='log-exponent-interval'),d=p.demonstration;
+ assert.equal(d.states.length,8);assert.equal(d.simplerHelp.states.length,4);
+ assert.equal((1+2)/2,3/2);assert.equal((3/2+2)/2,7/4);
+ assert.equal(2**3,8);assert.equal(3**2,9);assert.equal(3**4,81);assert.equal(2**7,128);
+ assert(render('log-exponent-interval',1).includes('(1 + 2) ÷ 2 = 3/2'));assert(render('log-exponent-interval',4).includes('(3/2 + 2) ÷ 2 = 7/4'));
+ assert(render('log-exponent-interval',2).includes('(2^(3/2))² = 2³ = 8'));assert(render('log-exponent-interval',3).includes('Take positive square roots'));
+ assert(render('log-exponent-interval',5).includes('(2^(7/4))⁴ = 2⁷ = 128'));assert(render('log-exponent-interval',6).includes('Take positive fourth roots'));
+ const width=stage=>Number(render('log-exponent-interval',stage).match(/data-move="log-certified-interval"[^>]*data-w="([^"]+)"/)[1]);
+ assert.equal(width(1),440);assert.equal(width(2),440);assert.equal(width(3),220);assert.equal(width(5),220);assert.equal(width(6),110);assert.equal(width(7),110);
+ const final=render('log-exponent-interval',7);assert(final.includes('8 &lt; 9'));assert(final.includes('81 &lt; 128'));assert(final.includes('3/2 &lt; lg 3 &lt; 7/4'));
+ for(let i=0;i<4;i++)assert.equal([...render('log-exponent-interval',i,true).matchAll(/data-move="log-root-unit-/g)].length,9);
+ assert(render('log-exponent-interval',3,true).includes('log₉3 = 1/2, because 9^(1/2) = 3.'));
+ assert.equal(p.visualLinks.takeaway,'certified');
+});
+
+test('all 34 helper lessons render their own authored states, examples, and formulas without main-formula fallback',()=>{
+ const book=JSON.parse(readFileSync(join(root,'../content/first20/lessons11-20.json'),'utf8'));
+ let models=0,states=0;
+ for(const lesson of book)for(const section of lesson.sections)for(const passage of section.passages){
+  const d=passage.demonstration,h=d.simplerHelp;models++;
+  assert(h.states.length>=2,passage.id);assert.equal(h.model.kind,d.model.kind);assert.equal(h.states.length,h.steps.length,passage.id+' needs one helper explanation per actual state');for(const state of d.states)assert.equal(typeof state.formula,'string',passage.id+' has an explicit main formula');
+  for(const [frameIndex,state] of h.states.entries()){
+   assert.equal(typeof state.formula,'string',`${passage.id}: every help formula is deliberate`);
+   assert(state.caption);assert(state.computed,passage.id);
+   const html=renderToStaticMarkup(React.createElement(NumbersAnimatedDemo,{exampleId:d.id+'-help',frameIndex,visual:{model:h.model,state,helpMode:true}}));
+   assert(!/No authored|NaN|Infinity|undefined/.test(html),passage.id+' '+frameIndex);
+   const ids=[...html.matchAll(/data-move="([^"]+)"/g)].map(x=>x[1]);assert.equal(ids.length,new Set(ids).size);
+   if(state.renderFrame!==undefined)assert(Number.isInteger(state.renderFrame)&&state.renderFrame>=0);
+   states++;
+  }
+ }
+ assert.equal(models,34);assert(states>=120);
+ const find=id=>book.flatMap(l=>l.sections.flatMap(s=>s.passages)).find(p=>p.id===id).demonstration.simplerHelp;
+ assert.deepEqual(find('factor-growth').model.exactInput.values,[1,2,4]);assert.equal(find('factor-growth').states.length,3,'two doublings do not silently become three');
+ assert.equal(find('rational-exponent').model.exactInput.reciprocal,'1/4');assert.equal(find('rational-exponent').states.at(-1).formula,'16^{-1/2}=1/4');
+ assert.equal(find('change-base').model.exactInput.target,16);assert.equal(find('change-base').states[1].renderFrame,2);
+ assert.equal(find('round-last').model.exactInput.tieRule,'upward');assert.equal(find('round-last').model.exactInput.earlyTotal,2);
+ const h=find('finite-boundaries'),state=h.states[1];const html=renderToStaticMarkup(React.createElement(NumbersAnimatedDemo,{exampleId:'boundary-help',frameIndex:1,visual:{model:h.model,state,helpMode:true}}));assert(html.includes('One constant term: S = 1'),'explicit helper renderFrame controls actual scene');
+});
+
+test('arithmetic names quantities only after concrete piles, and geometric notation expands into actual values before shifting',()=>{
+ const book=JSON.parse(readFileSync(join(root,'../content/first20/lessons11-20.json'),'utf8'));
+ const find=id=>book.flatMap(l=>l.sections.flatMap(s=>s.passages)).find(p=>p.id===id);
+ const a=find('arithmetic-endpoint'),g=find('geometric-shift');assert.equal(a.demonstration.states.length,8);assert.equal(g.demonstration.states.length,16);
+ for(const passage of [a,g])for(const d of [passage.demonstration,passage.demonstration.simplerHelp]){
+  for(const state of d.states.slice(0,4))assert.equal(state.formula,'','no generic formula before concrete quantities');
+  for(const state of d.states)assert(state.teachingExplanation);
+ }
+ const arithmetic=render('arithmetic-gaps',7);assert(arithmetic.includes('a=2: first value'));assert(arithmetic.includes('n=4: term count'));assert(arithmetic.includes('d=3: added each time'));assert(arithmetic.includes('2 + (4 − 1) × 3 = 11'));
+ const small=render('arithmetic-gaps',7,true);assert(small.includes('1 + (3 − 1) × 2 = 5'));
+ const sigma=render('geometric-shift',8);assert(sigma.includes('Σ(k=0…3) 2^k = 1 + 2 + 4 + 8'));assert(sigma.includes('0 = first index'));assert(sigma.includes('3 = last index'));assert(sigma.includes('2^k = each value'));
+ for(let stage=10;stage<=13;stage++)assert(render('geometric-shift',stage).includes(`Term ${stage-9}: 2 × ${2**(stage-10)} = ${2**(stage-9)}`));
+ const final=render('geometric-shift',15);assert(final.includes('Σ(k=0…3) 2^k = 15'));assert(final.includes('Σ(k=1…4) 2^k = 30'));assert(final.includes('Still 4 terms; each value doubled'));
 });

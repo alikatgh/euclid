@@ -1,0 +1,422 @@
+{
+  "id": "D",
+  "title": "Represent and manipulate linear information",
+  "first_order": 88,
+  "last_order": 105,
+  "unit_count": 18,
+  "lessons": [
+    {
+      "id": "data-has-identity-and-relationships",
+      "order": 88,
+      "title": "Data has identity and relationships",
+      "objectives": [
+        "Distinguish value, node, field, address and link",
+        "define null as a representation choice"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.1",
+          "title": "Introduction",
+          "pdf_page_start": 377,
+          "next_toc_entry_pdf_page": 385,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "choose-a-representation-for-the-operations",
+      "order": 89,
+      "title": "Choose a representation for the operations",
+      "objectives": [
+        "Compare the same logical data under different layouts",
+        "connect desired operations to representation cost"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.1",
+          "title": "Introduction",
+          "pdf_page_start": 377,
+          "next_toc_entry_pdf_page": 385,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "stacks-queues-and-deques-obey-different-rules",
+      "order": 90,
+      "title": "Stacks queues and deques obey different rules",
+      "objectives": [
+        "Execute legal insertion/deletion operations",
+        "distinguish end restrictions from storage layout"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.1",
+          "title": "Stacks, Queues, and Deques",
+          "pdf_page_start": 385,
+          "next_toc_entry_pdf_page": 394,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "deferred-work-changes-exploration-order",
+      "order": 91,
+      "title": "Deferred work changes exploration order",
+      "objectives": [
+        "Use stacks and queues to manage pending tasks",
+        "explain traversal order through scheduling policy"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.1",
+          "title": "Stacks, Queues, and Deques",
+          "pdf_page_start": 385,
+          "next_toc_entry_pdf_page": 394,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "consecutive-cells-give-direct-addresses",
+      "order": 92,
+      "title": "Consecutive cells give direct addresses",
+      "objectives": [
+        "Implement array stacks and index arithmetic",
+        "detect underflow and overflow"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.2",
+          "title": "Sequential Allocation",
+          "pdf_page_start": 394,
+          "next_toc_entry_pdf_page": 408,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "wrap-a-queue-around-a-fixed-shelf",
+      "order": 93,
+      "title": "Wrap a queue around a fixed shelf",
+      "objectives": [
+        "Implement a circular queue",
+        "distinguish empty from full at equal indices"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.2",
+          "title": "Sequential Allocation",
+          "pdf_page_start": 394,
+          "next_toc_entry_pdf_page": 408,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "several-growing-tables-share-one-area",
+      "order": 94,
+      "title": "Several growing tables share one area",
+      "objectives": [
+        "Compare opposing stacks and general relocation",
+        "reason about movement order"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.2",
+          "title": "Sequential Allocation",
+          "pdf_page_start": 394,
+          "next_toc_entry_pdf_page": 408,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "allocate-nodes-from-a-free-list",
+      "order": 95,
+      "title": "Allocate nodes from a free list",
+      "objectives": [
+        "Implement linked insertion/deletion and storage recycling",
+        "maintain live/free partition"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.3",
+          "title": "Linked Allocation",
+          "pdf_page_start": 408,
+          "next_toc_entry_pdf_page": 436,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "make-linked-stacks-and-queues-reliable",
+      "order": 96,
+      "title": "Make linked stacks and queues reliable",
+      "objectives": [
+        "Implement endpoint operations with correct boundary cases",
+        "compare sentinel and nonsentinel forms"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.3",
+          "title": "Linked Allocation",
+          "pdf_page_start": 408,
+          "next_toc_entry_pdf_page": 436,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "topological-sorting-from-incoming-counts",
+      "order": 97,
+      "title": "Topological sorting from incoming counts",
+      "objectives": [
+        "Represent a partial order with adjacency lists",
+        "remove available vertices and detect cycles"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.3",
+          "title": "Linked Allocation",
+          "pdf_page_start": 408,
+          "next_toc_entry_pdf_page": 436,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "a-circular-list-has-no-special-last-link",
+      "order": 98,
+      "title": "A circular list has no special last link",
+      "objectives": [
+        "Traverse, splice and concatenate rings",
+        "use a sentinel to simplify boundaries"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.4",
+          "title": "Circular Lists",
+          "pdf_page_start": 436,
+          "next_toc_entry_pdf_page": 446,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "add-and-multiply-sparse-polynomials",
+      "order": 99,
+      "title": "Add and multiply sparse polynomials",
+      "objectives": [
+        "Merge ordered terms and remove cancellations",
+        "use circular headers for boundary handling"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.4",
+          "title": "Circular Lists",
+          "pdf_page_start": 436,
+          "next_toc_entry_pdf_page": 446,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "two-links-make-local-deletion-possible",
+      "order": 100,
+      "title": "Two links make local deletion possible",
+      "objectives": [
+        "Maintain predecessor/successor symmetry",
+        "insert and remove using a known node"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.5",
+          "title": "Doubly Linked Lists",
+          "pdf_page_start": 446,
+          "next_toc_entry_pdf_page": 474,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "simulate-only-the-next-scheduled-event",
+      "order": 101,
+      "title": "Simulate only the next scheduled event",
+      "objectives": [
+        "Model a discrete-event system with coroutines and ordered event lists"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.5",
+          "title": "Doubly Linked Lists",
+          "pdf_page_start": 446,
+          "next_toc_entry_pdf_page": 474,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "one-entity-may-belong-to-several-lists",
+      "order": 102,
+      "title": "One entity may belong to several lists",
+      "objectives": [
+        "Coordinate queues, event lists and cancellation",
+        "preserve entity identity across structures"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.5",
+          "title": "Doubly Linked Lists",
+          "pdf_page_start": 446,
+          "next_toc_entry_pdf_page": 474,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "flatten-an-array-without-losing-its-coordinates",
+      "order": 103,
+      "title": "Flatten an array without losing its coordinates",
+      "objectives": [
+        "Derive row-major and column-major address formulas",
+        "pack triangular arrays"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.6",
+          "title": "Arrays and Orthogonal Lists",
+          "pdf_page_start": 474,
+          "next_toc_entry_pdf_page": 489,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "give-sparse-cells-two-routes",
+      "order": 104,
+      "title": "Give sparse cells two routes",
+      "objectives": [
+        "Represent sparse matrices with orthogonal row and column links",
+        "maintain shared-cell identity"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.6",
+          "title": "Arrays and Orthogonal Lists",
+          "pdf_page_start": 474,
+          "next_toc_entry_pdf_page": 489,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "perform-a-sparse-pivot-step",
+      "order": 105,
+      "title": "Perform a sparse pivot step",
+      "objectives": [
+        "Update a matrix around a nonzero pivot",
+        "create fill-in and delete canceled entries"
+      ],
+      "prerequisites": [
+        "Batch A modular arithmetic, finite sums and proof invariants",
+        "Batch C memory state, subroutines and coroutines",
+        "P3 matrix primer for the last three units"
+      ],
+      "source_sections": [
+        {
+          "section": "2.2.6",
+          "title": "Arrays and Orthogonal Lists",
+          "pdf_page_start": 474,
+          "next_toc_entry_pdf_page": 489,
+          "advanced_in_source": false
+        }
+      ]
+    }
+  ]
+}

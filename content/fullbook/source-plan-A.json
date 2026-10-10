@@ -1,0 +1,581 @@
+{
+  "id": "A",
+  "title": "Repair foundations and build discrete mathematics",
+  "first_order": 21,
+  "last_order": 46,
+  "unit_count": 26,
+  "lessons": [
+    {
+      "id": "a-computation-is-a-complete-snapshot",
+      "order": 21,
+      "title": "A computation is a complete snapshot",
+      "objectives": [
+        "Define state, allowed input, terminal output and one-step rule",
+        "distinguish a terminating run from an algorithm"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.1",
+          "title": "Algorithms",
+          "pdf_page_start": 30,
+          "next_toc_entry_pdf_page": 42,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "rules-a-machine-can-actually-carry-out",
+      "order": 22,
+      "title": "Rules a machine can actually carry out",
+      "objectives": [
+        "Encode finite states as strings",
+        "execute a fixed search-and-replace rule with control position"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.1",
+          "title": "Algorithms",
+          "pdf_page_start": 30,
+          "next_toc_entry_pdf_page": 42,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "strong-induction-and-the-first-failure",
+      "order": 23,
+      "title": "Strong induction and the first failure",
+      "objectives": [
+        "Use all smaller cases legitimately",
+        "relate minimal-counterexample reasoning to induction"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.1",
+          "title": "Mathematical Induction",
+          "pdf_page_start": 44,
+          "next_toc_entry_pdf_page": 59,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "real-numbers-and-two-dimensional-numbers",
+      "order": 24,
+      "title": "Real numbers and two-dimensional numbers",
+      "objectives": [
+        "Distinguish finite representations from real values",
+        "interpret complex addition, multiplication and powers"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.2",
+          "title": "Numbers, Powers, and Logarithms",
+          "pdf_page_start": 59,
+          "next_toc_entry_pdf_page": 68,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "distribute-and-change-the-order-of-a-sum",
+      "order": 25,
+      "title": "Distribute and change the order of a sum",
+      "objectives": [
+        "Expand products of sums",
+        "interchange finite rectangular and triangular sums"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.3",
+          "title": "Sums and Products",
+          "pdf_page_start": 68,
+          "next_toc_entry_pdf_page": 87,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "turn-a-condition-into-a-number",
+      "order": 26,
+      "title": "Turn a condition into a number",
+      "objectives": [
+        "Use indicator brackets to count and filter",
+        "prove identities point by point"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.3",
+          "title": "Sums and Products",
+          "pdf_page_start": 68,
+          "next_toc_entry_pdf_page": 87,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "cancel-along-a-chain",
+      "order": 27,
+      "title": "Cancel along a chain",
+      "objectives": [
+        "Derive telescoping sums",
+        "rearrange a weighted finite sum by differences"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.3",
+          "title": "Sums and Products",
+          "pdf_page_start": 68,
+          "next_toc_entry_pdf_page": 87,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "multiply-a-whole-family-of-terms",
+      "order": 28,
+      "title": "Multiply a whole family of terms",
+      "objectives": [
+        "Read product notation",
+        "explain empty products and cancellations"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.3",
+          "title": "Sums and Products",
+          "pdf_page_start": 68,
+          "next_toc_entry_pdf_page": 87,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "when-an-infinite-sum-has-a-value",
+      "order": 29,
+      "title": "When an infinite sum has a value",
+      "objectives": [
+        "Define partial sums and convergence",
+        "distinguish absolute from conditional convergence"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.3",
+          "title": "Sums and Products",
+          "pdf_page_start": 68,
+          "next_toc_entry_pdf_page": 87,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "floors-ceilings-and-fractional-parts",
+      "order": 30,
+      "title": "Floors ceilings and fractional parts",
+      "objectives": [
+        "Locate floor and ceiling for positive and negative values",
+        "derive bounds from definitions"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.4",
+          "title": "Integer Functions and Elementary Number Theory",
+          "pdf_page_start": 87,
+          "next_toc_entry_pdf_page": 97,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "remainders-and-congruence-classes",
+      "order": 31,
+      "title": "Remainders and congruence classes",
+      "objectives": [
+        "Separate mod value from congruence relation",
+        "perform valid modular arithmetic"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.4",
+          "title": "Integer Functions and Elementary Number Theory",
+          "pdf_page_start": 87,
+          "next_toc_entry_pdf_page": 97,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "why-prime-moduli-rearrange-residues",
+      "order": 32,
+      "title": "Why prime moduli rearrange residues",
+      "objectives": [
+        "Prove Fermat's congruence using a residue permutation",
+        "combine coprime moduli"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.4",
+          "title": "Integer Functions and Elementary Number Theory",
+          "pdf_page_start": 87,
+          "next_toc_entry_pdf_page": 97,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "count-arrangements-without-listing-them-all",
+      "order": 33,
+      "title": "Count arrangements without listing them all",
+      "objectives": [
+        "Derive factorial by successive choices",
+        "distinguish partial arrangements and repeated items"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.5",
+          "title": "Permutations and Factorials",
+          "pdf_page_start": 97,
+          "next_toc_entry_pdf_page": 110,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "how-large-is-a-factorial",
+      "order": 34,
+      "title": "How large is a factorial",
+      "objectives": [
+        "Estimate factorial growth",
+        "count prime factors by repeated divisibility"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.5",
+          "title": "Permutations and Factorials",
+          "pdf_page_start": 97,
+          "next_toc_entry_pdf_page": 110,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "extend-factorials-carefully",
+      "order": 35,
+      "title": "Extend factorials carefully",
+      "objectives": [
+        "Explain gamma as a principled extension",
+        "use recurrence without claiming uniqueness from integer values alone"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.5",
+          "title": "Permutations and Factorials",
+          "pdf_page_start": 97,
+          "next_toc_entry_pdf_page": 110,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "falling-and-rising-factorial-powers",
+      "order": 36,
+      "title": "Falling and rising factorial powers",
+      "objectives": [
+        "Distinguish ordinary powers from factorial powers",
+        "manipulate products with domain checks"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.5",
+          "title": "Permutations and Factorials",
+          "pdf_page_start": 97,
+          "next_toc_entry_pdf_page": 110,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "choose-groups-and-grow-pascal-s-triangle",
+      "order": 37,
+      "title": "Choose groups and grow Pascal's triangle",
+      "objectives": [
+        "Derive binomial coefficients from arrangements",
+        "prove symmetry and addition rule"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.6",
+          "title": "Binomial Coefficients",
+          "pdf_page_start": 110,
+          "next_toc_entry_pdf_page": 144,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "expand-a-power-by-tracking-choices",
+      "order": 38,
+      "title": "Expand a power by tracking choices",
+      "objectives": [
+        "Derive finite binomial theorem",
+        "introduce generalized expansion with convergence limits"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.6",
+          "title": "Binomial Coefficients",
+          "pdf_page_start": 110,
+          "next_toc_entry_pdf_page": 144,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "transform-binomial-coefficients-safely",
+      "order": 39,
+      "title": "Transform binomial coefficients safely",
+      "objectives": [
+        "Use upper-index negation, absorption and factorial conversions",
+        "track domains in each rewrite"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.6",
+          "title": "Binomial Coefficients",
+          "pdf_page_start": 110,
+          "next_toc_entry_pdf_page": 144,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "count-the-same-choice-in-two-stages",
+      "order": 40,
+      "title": "Count the same choice in two stages",
+      "objectives": [
+        "Derive Vandermonde and related product sums",
+        "distinguish partitioning from overcounting"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.6",
+          "title": "Binomial Coefficients",
+          "pdf_page_start": 110,
+          "next_toc_entry_pdf_page": 144,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "change-from-powers-to-factorial-powers",
+      "order": 41,
+      "title": "Change from powers to factorial powers",
+      "objectives": [
+        "Use finite differences and Stirling coefficients",
+        "recognize basis changes behind summation identities"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.6",
+          "title": "Binomial Coefficients",
+          "pdf_page_start": 110,
+          "next_toc_entry_pdf_page": 144,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "watch-harmonic-sums-grow-slowly",
+      "order": 42,
+      "title": "Watch harmonic sums grow slowly",
+      "objectives": [
+        "Bound harmonic numbers",
+        "relate reciprocal sums to logarithmic growth"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.7",
+          "title": "Harmonic Numbers",
+          "pdf_page_start": 144,
+          "next_toc_entry_pdf_page": 151,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "rearrange-harmonic-sums",
+      "order": 43,
+      "title": "Rearrange harmonic sums",
+      "objectives": [
+        "Evaluate sums containing Hk",
+        "compare generalized reciprocal-power sums"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.7",
+          "title": "Harmonic Numbers",
+          "pdf_page_start": 144,
+          "next_toc_entry_pdf_page": 151,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "fibonacci-identities-from-local-moves",
+      "order": 44,
+      "title": "Fibonacci identities from local moves",
+      "objectives": [
+        "Derive addition and determinant identities",
+        "connect recurrence to matrix multiplication"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.8",
+          "title": "Fibonacci Numbers",
+          "pdf_page_start": 151,
+          "next_toc_entry_pdf_page": 164,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "fibonacci-divisibility-follows-euclid",
+      "order": 45,
+      "title": "Fibonacci divisibility follows Euclid",
+      "objectives": [
+        "Prove gcd(Fm,Fn)=F_gcd(m,n)",
+        "distinguish index operations from value operations"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.8",
+          "title": "Fibonacci Numbers",
+          "pdf_page_start": 151,
+          "next_toc_entry_pdf_page": 164,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "recover-fibonacci-values-from-roots",
+      "order": 46,
+      "title": "Recover Fibonacci values from roots",
+      "objectives": [
+        "Solve the recurrence using a generating function",
+        "derive closed form and rounding bound"
+      ],
+      "prerequisites": [
+        "Existing lessons 1–20",
+        "Optional prerequisite cards P1–P3 where indicated"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.8",
+          "title": "Fibonacci Numbers",
+          "pdf_page_start": 151,
+          "next_toc_entry_pdf_page": 164,
+          "advanced_in_source": false
+        }
+      ]
+    }
+  ]
+}

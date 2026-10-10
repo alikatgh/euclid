@@ -1,3 +1,4 @@
+import * as symbolConnections from './symbolConnections.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -6,7 +7,7 @@ import ts from 'typescript';
 import * as jsx from 'react/jsx-runtime';
 import {renderToStaticMarkup} from 'react-dom/server';
 const source=fs.readFileSync(new URL('../components/OriginalMainVisualEnhancements.tsx',import.meta.url),'utf8');
-const sandbox={exports:{},require:name=>name==='react/jsx-runtime'?jsx:{bindNumbersMotion:()=>{}}};
+const sandbox={exports:{},require:name=>name==='react/jsx-runtime'?jsx:name==='../lib/symbolConnections.js'?symbolConnections:{bindNumbersMotion:()=>{}}};
 vm.runInNewContext(ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2023}}).outputText,sandbox);
 const content=JSON.parse(fs.readFileSync(new URL('../../../content/deployed-original.json',import.meta.url),'utf8'));
 const all=[...content.algorithmFeatures.sections.flatMap(s=>s.examples).map(e=>({...e,Component:sandbox.exports.FeatureCauseEffect})),...content.computationalMethods.sections.flatMap(s=>s.examples).map(e=>({...e,Component:sandbox.exports.MethodCauseEffect}))];

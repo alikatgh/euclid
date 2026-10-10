@@ -1,3 +1,5 @@
+import { symbolTextChildren } from '../lib/symbolConnections.js';
+import * as JSX from 'react/jsx-runtime';
 import type { ReactNode } from 'react';
 import { bindNumbersMotion } from './numbersDemoMotion';
 
@@ -12,7 +14,7 @@ const lines = (text: string, limit = 42): string[] => {
  for (const word of words) { if (row && (row + ' ' + word).length > limit) { result.push(row); row = word; } else row += (row ? ' ' : '') + word; }
  if (row) result.push(row); return result;
 };
-const Text = ({ x = 320, y, children, color = 'currentColor', size = 16, anchor = 'middle' }: { x?: number; y: number; children: ReactNode; color?: string; size?: number; anchor?: 'start' | 'middle' | 'end' }) => <text x={x} y={y} textAnchor={anchor} fontSize={size} fill={color}>{children}</text>;
+const Text = ({ x = 320, y, children, color = 'currentColor', size = 16, anchor = 'middle' }: { x?: number; y: number; children: ReactNode; color?: string; size?: number; anchor?: 'start' | 'middle' | 'end' }) => <text x={x} y={y} textAnchor={anchor} fontSize={size} fill={color}>{symbolTextChildren(children, JSX, true)}</text>;
 const Move = ({ id, x = 0, y = 0, o = 1, children }: { id: string; x?: number; y?: number; o?: number; children: ReactNode }) => <g data-move={id} data-x={x} data-y={y} data-o={o} transform={`translate(${x} ${y})`} opacity={o}>{children}</g>;
 const tile = (id: string, x: number, y: number, value: unknown, color = BLUE, o = 1) => <Move key={id} id={id} x={x} y={y} o={o}><rect x={-25} y={-25} width={50} height={50} fill={color} fillOpacity=".10" stroke={color}/><Text x={0} y={7} color={color} size={23}>{stringify(value)}</Text></Move>;
 const box = (id: string, x: number, y: number, title: string, value: unknown, color = BLUE, width = 160, o = 1) => <Move key={id} id={id} x={x} y={y} o={o}><rect width={width} height={64} fill={color} fillOpacity=".07" stroke={color}/><Text x={width/2} y={-10} size={14}>{title}</Text><Text x={width/2} y={38} color={color} size={stringify(value).length > 15 ? 14 : 23}>{stringify(value)}</Text></Move>;

@@ -1,0 +1,522 @@
+{
+  "id": "C",
+  "title": "Program MIX and coordinate execution",
+  "first_order": 65,
+  "last_order": 87,
+  "unit_count": 23,
+  "lessons": [
+    {
+      "id": "a-word-is-sign-plus-bytes",
+      "order": 65,
+      "title": "A word is sign plus bytes",
+      "objectives": [
+        "Represent MIX words, registers and memory",
+        "distinguish byte base from word value"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3",
+          "title": "MIX",
+          "pdf_page_start": 222,
+          "next_toc_entry_pdf_page": 223,
+          "advanced_in_source": false
+        },
+        {
+          "section": "1.3.1",
+          "title": "Description of MIX",
+          "pdf_page_start": 223,
+          "next_toc_entry_pdf_page": 249,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "load-and-store-selected-fields",
+      "order": 66,
+      "title": "Load and store selected fields",
+      "objectives": [
+        "Decode L:R fields",
+        "execute partial loads and stores with sign rules"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.1",
+          "title": "Description of MIX",
+          "pdf_page_start": 223,
+          "next_toc_entry_pdf_page": 249,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "arithmetic-flags-and-double-width-values",
+      "order": 67,
+      "title": "Arithmetic flags and double-width values",
+      "objectives": [
+        "Execute integer arithmetic, shifts and comparisons",
+        "model overflow and division constraints"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.1",
+          "title": "Description of MIX",
+          "pdf_page_start": 223,
+          "next_toc_entry_pdf_page": 249,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "decode-instructions-and-follow-control",
+      "order": 68,
+      "title": "Decode instructions and follow control",
+      "objectives": [
+        "Interpret address, index, field and opcode",
+        "execute jumps with return-state effects"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.1",
+          "title": "Description of MIX",
+          "pdf_page_start": 223,
+          "next_toc_entry_pdf_page": 249,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "connect-a-machine-to-devices-and-characters",
+      "order": 69,
+      "title": "Connect a machine to devices and characters",
+      "objectives": [
+        "Model MIX I/O initiation, readiness and character conversion",
+        "account for instruction costs"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.1",
+          "title": "Description of MIX",
+          "pdf_page_start": 223,
+          "next_toc_entry_pdf_page": 249,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "names-become-addresses",
+      "order": 70,
+      "title": "Names become addresses",
+      "objectives": [
+        "Translate symbolic labels and local references",
+        "distinguish source line from machine location"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.2",
+          "title": "The MIX Assembly Language",
+          "pdf_page_start": 249,
+          "next_toc_entry_pdf_page": 277,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "build-data-and-instructions-with-mixal",
+      "order": 71,
+      "title": "Build data and instructions with MIXAL",
+      "objectives": [
+        "Use expressions, literals and directives",
+        "inspect assembled word fields"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.2",
+          "title": "The MIX Assembly Language",
+          "pdf_page_start": 249,
+          "next_toc_entry_pdf_page": 277,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "run-an-original-complete-mix-program",
+      "order": 72,
+      "title": "Run an original complete MIX program",
+      "objectives": [
+        "Link algorithm, assembly trace and frequency analysis",
+        "inspect memory/output results"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.2",
+          "title": "The MIX Assembly Language",
+          "pdf_page_start": 249,
+          "next_toc_entry_pdf_page": 277,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "compose-permutations-and-discover-cycles",
+      "order": 73,
+      "title": "Compose permutations and discover cycles",
+      "objectives": [
+        "Convert mappings to disjoint cycles",
+        "compose in a declared order"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.3",
+          "title": "Applications to Permutations",
+          "pdf_page_start": 277,
+          "next_toc_entry_pdf_page": 309,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "invert-a-permutation-without-losing-information",
+      "order": 74,
+      "title": "Invert a permutation without losing information",
+      "objectives": [
+        "Derive inverse mapping and study in-place inversion",
+        "explain tagging invariants"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.3",
+          "title": "Applications to Permutations",
+          "pdf_page_start": 277,
+          "next_toc_entry_pdf_page": 309,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "relate-cycles-to-records",
+      "order": 75,
+      "title": "Relate cycles to records",
+      "objectives": [
+        "Construct a canonical cycle-to-linear correspondence",
+        "count cycles via records"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.3",
+          "title": "Applications to Permutations",
+          "pdf_page_start": 277,
+          "next_toc_entry_pdf_page": 309,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "count-fixed-points-with-inclusion-and-exclusion",
+      "order": 76,
+      "title": "Count fixed points with inclusion and exclusion",
+      "objectives": [
+        "Analyze fixed points and derangements",
+        "derive alternating corrections for overlapping events"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.3.3",
+          "title": "Applications to Permutations",
+          "pdf_page_start": 277,
+          "next_toc_entry_pdf_page": 309,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "call-a-routine-and-return-safely",
+      "order": 77,
+      "title": "Call a routine and return safely",
+      "objectives": [
+        "Track return addresses and arguments",
+        "specify entry and exit contracts"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.1",
+          "title": "Subroutines",
+          "pdf_page_start": 309,
+          "next_toc_entry_pdf_page": 319,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "measure-reuse-and-specify-side-effects",
+      "order": 78,
+      "title": "Measure reuse and specify side effects",
+      "objectives": [
+        "Compare inline code and subroutines",
+        "analyze code space, time and register preservation"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.1",
+          "title": "Subroutines",
+          "pdf_page_start": 309,
+          "next_toc_entry_pdf_page": 319,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "resume-where-a-coroutine-paused",
+      "order": 79,
+      "title": "Resume where a coroutine paused",
+      "objectives": [
+        "Distinguish start, suspend and resume from ordinary return",
+        "track separate control states"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.2",
+          "title": "Coroutines",
+          "pdf_page_start": 319,
+          "next_toc_entry_pdf_page": 330,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "join-producer-and-consumer-coroutines",
+      "order": 80,
+      "title": "Join producer and consumer coroutines",
+      "objectives": [
+        "Compose streaming transformations with retained local state",
+        "detect exhaustion"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.2",
+          "title": "Coroutines",
+          "pdf_page_start": 319,
+          "next_toc_entry_pdf_page": 330,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "programs-can-interpret-other-programs",
+      "order": 81,
+      "title": "Programs can interpret other programs",
+      "objectives": [
+        "Separate object language from host execution",
+        "use table-driven dispatch"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.3",
+          "title": "Interpretive Routines",
+          "pdf_page_start": 330,
+          "next_toc_entry_pdf_page": 332,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "build-a-faithful-mix-simulator",
+      "order": 82,
+      "title": "Build a faithful MIX simulator",
+      "objectives": [
+        "Represent simulated state and dispatch instructions",
+        "account for simulated time"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.3.1",
+          "title": "A MIX simulator",
+          "pdf_page_start": 332,
+          "next_toc_entry_pdf_page": 349,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "test-a-simulator-at-its-semantic-edges",
+      "order": 83,
+      "title": "Test a simulator at its semantic edges",
+      "objectives": [
+        "Use differential and invariant tests for instruction behavior",
+        "diagnose conflicting state representations"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.3.1",
+          "title": "A MIX simulator",
+          "pdf_page_start": 332,
+          "next_toc_entry_pdf_page": 349,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "trace-without-changing-the-program-s-meaning",
+      "order": 84,
+      "title": "Trace without changing the program's meaning",
+      "objectives": [
+        "Record execution while preserving observed state",
+        "explain observer overhead and jump interception"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.3.2",
+          "title": "Trace routines",
+          "pdf_page_start": 349,
+          "next_toc_entry_pdf_page": 353,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "overlap-useful-work-with-input",
+      "order": 85,
+      "title": "Overlap useful work with input",
+      "objectives": [
+        "Compare unbuffered and double-buffered schedules",
+        "reason about read-ahead termination"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.4",
+          "title": "Input and Output",
+          "pdf_page_start": 353,
+          "next_toc_entry_pdf_page": 372,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "manage-multiple-buffers-as-a-queue",
+      "order": 86,
+      "title": "Manage multiple buffers as a queue",
+      "objectives": [
+        "Coordinate producer and consumer rates",
+        "preserve ownership through a buffer pool"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.4",
+          "title": "Input and Output",
+          "pdf_page_start": 353,
+          "next_toc_entry_pdf_page": 372,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "format-variable-output-incrementally",
+      "order": 87,
+      "title": "Format variable output incrementally",
+      "objectives": [
+        "Pack logical records into physical output blocks",
+        "separate data length from device capacity"
+      ],
+      "prerequisites": [
+        "Batch A number representations, permutations and invariants",
+        "Batch B cost models for quantitative extensions"
+      ],
+      "source_sections": [
+        {
+          "section": "1.4.4",
+          "title": "Input and Output",
+          "pdf_page_start": 353,
+          "next_toc_entry_pdf_page": 372,
+          "advanced_in_source": false
+        }
+      ]
+    }
+  ]
+}

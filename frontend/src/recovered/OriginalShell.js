@@ -81,7 +81,7 @@ export function OriginalShell() {
                     (0, C.jsx)(w, {
                         applicationName: n?.application?.name || Lw.application.name, title: Ee.title, subtitle: Ee.subtitle, showAlgorithmOptions: m === `algorithm-e`, withE0: T, onToggleE0: ve, theme: e, onToggleTheme: t, fontScale: j, onIncreaseFontSize: be, onDecreaseFontSize: xe, onResetFontSize: Se
                     }), (0, C.jsx)(`nav`, {
-                        "aria-label": `Lessons`, className: `lesson-navigation-links`, children: [
+                        "aria-label": `Lessons`, className: `lesson-navigation-links`, style: additionalLessons.length > 30 ? {maxHeight: `32vh`, overflowY: `auto`, overscrollBehavior: `contain`} : undefined, children: [
                             `algorithm-e`, `algorithm-features`, `computational-methods`, ...additionalLessons.map(entry => entry.id)
                         ].map(e => (0, C.jsx)(`a`, {
                             href: `#${e}`, onClick: p, "aria-current": m === e ? `page` : void 0, className: `py-1 focus-visible:outline-2 focus-visible:outline-blue-600 ${m === e ? `text-main font-semibold underline underline-offset-4` : `text-muted hover:text-main`}`, children: e === `algorithm-e` ? r.previousLessonLabel : e === `algorithm-features` ? r.navigationLabel : e === `computational-methods` ? i.navigationLabel : additionalLessons.find(entry => entry.id === e).navigationLabel
@@ -107,7 +107,7 @@ export function OriginalShell() {
                             content: entry, active: m === entry.id, navigationContainer: l, onNavigate: p, onPreviousLesson: () => de(index ? additionalLessons[index - 1].id : `computational-methods`), onNextLesson: index + 1 < additionalLessons.length ? () => de(additionalLessons[index + 1].id) : undefined, nextLessonLabel: additionalLessons[index + 1]?.navigationLabel, Visual: AdditionalVisual
                         }, entry.id)
                     }, entry.id) : null), m === `algorithm-e` && N && (0, C.jsxs)(go, {
-                        as: `main`, className: `lesson-layout`, resetKey: `${g}:${y}:${T}`, children: [
+                        as: `main`, className: `lesson-layout`, resetKey: `${g}:${y}:${T}:${te}:${algorithmHelpOpen}:${algorithmHelpFrame}`, connectionContext: algorithmHelpOpen ? undefined : {originalStep: N}, children: [
                             (0, C.jsxs)(`div`, {
                                 className: `visual-reading-column`, children: [(0, C.jsx)(`div`, {
                                         className: `visual-reading-diagram`, children: algorithmHelpOpen ? C.jsx(AlgorithmHelpVisual, {

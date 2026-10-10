@@ -3,8 +3,11 @@ import { NumbersAnimatedDemo } from '../components/NumbersAnimatedDemo';
 import foundationContent from '../../../content/first20/lessons4-10.json';
 import { adaptLessons } from './adaptLessons.js';
 import { FoundationsDemo } from '../components/FoundationsDemo';
-export const additionalLessons = adaptLessons([...foundationContent,...numbersContent]);
-export function AdditionalVisual(props) { return JSX.jsx(Number(props.visual?.order)>=11?NumbersAnimatedDemo:FoundationsDemo,props); }
+const fullBookModules = import.meta.glob('../../../content/fullbook/batch-*.json', { eager: true, import: 'default' });
+export const fullBookLessons = Object.values(fullBookModules).flatMap(value => Array.isArray(value) ? value : value.lessons || []);
+export const additionalLessons = adaptLessons([...foundationContent,...numbersContent,...fullBookLessons]);
+export function AdditionalVisual(props) { const order=Number(props.visual?.order); return JSX.jsx(order>=21?FullBookScene:order>=11?NumbersAnimatedDemo:FoundationsDemo,props); }
+import { FullBookScene } from '../components/FullBookScene';
 import { JSX } from './runtime.js';
 import { EnhancedFeatureVisual, EnhancedMethodVisual } from './mainVisualAdapters.js';
 import { OriginalHelpDemo } from '../components/OriginalHelpDemo';

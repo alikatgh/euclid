@@ -1,0 +1,406 @@
+{
+  "id": "E",
+  "title": "Traverse represent and prove properties of trees",
+  "first_order": 106,
+  "last_order": 122,
+  "unit_count": 17,
+  "lessons": [
+    {
+      "id": "trees-are-recursive-families",
+      "order": 106,
+      "title": "Trees are recursive families",
+      "objectives": [
+        "Define rooted ordered trees, forests and binary trees",
+        "distinguish empty binary trees and child slots"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3",
+          "title": "Trees",
+          "pdf_page_start": 489,
+          "next_toc_entry_pdf_page": 505,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "when-nested-lists-share-pieces",
+      "order": 107,
+      "title": "When nested lists share pieces",
+      "objectives": [
+        "Distinguish trees from Lists with sharing and cycles",
+        "decode parenthesized structures"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3",
+          "title": "Trees",
+          "pdf_page_start": 489,
+          "next_toc_entry_pdf_page": 505,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "preorder-inorder-and-postorder-are-timed-visits",
+      "order": 108,
+      "title": "Preorder inorder and postorder are timed visits",
+      "objectives": [
+        "Traverse binary trees",
+        "distinguish arriving at a node from visiting it"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.1",
+          "title": "Traversing Binary Trees",
+          "pdf_page_start": 505,
+          "next_toc_entry_pdf_page": 531,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "replace-recursion-with-a-visible-stack",
+      "order": 109,
+      "title": "Replace recursion with a visible stack",
+      "objectives": [
+        "Derive iterative inorder traversal and its invariant",
+        "analyze work and storage"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.1",
+          "title": "Traversing Binary Trees",
+          "pdf_page_start": 505,
+          "next_toc_entry_pdf_page": 531,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "use-threads-where-child-links-are-absent",
+      "order": 110,
+      "title": "Use threads where child links are absent",
+      "objectives": [
+        "Construct inorder threads and use successor/predecessor operations",
+        "preserve tag semantics"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.1",
+          "title": "Traversing Binary Trees",
+          "pdf_page_start": 505,
+          "next_toc_entry_pdf_page": 531,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "copy-and-modify-threaded-structure-safely",
+      "order": 111,
+      "title": "Copy and modify threaded structure safely",
+      "objectives": [
+        "Preserve tree shape and threading during copy or insertion",
+        "explain address-map correspondence"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.1",
+          "title": "Traversing Binary Trees",
+          "pdf_page_start": 505,
+          "next_toc_entry_pdf_page": 531,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "represent-a-forest-with-two-binary-links",
+      "order": 112,
+      "title": "Represent a forest with two binary links",
+      "objectives": [
+        "Derive first-child/next-sibling conversion",
+        "compare forest and binary traversal orders"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.2",
+          "title": "Binary Tree Representation of Trees",
+          "pdf_page_start": 531,
+          "next_toc_entry_pdf_page": 554,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "expressions-are-trees-with-meaningful-arity",
+      "order": 113,
+      "title": "Expressions are trees with meaningful arity",
+      "objectives": [
+        "Read prefix/postfix forms",
+        "evaluate by traversal and stack"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.2",
+          "title": "Binary Tree Representation of Trees",
+          "pdf_page_start": 531,
+          "next_toc_entry_pdf_page": 554,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "differentiate-a-structured-expression",
+      "order": 114,
+      "title": "Differentiate a structured expression",
+      "objectives": [
+        "Transform expression trees using local derivative rules",
+        "preserve source structure"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.2",
+          "title": "Binary Tree Representation of Trees",
+          "pdf_page_start": 531,
+          "next_toc_entry_pdf_page": 554,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "store-a-tree-in-a-sequence",
+      "order": 115,
+      "title": "Store a tree in a sequence",
+      "objectives": [
+        "Compare preorder, family order, level order and postorder-degree encodings"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.3",
+          "title": "Other Representations of Trees",
+          "pdf_page_start": 554,
+          "next_toc_entry_pdf_page": 576,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "compute-a-value-bottom-up",
+      "order": 116,
+      "title": "Compute a value bottom up",
+      "objectives": [
+        "Evaluate locally defined functions using postorder and degrees",
+        "recover child groups from a stack"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.3",
+          "title": "Other Representations of Trees",
+          "pdf_page_start": 554,
+          "next_toc_entry_pdf_page": 576,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "choose-richer-links-for-tree-updates",
+      "order": 117,
+      "title": "Choose richer links for tree updates",
+      "objectives": [
+        "Use parent, child and sibling links",
+        "explain threads and representation tradeoffs"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.3",
+          "title": "Other Representations of Trees",
+          "pdf_page_start": 554,
+          "next_toc_entry_pdf_page": 576,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "represent-multivariate-polynomials-as-trees",
+      "order": 118,
+      "title": "Represent multivariate polynomials as trees",
+      "objectives": [
+        "Nest coefficients by variable and exponent",
+        "add structures with insertion and cancellation"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.3",
+          "title": "Other Representations of Trees",
+          "pdf_page_start": 554,
+          "next_toc_entry_pdf_page": 576,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "a-free-tree-is-connected-without-cycles",
+      "order": 119,
+      "title": "A free tree is connected without cycles",
+      "objectives": [
+        "Prove equivalent finite-tree characterizations",
+        "distinguish paths, walks and cycles"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4",
+          "title": "Basic Mathematical Properties of Trees",
+          "pdf_page_start": 576,
+          "next_toc_entry_pdf_page": 577,
+          "advanced_in_source": false
+        },
+        {
+          "section": "2.3.4.1",
+          "title": "Free trees",
+          "pdf_page_start": 577,
+          "next_toc_entry_pdf_page": 591,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "a-spanning-tree-explains-flow-counts",
+      "order": 120,
+      "title": "A spanning tree explains flow counts",
+      "objectives": [
+        "Use fundamental cycles and a start-to-stop path",
+        "relate edge frequencies to conservation"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.1",
+          "title": "Free trees",
+          "pdf_page_start": 577,
+          "next_toc_entry_pdf_page": 591,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "directions-and-roots-change-tree-structure",
+      "order": 121,
+      "title": "Directions and roots change tree structure",
+      "objectives": [
+        "Define directed graphs and oriented trees",
+        "distinguish ordered, rooted-unordered and free equivalence"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.2",
+          "title": "Oriented trees",
+          "pdf_page_start": 591,
+          "next_toc_entry_pdf_page": 608,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "eulerian-trails-use-every-arc-once",
+      "order": 122,
+      "title": "Eulerian trails use every arc once",
+      "objectives": [
+        "Derive balance/connectivity conditions",
+        "relate last exits to a rooted tree and construct a trail"
+      ],
+      "prerequisites": [
+        "Batch D stacks, queues, pointer identity and linked structures",
+        "Batch A induction and algebra",
+        "Batch C coroutine/state reasoning for related runtime views"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.2",
+          "title": "Oriented trees",
+          "pdf_page_start": 591,
+          "next_toc_entry_pdf_page": 608,
+          "advanced_in_source": false
+        }
+      ]
+    }
+  ]
+}

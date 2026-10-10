@@ -24,8 +24,8 @@ test('every passage keeps its wording, formula, check, main model, and smaller h
    const full=[section.definition,...section.paragraphs.slice(0,-1)].join('\n\n');
    assert.equal(full,Array.isArray(original.text)?original.text.join('\n\n'):original.text);
    assert.equal(section.examples.length,2);assert.equal(section.examples[0].frames.length,original.demonstration.states.length);
-   assert.equal(section.examples[1].frames.length,original.demonstration.simplerHelp.steps.length+1);
-   assert.equal(section.examples[1].frames[0].visual.helpStepIndex,-1);
+   assert.equal(section.examples[1].frames.length,original.demonstration.simplerHelp.states?.length ?? original.demonstration.simplerHelp.steps.length+1);
+   assert.equal(section.examples[1].frames[0].visual.helpStepIndex,original.demonstration.simplerHelp.states?.length ? 0 : -1);
    assert.ok(section.examples[0].frames.every(f=>!f.visual.helpMode));
    assert.ok(section.examples[1].frames.every(f=>f.visual.helpMode));
    for(const example of section.examples){assert.equal(example.check.options.filter(o=>o.correct).length,1);assert.ok(example.frames.length>1);}

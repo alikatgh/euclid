@@ -1,0 +1,422 @@
+{
+  "id": "B",
+  "title": "Use generating functions and analyze algorithms",
+  "first_order": 47,
+  "last_order": 64,
+  "unit_count": 18,
+  "lessons": [
+    {
+      "id": "store-a-sequence-in-one-formal-object",
+      "order": 47,
+      "title": "Store a sequence in one formal object",
+      "objectives": [
+        "Interpret coefficients and formal power series",
+        "separate formal algebra from evaluation"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "multiply-sequences-by-convolution",
+      "order": 48,
+      "title": "Multiply sequences by convolution",
+      "objectives": [
+        "Derive coefficient convolution",
+        "use products for independent combinatorial choices"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "transform-coefficients-predictably",
+      "order": 49,
+      "title": "Transform coefficients predictably",
+      "objectives": [
+        "Use scaling, sign change, differentiation and integration",
+        "extract even and periodic subsequences"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "solve-a-recurrence-with-a-generating-function",
+      "order": 50,
+      "title": "Solve a recurrence with a generating function",
+      "objectives": [
+        "Translate initial conditions and recurrence into an algebraic equation",
+        "recover coefficients"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "choose-ordinary-or-exponential-generating-functions",
+      "order": 51,
+      "title": "Choose ordinary or exponential generating functions",
+      "objectives": [
+        "Represent labeled combinations",
+        "use standard generating functions including exp, log and Bernoulli coefficients"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "extract-coefficients-and-symmetric-information",
+      "order": 52,
+      "title": "Extract coefficients and symmetric information",
+      "objectives": [
+        "Use coefficient operators and products to recover elementary symmetric sums",
+        "introduce analytic extraction as an advanced bridge"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.9",
+          "title": "Generating Functions",
+          "pdf_page_start": 164,
+          "next_toc_entry_pdf_page": 178,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "count-an-algorithm-s-actual-operations",
+      "order": 53,
+      "title": "Count an algorithm's actual operations",
+      "objectives": [
+        "Analyze a maximum scan with a precise tie policy",
+        "derive flow-frequency constraints"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.10",
+          "title": "Analysis of an Algorithm",
+          "pdf_page_start": 178,
+          "next_toc_entry_pdf_page": 196,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "average-over-a-declared-input-model",
+      "order": 54,
+      "title": "Average over a declared input model",
+      "objectives": [
+        "Derive record probabilities and expected update count",
+        "distinguish worst case from average"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.10",
+          "title": "Analysis of an Algorithm",
+          "pdf_page_start": 178,
+          "next_toc_entry_pdf_page": 196,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "build-a-probability-generating-function",
+      "order": 55,
+      "title": "Build a probability generating function",
+      "objectives": [
+        "Derive distribution recurrence, mean and variance",
+        "connect coefficients to probabilities"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.10",
+          "title": "Analysis of an Algorithm",
+          "pdf_page_start": 178,
+          "next_toc_entry_pdf_page": 196,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "reason-about-uncertainty-and-independence",
+      "order": 56,
+      "title": "Reason about uncertainty and independence",
+      "objectives": [
+        "Use expectation, variance, convolution and deviation bounds",
+        "analyze biased coin counts"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.10",
+          "title": "Analysis of an Algorithm",
+          "pdf_page_start": 178,
+          "next_toc_entry_pdf_page": 196,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "read-asymptotic-bounds-with-quantifiers",
+      "order": 57,
+      "title": "Read asymptotic bounds with quantifiers",
+      "objectives": [
+        "Define O, Ω and Θ",
+        "exhibit constants and threshold"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.1",
+          "title": "The O-notation",
+          "pdf_page_start": 196,
+          "next_toc_entry_pdf_page": 203,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "calculate-with-error-terms",
+      "order": 58,
+      "title": "Calculate with error terms",
+      "objectives": [
+        "Track absolute versus relative error",
+        "distinguish asymptotic series from convergent series"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.1",
+          "title": "The O-notation",
+          "pdf_page_start": 196,
+          "next_toc_entry_pdf_page": 203,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "correct-an-integral-into-a-sum",
+      "order": 59,
+      "title": "Correct an integral into a sum",
+      "objectives": [
+        "Derive endpoint correction and Euler summation structure",
+        "connect local shape to error"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.2",
+          "title": "Euler’s summation formula",
+          "pdf_page_start": 203,
+          "next_toc_entry_pdf_page": 210,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "bernoulli-corrections-and-controlled-remainders",
+      "order": 60,
+      "title": "Bernoulli corrections and controlled remainders",
+      "objectives": [
+        "Generate Bernoulli numbers and polynomials",
+        "use derivative corrections and remainder bounds"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.2",
+          "title": "Euler’s summation formula",
+          "pdf_page_start": 203,
+          "next_toc_entry_pdf_page": 210,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "derive-harmonic-and-factorial-asymptotics",
+      "order": 61,
+      "title": "Derive harmonic and factorial asymptotics",
+      "objectives": [
+        "Apply Euler summation to 1/x and log x",
+        "identify constants and error size"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.2",
+          "title": "Euler’s summation formula",
+          "pdf_page_start": 203,
+          "next_toc_entry_pdf_page": 210,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "concentrate-an-integral-near-its-peak",
+      "order": 62,
+      "title": "Concentrate an integral near its peak",
+      "objectives": [
+        "Explain incomplete gamma and dominant-region approximation",
+        "rescale a neighborhood"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.3",
+          "title": "Some asymptotic calculations",
+          "pdf_page_start": 210,
+          "next_toc_entry_pdf_page": 222,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "transfer-approximations-between-sums-and-integrals",
+      "order": 63,
+      "title": "Transfer approximations between sums and integrals",
+      "objectives": [
+        "Analyze the section's finite and infinite sum families using integral identities and series expansion"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.3",
+          "title": "Some asymptotic calculations",
+          "pdf_page_start": 210,
+          "next_toc_entry_pdf_page": 222,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "assemble-a-multi-stage-asymptotic-calculation",
+      "order": 64,
+      "title": "Assemble a multi-stage asymptotic calculation",
+      "objectives": [
+        "Compose scaling, expansion, summation and normalization",
+        "audit a claimed precision"
+      ],
+      "prerequisites": [
+        "Batch A through Fibonacci and finite sums",
+        "P4 calculus for starred asymptotic units",
+        "P5 elementary probability introduced before advanced analysis"
+      ],
+      "source_sections": [
+        {
+          "section": "1.2.11.3",
+          "title": "Some asymptotic calculations",
+          "pdf_page_start": 210,
+          "next_toc_entry_pdf_page": 222,
+          "advanced_in_source": true
+        }
+      ]
+    }
+  ]
+}

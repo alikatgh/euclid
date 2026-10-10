@@ -1,9 +1,11 @@
+import { symbolTextChildren } from '../lib/symbolConnections.js';
+import * as JSX from 'react/jsx-runtime';
 /** Causal diagrams augment the recovered visual families inside their existing slot. */
 import type { ReactNode } from 'react';
 import { bindNumbersMotion } from './numbersDemoMotion';
 const M='var(--color-m)',N='var(--color-n)',R='var(--color-r)',G='var(--color-gcd)';
 type Props={exampleId:string;frameIndex:number;paused?:boolean;visual:{labels:Record<string,string>}};
-const Text=({x=300,y,children,color='var(--text-main)',size=14}:{x?:number;y:number;children:ReactNode;color?:string;size?:number})=><text x={x} y={y} textAnchor="middle" fill={color} fontSize={size}>{children}</text>;
+const Text=({x=300,y,children,color='var(--text-main)',size=14}:{x?:number;y:number;children:ReactNode;color?:string;size?:number})=><text x={x} y={y} textAnchor="middle" fill={color} fontSize={size}>{symbolTextChildren(children, JSX, true)}</text>;
 function Arrow({x=190,y=68,to=400,color=N}:{x?:number;y?:number;to?:number;color?:string}){return <path d={`M${x} ${y}H${to}l-7 -5m7 5l-7 5`} stroke={color} strokeWidth={2} fill="none"/>;}
 function Card({id,x,y=35,value,label,color=M,w=130}:{id:string;x:number;y?:number;value:string|number;label:string;color?:string;w?:number}){return <g data-object={id}><rect x={x-w/2} y={y} width={w} height={49} fill={color} fillOpacity=".06" stroke={color}/><Text x={x} y={y-9} color={color} size={12}>{label}</Text><Text x={x} y={y+31} color={color}><tspan data-math-value={typeof value==='number'?value:undefined}>{value}</tspan></Text></g>;}
 function Dot({x,y,color=N}:{x:number;y:number;color?:string}){return <g data-move="cursor" data-x={x} data-y={y} transform={`translate(${x} ${y})`}><circle r={6} fill={color}/></g>;}

@@ -19,6 +19,7 @@ Small intentional extensions to deployed behavior:
 - Per-example comprehension check selection, allowing simpler-help checks.
 - Explicit motion-pause state passed to added visual components; manual step changes animate and inactive routes freeze.
 - Lesson 1 smaller help stays inside its existing diagram/current-reading region, preserving its main execution state.
-- Formula-only new passage buttons receive an accessible name; retained lesson instances preserve their selection and answers.
+- Formula-only new passage buttons receive an accessible name; retained lesson instances preserve their selection and answers. Intentionally blank formula paragraphs do not create empty buttons.
+- The original numerical-link controller and D3 label hooks are extended to scoped mathematical symbols, role-aware quantities, keyboard inspection and tap pinning. React SVG label helpers use the same hooks. The existing highlight CSS is reused; a transient tooltip explains each selected role. See `docs/SYMBOL-CONNECTIONS.md` for the authored/lexical fallback contract and verification scope.
 
 Original textbook source is not changed or bundled. Added explanations, models and questions are original teaching material linked to textbook sections/notation.

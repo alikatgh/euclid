@@ -1,0 +1,513 @@
+{
+  "id": "F",
+  "title": "Count trees and manage dynamic memory",
+  "first_order": 123,
+  "last_order": 144,
+  "unit_count": 22,
+  "lessons": [
+    {
+      "id": "finite-branching-makes-an-infinite-path",
+      "order": 123,
+      "title": "Finite branching makes an infinite path",
+      "objectives": [
+        "Understand the infinity lemma and its hypotheses",
+        "connect finite prefixes to global existence"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.3",
+          "title": "The “infinity lemma”",
+          "pdf_page_start": 608,
+          "next_toc_entry_pdf_page": 614,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "count-ordered-and-binary-tree-shapes",
+      "order": 124,
+      "title": "Count ordered and binary tree shapes",
+      "objectives": [
+        "Derive Catalan recurrence and generating function",
+        "relate tree families by a bijection"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.4",
+          "title": "Enumeration of trees",
+          "pdf_page_start": 614,
+          "next_toc_entry_pdf_page": 634,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "count-unlabeled-rooted-and-free-trees",
+      "order": 125,
+      "title": "Count unlabeled rooted and free trees",
+      "objectives": [
+        "Explain multisets of child shapes and symmetry",
+        "use centroid/rooting correction"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.4",
+          "title": "Enumeration of trees",
+          "pdf_page_start": 614,
+          "next_toc_entry_pdf_page": 634,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "encode-labeled-trees-as-sequences",
+      "order": 126,
+      "title": "Encode labeled trees as sequences",
+      "objectives": [
+        "Construct an invertible leaf-removal code",
+        "derive the labeled-tree count"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.4",
+          "title": "Enumeration of trees",
+          "pdf_page_start": 614,
+          "next_toc_entry_pdf_page": 634,
+          "advanced_in_source": true
+        }
+      ]
+    },
+    {
+      "id": "internal-and-external-path-lengths",
+      "order": 127,
+      "title": "Internal and external path lengths",
+      "objectives": [
+        "Extend binary trees with external nodes",
+        "derive E=I+2n and extremal shapes"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.5",
+          "title": "Path length",
+          "pdf_page_start": 634,
+          "next_toc_entry_pdf_page": 646,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "balance-depth-without-changing-node-count",
+      "order": 128,
+      "title": "Balance depth without changing node count",
+      "objectives": [
+        "Find minimum and maximum path lengths",
+        "extend reasoning to t-ary trees"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.5",
+          "title": "Path length",
+          "pdf_page_start": 634,
+          "next_toc_entry_pdf_page": 646,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "minimize-weighted-paths-by-merging",
+      "order": 129,
+      "title": "Minimize weighted paths by merging",
+      "objectives": [
+        "Derive the greedy merge principle for positive leaf weights",
+        "connect to coding and merge cost"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.4.5",
+          "title": "Path length",
+          "pdf_page_start": 634,
+          "next_toc_entry_pdf_page": 646,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "sharing-defeats-naive-deletion",
+      "order": 130,
+      "title": "Sharing defeats naive deletion",
+      "objectives": [
+        "Maintain reference counts and explain cyclic garbage",
+        "distinguish roots from internal references"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.5",
+          "title": "Lists and Garbage Collection",
+          "pdf_page_start": 650,
+          "next_toc_entry_pdf_page": 670,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "mark-reachable-objects-then-sweep",
+      "order": 131,
+      "title": "Mark reachable objects then sweep",
+      "objectives": [
+        "Separate reachability from allocation",
+        "compare repeated scans and stack-based marking"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.5",
+          "title": "Lists and Garbage Collection",
+          "pdf_page_start": 650,
+          "next_toc_entry_pdf_page": 670,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "collect-with-limited-auxiliary-memory",
+      "order": 132,
+      "title": "Collect with limited auxiliary memory",
+      "objectives": [
+        "Compare full stack, bounded-stack rescanning and reusable header fields",
+        "understand representation constraints"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.5",
+          "title": "Lists and Garbage Collection",
+          "pdf_page_start": 650,
+          "next_toc_entry_pdf_page": 670,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "reverse-pointers-and-restore-them",
+      "order": 133,
+      "title": "Reverse pointers and restore them",
+      "objectives": [
+        "Trace Schorr-Waite-style marking",
+        "encode return paths in existing links without losing the graph"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.3.5",
+          "title": "Lists and Garbage Collection",
+          "pdf_page_start": 650,
+          "next_toc_entry_pdf_page": 670,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "one-node-carries-several-relationships",
+      "order": 134,
+      "title": "One node carries several relationships",
+      "objectives": [
+        "Design multilinked records from required operations",
+        "build a hierarchical data table"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.4",
+          "title": "Multilinked Structures",
+          "pdf_page_start": 670,
+          "next_toc_entry_pdf_page": 685,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "resolve-a-qualified-name",
+      "order": 135,
+      "title": "Resolve a qualified name",
+      "objectives": [
+        "Search candidates and verify ancestor qualifiers",
+        "report absent and ambiguous references"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.4",
+          "title": "Multilinked Structures",
+          "pdf_page_start": 670,
+          "next_toc_entry_pdf_page": 685,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "match-corresponding-fields-across-records",
+      "order": 136,
+      "title": "Match corresponding fields across records",
+      "objectives": [
+        "Traverse two structures together",
+        "identify matching qualified elementary items"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.4",
+          "title": "Multilinked Structures",
+          "pdf_page_start": 670,
+          "next_toc_entry_pdf_page": 685,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "reserve-variable-sized-blocks",
+      "order": 137,
+      "title": "Reserve variable-sized blocks",
+      "objectives": [
+        "Implement first fit and best fit",
+        "split blocks and expose external fragmentation"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "return-storage-and-merge-neighbors",
+      "order": 138,
+      "title": "Return storage and merge neighbors",
+      "objectives": [
+        "Maintain an address-sorted free list",
+        "coalesce adjacent blocks"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "boundary-tags-make-local-coalescing-possible",
+      "order": 139,
+      "title": "Boundary tags make local coalescing possible",
+      "objectives": [
+        "Read adjacent block status without a global search",
+        "unlink free neighbors safely"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "split-and-merge-exact-buddies",
+      "order": 140,
+      "title": "Split and merge exact buddies",
+      "objectives": [
+        "Implement power-of-two allocation and buddy discovery",
+        "distinguish buddies from adjacent blocks"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "compare-allocation-under-a-workload",
+      "order": 141,
+      "title": "Compare allocation under a workload",
+      "objectives": [
+        "Measure fragmentation, search work and utilization",
+        "scrutinize probabilistic assumptions"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "use-a-known-size-distribution-carefully",
+      "order": 142,
+      "title": "Use a known size distribution carefully",
+      "objectives": [
+        "Explain distributed fit and its fixed slots",
+        "compare prediction with workload mismatch"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "handle-overflow-without-corrupting-live-data",
+      "order": 143,
+      "title": "Handle overflow without corrupting live data",
+      "objectives": [
+        "Distinguish exhaustion from fragmentation",
+        "reason about compaction, relocation and graceful failure"
+      ],
+      "prerequisites": [
+        "Batch E tree representations and invariants",
+        "Batch B generating functions and asymptotic/probability reasoning for counting and workload units",
+        "Batch D allocation and graph identity"
+      ],
+      "source_sections": [
+        {
+          "section": "2.5",
+          "title": "Dynamic Storage Allocation",
+          "pdf_page_start": 685,
+          "next_toc_entry_pdf_page": 715,
+          "advanced_in_source": false
+        }
+      ]
+    },
+    {
+      "id": "pointer-machines-connect-the-whole-chapter",
+      "order": 144,
+      "title": "Pointer machines connect the whole chapter",
+      "objectives": [
+        "Specify an abstract linked-memory machine",
+        "compare model cost assumptions with finite implementations"
+      ],
+      "prerequisites": [
+        "Batches C–F state models, linked structures and complexity reasoning"
+      ],
+      "source_sections": [
+        {
+          "section": "2.6",
+          "title": "History and Bibliography",
+          "pdf_page_start": 715,
+          "next_toc_entry_pdf_page": 726,
+          "advanced_in_source": false
+        }
+      ]
+    }
+  ]
+}

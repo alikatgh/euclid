@@ -1,3 +1,4 @@
+import * as symbolConnections from './symbolConnections.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -7,7 +8,7 @@ import * as jsx from 'react/jsx-runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 const source=fs.readFileSync(new URL('../components/OriginalHelpDemo.tsx',import.meta.url),'utf8');
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2023}}).outputText;
-const sandbox={exports:{},require:name=>name==='react/jsx-runtime'?jsx:{bindNumbersMotion:()=>{}}};
+const sandbox={exports:{},require:name=>name==='react/jsx-runtime'?jsx:name==='../lib/symbolConnections.js'?symbolConnections:{bindNumbersMotion:()=>{}}};
 vm.runInNewContext(compiled,sandbox);
 const {OriginalHelpDemo}=sandbox.exports;
 const entries=JSON.parse(fs.readFileSync(new URL('../../../content/first20/original-help.json',import.meta.url),'utf8'));

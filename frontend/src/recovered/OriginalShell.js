@@ -1,9 +1,11 @@
 import { OriginalAlgorithmVisual } from './mainVisualAdapters.js';
+import { LessonWorkbench } from '../lesson-core/LessonWorkbench.tsx';
+import { algorithmE } from '../lessons/001-algorithm-e.ts';
 // Recovered from the owner’s deployed first-three-lesson app; original DOM and classes retained.
 import { React as _, JSX as C, x, Lw, b, go, RC, UC, KC, tw, bo, w, Pw, Iw } from "./runtime.js";
 import { additionalLessons, AdditionalVisual, OriginalFeatureVisual, OriginalMethodVisual, AlgorithmHelpVisual, algorithmHelp } from "./registry.js";
 function Rw() { const id = window.location.hash.slice(1); return [
-    "algorithm-e", "algorithm-features", "computational-methods", ...additionalLessons.map(entry => entry.id)
+    "algorithm-e", "algorithm-e-core", "algorithm-features", "computational-methods", ...additionalLessons.map(entry => entry.id)
 ].includes(id) ? id : "algorithm-e"; }
 export function OriginalShell() {
     let { theme: e, toggleTheme: t } = x(), n = Lw, r = Lw.algorithmFeatures, i = Lw.computationalMethods, [a, o] = (0, _.useState)(() => window.matchMedia(`(max-width: 959px)`).matches), [s, c] = (0, _.useState)(() => {
@@ -82,9 +84,9 @@ export function OriginalShell() {
                         applicationName: n?.application?.name || Lw.application.name, title: Ee.title, subtitle: Ee.subtitle, showAlgorithmOptions: m === `algorithm-e`, withE0: T, onToggleE0: ve, theme: e, onToggleTheme: t, fontScale: j, onIncreaseFontSize: be, onDecreaseFontSize: xe, onResetFontSize: Se
                     }), (0, C.jsx)(`nav`, {
                         "aria-label": `Lessons`, className: `lesson-navigation-links`, style: additionalLessons.length > 30 ? {maxHeight: `32vh`, overflowY: `auto`, overscrollBehavior: `contain`} : undefined, children: [
-                            `algorithm-e`, `algorithm-features`, `computational-methods`, ...additionalLessons.map(entry => entry.id)
+                            `algorithm-e`, `algorithm-e-core`, `algorithm-features`, `computational-methods`, ...additionalLessons.map(entry => entry.id)
                         ].map(e => (0, C.jsx)(`a`, {
-                            href: `#${e}`, onClick: p, "aria-current": m === e ? `page` : void 0, className: `py-1 focus-visible:outline-2 focus-visible:outline-blue-600 ${m === e ? `text-main font-semibold underline underline-offset-4` : `text-muted hover:text-main`}`, children: e === `algorithm-e` ? r.previousLessonLabel : e === `algorithm-features` ? r.navigationLabel : e === `computational-methods` ? i.navigationLabel : additionalLessons.find(entry => entry.id === e).navigationLabel
+                            href: `#${e}`, onClick: p, "aria-current": m === e ? `page` : void 0, className: `py-1 focus-visible:outline-2 focus-visible:outline-blue-600 ${m === e ? `text-main font-semibold underline underline-offset-4` : `text-muted hover:text-main`}`, children: e === `algorithm-e` ? r.previousLessonLabel : e === `algorithm-e-core` ? `Lesson 1 (Core Engine preview)` : e === `algorithm-features` ? r.navigationLabel : e === `computational-methods` ? i.navigationLabel : additionalLessons.find(entry => entry.id === e).navigationLabel
                         }, e))
                     }), (0, C.jsx)(`div`, {
                         ref: u, className: `lesson-section-navigation`
@@ -94,6 +96,19 @@ export function OriginalShell() {
                 type: `button`, className: `lesson-sidebar-backdrop`, "aria-label": `Close sidebar`, onClick: f
             }), (0, C.jsxs)(`div`, {
                 className: `lesson-workspace`, inert: a && s, children: [
+                    m === `algorithm-e-core` && (0, C.jsx)(`div`, {
+                        className: `flex flex-1 min-h-0 flex-col`, children: [
+                            (0, C.jsxs)(`div`, {
+                                className: `bg-blue-950/40 border-b border-blue-800/60 px-3 py-1.5 flex items-center justify-between text-xs text-blue-200`, children: [
+                                    (0, C.jsx)(`span`, { children: `✦ Lesson 1 running on the new typed LessonSpec core engine. Verified against contract.` }),
+                                    (0, C.jsx)(`a`, { href: `#algorithm-e`, onClick: () => de(`algorithm-e`), className: `underline text-blue-300 hover:text-white font-mono`, children: `← Switch to original baseline` })
+                                ]
+                            }),
+                            (0, C.jsx)(LessonWorkbench, {
+                                spec: algorithmE, onNavigateNext: () => de(`algorithm-features`), nextLessonLabel: r.navigationLabel
+                            })
+                        ]
+                    }),
                     (0, C.jsx)(`div`, {
                         className: m === `algorithm-features` ? `flex flex-1 min-h-0` : `hidden`, children: (0, C.jsx)(Pw, {
                             content: r, active: m === `algorithm-features`, navigationContainer: l, onNavigate: p, onPreviousLesson: () => de(`algorithm-e`), onNextLesson: () => de(`computational-methods`), nextLessonLabel: i.navigationLabel, Visual: OriginalFeatureVisual
@@ -175,6 +190,8 @@ export function OriginalShell() {
                             }), (0, C.jsxs)(`div`, {
                                 className: `lesson-controls-column flex min-h-0 flex-col gap-2.5 max-lg:shrink-0 max-lg:h-[40rem]`, children: [(0, C.jsx)(bo, {
                                         m: g, n: y, onMChange: ge, onNChange: _e, presets: n?.algorithm.presets || [], viewType: D, onViewTypeChange: ee, isPlaying: ne, onTogglePlay: () => { setAlgorithmHelpOpen(false); ye(); }, onNext: () => { setAlgorithmHelpOpen(false); pe(); }, onPrev: () => { setAlgorithmHelpOpen(false); me(); }, onReset: () => { setAlgorithmHelpOpen(false); he(); }, canNext: te < A.length - 1, canPrev: te > 0, currentStep: te, totalSteps: A.length, steps: A, onSeekStep: fe, playbackSpeed: ie, onPlaybackSpeedChange: ae, isStepListOpen: k, onToggleStepList: () => ue(e => !e)
+                                    }), (0, C.jsxs)(`a`, {
+                                        href: `#algorithm-e-core`, onClick: () => de(`algorithm-e-core`), className: `shrink-0 border border-blue-500/50 bg-blue-500/10 px-3 py-2 text-xs text-blue-300 hover:bg-blue-500/20 focus-visible:outline-2 focus-visible:outline-blue-600 block text-center`, children: [`Compare: View in New Core Engine →`]
                                     }), (0, C.jsxs)(`a`, {
                                         href: `#algorithm-features`, className: `shrink-0 border border-border bg-surface px-3 py-2 text-sm text-main hover:bg-border focus-visible:outline-2 focus-visible:outline-blue-600`, children: [r.nextLessonLabel, ` →`]
                                     })]

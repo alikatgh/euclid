@@ -8,6 +8,7 @@
     "build": "node scripts/generate-licenses.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
+    "pretest": "mkdir -p node_modules/.bin && ln -sf \"$(which python3 2>/dev/null || which python 2>/dev/null || echo python3)\" node_modules/.bin/python",
     "test": "node --test src/lib/*.test.mjs"
   },
   "dependencies": {

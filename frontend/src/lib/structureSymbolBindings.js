@@ -222,9 +222,10 @@ function coordinates(c){
 function derivativeRoles(c){
  if(c.order!==114)return null;
  const names=c.d.identities;
- if(names&&!c.id&&['u','v'].includes(c.token)){
-  const prime=c.script==='superscript'||c.script==='prime'||/[′']/.test(c.term??'');
-  const id=names[(prime?'d':'')+c.token];if(id)return objBinding(c,id);
+ const base=c.token?.replace(/′$/,'');
+ if(names&&['u','v'].includes(base)){
+  const prime=/′$/.test(c.token)||c.script==='superscript'||c.script==='prime'||/[′']/.test(c.term??'');
+  const id=names[(prime?'d':'')+base];if(id)return objBinding(c,id);
  }
  if(/^product-op-/.test(c.id))return bind([`derivative:${c.id}`],'product-rule branch','One product-rule branch differentiates one factor while preserving the other factor.', ['operation:multiplication']);
  if(/^sum-op-/.test(c.id))return bind(['derivative:product-rule-sum'],'product-rule sum','Add the two distinct branches u′v and uv′.', ['operation:sum']);

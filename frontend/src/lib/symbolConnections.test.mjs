@@ -1,11 +1,59 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {splitMathSymbols,resolveSymbol} from './symbolConnections.js';
+import {splitMathSymbols,resolveSymbol,mountSymbolConnections,SYMBOL_SELECTOR} from './symbolConnections.js';
 const node=(attrs,text='')=>({attrs, textContent:text, parentElement:{textContent:text},getAttribute(key){return this.attrs[key]??null},hasAttribute(key){return key in this.attrs},closest(){return null}});
 const context={scope:'finite:main',frame:{visual:{model:{kind:'indexed-accumulation'},state:{objects:[{id:'term-1',role:'collected',value:2,data:{index:1}},{id:'term-2',role:'collected',value:5,data:{index:2}},{id:'term-3',role:'collected',value:1,data:{index:3}}]}}}};
+test('symbol clicks preserve answer, passage and link actions while standalone symbols still pin',()=>{
+ const previous={Element:globalThis.Element,MutationObserver:globalThis.MutationObserver};
+ class FakeElement {
+  constructor(tag='span',attrs={},parent=null){this.tagName=tag.toUpperCase();this.attrs=attrs;this.parentElement=parent;this.style={};this.textContent='2';this.classList={add(){}};this.listeners=new Map();}
+  getAttribute(key){return this.attrs[key]??null;}
+  hasAttribute(key){return key in this.attrs;}
+  setAttribute(key,value){this.attrs[key]=String(value);}
+  removeAttribute(key){delete this.attrs[key];}
+  matches(selector){return selector.split(',').some(s=>{s=s.trim();return s===this.tagName.toLowerCase()||s==='a[href]'&&this.tagName==='A'&&this.hasAttribute('href')||/^\[[\w-]+\]$/.test(s)&&this.hasAttribute(s.slice(1,-1));});}
+  closest(selector){return this.matches(selector)?this:this.parentElement?.closest(selector)??null;}
+  contains(target){return target===this||Boolean(target?.parentElement&&this.contains(target.parentElement));}
+  querySelectorAll(){return [];}
+  append(child){child.parentElement=this;}
+  remove(){}
+  getBoundingClientRect(){return {left:20,bottom:30};}
+  addEventListener(type,handler,capture){this.listeners.set(type,{handler,capture});}
+  removeEventListener(type){this.listeners.delete(type);}
+ }
+ globalThis.Element=FakeElement;
+ globalThis.MutationObserver=class {observe(){}disconnect(){}};
+ try {
+  for(const tag of ['button','a',null]){
+   const root=new FakeElement('main'),document=new FakeElement('document');
+   document.createElement=tag=>new FakeElement(tag);document.defaultView=new FakeElement('window');
+   root.ownerDocument=document;
+   const control=tag?new FakeElement(tag,tag==='a'?{href:'#lesson'}:{},root):root;
+   const token=new FakeElement('span',{'data-math-token':'2'},control);
+   assert.equal(token.closest(SYMBOL_SELECTOR),token);
+   let pinned=[];const connections=mountSymbolConnections(root,{},(_,values)=>{pinned=values;});
+   const click=root.listeners.get('click');assert.equal(click.capture,true);
+   const event={target:token,stopped:false,defaultPrevented:false,stopPropagation(){this.stopped=true;},preventDefault(){this.defaultPrevented=true;}};
+   click.handler(event);
+   let actions=0;if(!event.stopped&&!event.defaultPrevented&&tag)actions++;
+   assert.equal(event.stopped,false,`${tag??'standalone'} symbol must preserve propagation`);
+   assert.equal(event.defaultPrevented,false);
+   assert.equal(actions,tag?1:0);
+   assert.deepEqual(pinned,['2']);
+   connections.dispose();
+  }
+ }finally{Object.assign(globalThis,previous);}
+});
 test('mathematical a is distinguished from an English article',()=>{const tokens=splitMathSymbols('An arithmetic progression starts at a and adds a fixed difference d each time.').filter(p=>p.token);assert.deepEqual(tokens.map(t=>t.token),['a','d']);assert.equal(splitMathSymbols('Take a (small) example.').filter(p=>p.token).length,0);});
 test('plain and Unicode indexed terms remain whole while operator names remain prose',()=>{assert.deepEqual(splitMathSymbols('a_j, a₁, S₄; log and gcd',true).filter(p=>p.token).map(p=>p.token),['a_j','a1','S4']);assert.equal(splitMathSymbols('log sin gcd max').filter(p=>p.token).length,0);});
 test('uppercase SVG node A is an identity, not an English article',()=>assert.equal(splitMathSymbols('A: 7',true)[0].token,'A'));
+test('prime symbols and MIX register names remain complete mathematical identities',()=>{
+ const parts=splitMathSymbols('u′v + uv′; PC = 300; I1 = 2; I6; pc').filter(p=>p.token);
+ assert.deepEqual(splitMathSymbols('u′v + uv′').filter(p=>p.token).map(p=>p.token),['u′','v','+','u','v′']);
+ for(const token of ['u′','v′','PC','I1','I6','pc'])assert.equal(parts.find(p=>p.token===token)?.kind,'symbol',token);
+ assert.equal(parts.find(p=>p.token==='u′').script,'prime');
+ assert.equal(splitMathSymbols('SPEC I10 log gcd').filter(p=>p.token).length,0);
+});
 test('both forms of sigma select the same operation',()=>{for(const token of ['Σ','∑'])assert.deepEqual(resolveSymbol(node({'data-math-token':token}),context).keys,['finite:main|operation:sum']);});
 test('unknown equal numbers get an explicitly lexical fallback',()=>{const a=resolveSymbol(node({'data-math-token':'7'}),{scope:'x'},'one');const b=resolveSymbol(node({'data-math-token':'7'}),{scope:'x'},'two');assert.deepEqual(a.keys,b.keys);assert.match(a.description,/displayed values/);assert.match(a.description,/different mathematical roles/);});
 test('collected summands keep their value identities',()=>{const result=resolveSymbol(node({'data-math-token':'5','data-math-expression':'2+5+1=8','data-math-offset':'2'}),context);assert.deepEqual(result.keys,['finite:main|term:value:1']);});

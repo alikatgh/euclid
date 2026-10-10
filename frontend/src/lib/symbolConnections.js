@@ -10,12 +10,12 @@ const operators = { 'Σ':'sum','∑':'sum','Π':'product','∏':'product','+':'a
 const sup = {'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9','ⁱ':'i','ʲ':'j','ᵏ':'k','ⁿ':'n'};
 const sub = {'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9','ᵢ':'i','ⱼ':'j','ₙ':'n','ₖ':'k'};
 export function splitMathSymbols(text, math=false) {
- const out=[];const re=/[A-Za-z](?:_[A-Za-z0-9]+|[₀₁₂₃₄₅₆₇₈₉ᵢⱼₙₖ]+)|(?<![\p{L}\p{N}_])\d+(?:\.\d+)?(?![\p{L}\p{N}_])|[⁰¹²³⁴⁵⁶⁷⁸⁹]+|[ⁱʲᵏⁿ]|[₀₁₂₃₄₅₆₇₈₉]+|[ᵢⱼₙₖ]|[Σ∑Π∏+−×·÷=≠<>≤≥∈∉→←⇒⇔√∞∀∃∅∫∂∇≡≈∝∼⊂⊆⊃⊇∪∩∧∨¬⊕⊗±⌊⌋⌈⌉!|^₌\/]|(?<![\p{L}])[A-Za-zα-ωΑ-Ω](?=[ⁱʲᵏⁿ]|[^\p{L}]|$)/gu;
+ const out=[];const re=/(?<![\p{L}\p{N}_])(?:PC|pc|I[1-6])(?![\p{L}\p{N}_])|[A-Za-zα-ωΑ-Ω]′+|[A-Za-z](?:_[A-Za-z0-9]+|[₀₁₂₃₄₅₆₇₈₉ᵢⱼₙₖ]+)|(?<![\p{L}\p{N}_])\d+(?:\.\d+)?(?![\p{L}\p{N}_])|[⁰¹²³⁴⁵⁶⁷⁸⁹]+|[ⁱʲᵏⁿ]|[₀₁₂₃₄₅₆₇₈₉]+|[ᵢⱼₙₖ]|[Σ∑Π∏+−×·÷=≠<>≤≥∈∉→←⇒⇔√∞∀∃∅∫∂∇≡≈∝∼⊂⊆⊃⊇∪∩∧∨¬⊕⊗±⌊⌋⌈⌉!|^₌\/]|(?<![\p{L}])[A-Za-zα-ωΑ-Ω](?=[ⁱʲᵏⁿ]|[A-Za-zα-ωΑ-Ω]′|[^\p{L}]|$)/gu;
  let end=0;for(const m of String(text).matchAll(re)) {
   const token=m[0],letter=/^[\p{L}]$/u.test(token)&&!operators[token];
   if(letter&&!math&&/^[aAI]$/.test(token)&&!(/^(?:[²³^_+−×=<>≤≥]|\s*[=<>≤≥])/.test(text.slice(m.index+1))||(/[[{(]\s*$/.test(text.slice(0,m.index))&&/^\s*[\]},)]/.test(text.slice(m.index+1)))||/\b(?:at|contains|symbol|variable|quantity|value|node|vertex|root|object|register)\s*$/.test(text.slice(0,m.index))))continue;
   if(m.index>end)out.push({text:text.slice(end,m.index)});
-  out.push({text:token,token:[...token].map(c=>sup[c]??sub[c]??c).join(''),kind:operators[token]?'operator':letter||/^[A-Za-z][₀-₉ᵢⱼₙₖ_]/.test(token)?'symbol':'number',script:sup[token[0]]?'exponent':sub[token[0]]?'subscript':undefined,offset:m.index});end=m.index+token.length;
+  out.push({text:token,token:[...token].map(c=>sup[c]??sub[c]??c).join(''),kind:operators[token]?'operator':letter||/^[A-Za-z][₀-₉ᵢⱼₙₖ_]/.test(token)||/^(?:PC|pc|I[1-6]|[\p{L}]′+)$/u.test(token)?'symbol':'number',script:/′$/.test(token)?'prime':sup[token[0]]?'exponent':sub[token[0]]?'subscript':undefined,offset:m.index});end=m.index+token.length;
  }if(end<text.length)out.push({text:text.slice(end)});return out;
 }
 /** Render through React, never split a React-owned Text node behind its back. */
@@ -250,7 +250,9 @@ export function mountSymbolConnections(root,context={},onChange=()=>{}) {
  listen(root,'pointerleave',()=>{hovered=null;update();});
  listen(root,'focusin',e=>{focused=find(e.target)||(e.target instanceof Element&&e.target.matches('button')?find(e.target.querySelector(SYMBOL_SELECTOR)):null);update();});
  listen(root,'focusout',e=>{focused=find(e.relatedTarget);update();});
- listen(root,'click',e=>{const el=find(e.target);if(el&&!el.matches('input,select,textarea')){toggle(el);if(el.closest('button,a[href]')&&e.target!==el.closest('button,a[href]'))e.stopPropagation();}},true);
+ // Highlighting a nested symbol must also allow the containing answer,
+ // passage button or navigation link to receive its normal click.
+ listen(root,'click',e=>{const el=find(e.target);if(el&&!el.matches('input,select,textarea'))toggle(el);},true);
  listen(root,'keydown',e=>{if(e.target instanceof Element&&e.target.matches('button')&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){const tokens=[...e.target.querySelectorAll(SYMBOL_SELECTOR)].filter(visible);if(tokens.length){e.preventDefault();e.stopPropagation();const index=tokens.indexOf(focused);focused=tokens[(index+(e.key==='ArrowRight'?1:-1)+tokens.length)%tokens.length];hovered=null;pinned=null;update();}return;}if(e.key==='Escape'){clear();return;}const el=find(e.target);if(el&&e.target===el&&!el.matches('button,a[href],input')&&(e.key===' '||e.key==='Enter')){e.preventDefault();e.stopPropagation();if(!e.repeat)toggle(el);}},true);
  listen(root.ownerDocument,'keydown',e=>{if(e.key==='Escape')clear();});
  listen(root.ownerDocument,'pointerdown',e=>{if(!root.contains(e.target))clear();});

@@ -23,7 +23,10 @@ function graphObject(c){
  return null;
 }
 function mixBinding(c){
- const {order,id,token,physical,nodes,model,state,expression,script}=c;const byte=id.match(/^([wvp])(\d+)-(\d)$/);let field=model.field??state.data?.field;
+ const {order,id,physical,nodes,model,state,expression,script}=c;
+ const indexedRegister=normalized(attr(c.element,'data-math-term'));
+ const token=/^I[1-6]$/.test(indexedRegister)?indexedRegister:c.token==='pc'?'PC':c.token;
+ const byte=id.match(/^([wvp])(\d+)-(\d)$/);let field=model.field??state.data?.field;
  if(field===undefined){const t=model.executedTrace?.find(t=>t.after?.clock===state.data?.clock);field=t?.field;}
  const L=Number.isInteger(field)?Math.floor(field/8):null,R=Number.isInteger(field)?field%8:null;
  const registerForRow=row=>{const label=String(nodes.find(n=>n.id==='label-'+row)?.text??'');if(order===66)return row===1?'R':null;const m=label.match(/\b(A|X|I[1-6]|J)\b/);return m?.[1]??null;};

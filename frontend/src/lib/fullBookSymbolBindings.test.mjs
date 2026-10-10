@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fullBookSymbolBinding as bind} from './fullBookSymbolBindings.js';
+import {splitMathSymbols} from './symbolConnections.js';
 const lessons=['C','F'].flatMap(b=>JSON.parse(readFileSync(new URL(`../../../content/fullbook/batch-${b}.json`,import.meta.url))));
 const context=(order,p=0,si=0,help=false)=>{const l=lessons.find(l=>l.order===order),main=l.sections[0].passages[p].demonstration,d=help?main.simplerHelp:main;return {frame:{visual:{order,lessonId:l.id,state:d.states[si],model:d.model,helpMode:help}}};};
 function el(token,id='',expression=token??'',extra={}){const attrs={...extra,...(token!==null?{'data-math-token':token,'data-math-expression':expression}:{'data-diagram-node':id})};const g={getAttribute:k=>k==='data-diagram-node'?id:null};return {getAttribute:k=>attrs[k]??null,closest:q=>q==='[data-diagram-node]'&&id?g:null,textContent:token??''};}
@@ -20,6 +21,17 @@ test('MIX field roles reach exactly selected memory and right-aligned register p
   assert.ok(meets(left,bind(el(null,`w0-${L}`),c)));assert.ok(meets(left,bind(el(null,`w1-${L===0?0:6-n}`),c)));
   assert.ok(meets(right,bind(el(null,`w0-${R}`),c)));assert.ok(meets(right,bind(el(null,`w1-${n?5:0}`),c)));
  }
+});
+test('authored MIX machine labels reach their register bindings without dropping PC or I1',()=>{
+ const c=context(68,0,1),detail=c.frame.visual.state.diagram.nodes.find(n=>n.id==='detail');
+ assert.ok(detail?.text.includes('I1=0')&&detail.text.includes('PC=1'));
+ const tokens=splitMathSymbols(detail.text).filter(p=>p.token);
+ for(const name of ['I1','PC']){
+  const part=tokens.find(p=>p.token===name);assert.ok(part,name);
+  assert.deepEqual(bind(el(part.token,detail.id,detail.text,{'data-math-offset':String(part.offset)}),c).keys,[`mix:register:${name}`]);
+ }
+ for(let i=1;i<=6;i++)assert.deepEqual(bind(el('I','',String.raw`I_${i}`,{'data-math-term':`I_${i}`}),c).keys,[`mix:register:I${i}`]);
+ assert.deepEqual(bind(el('pc'),c).keys,['mix:register:PC']);
 });
 test('Equal MIX position and byte values keep distinct identities while both reach their compartment',()=>{
  const c=context(66),position=bind(el('2','p0-2','2'),c),value=bind(el('2','v0-2','2'),c),box=bind(el(null,'w0-2'),c);

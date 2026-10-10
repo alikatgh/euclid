@@ -21,7 +21,7 @@ function mountMotion(svg:SVGSVGElement|null){
  const tick=(time:number)=>{
   c.raf=0;if(!svg.isConnected)return;
   const paused=svg.dataset.paused==='true';
-  if(svg.dataset.reduced==='true'||(typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches))c.elapsed=850;else if(!paused)c.elapsed+=c.last?Math.min(64,time-c.last):0;c.last=time;
+  if(svg.dataset.reduced==='true'||(typeof matchMedia!=='undefined'&&matchMedia('(prefers-reduced-motion: reduce)').matches))c.elapsed=850;else if(paused){c.last=0;return;}else c.elapsed+=c.last?Math.min(64,time-c.last):0;c.last=time;
   const p=clamp(c.elapsed/850,0,1),e=p*p*(3-2*p);
   for(const t of c.tweens)write(t.el,{x:t.from.x+(t.to.x-t.from.x)*e,y:t.from.y+(t.to.y-t.from.y)*e,o:t.from.o+(t.to.o-t.from.o)*e});
   if(p<1)c.raf=requestAnimationFrame(tick);

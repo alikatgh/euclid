@@ -1,5 +1,6 @@
+import { OriginalAlgorithmVisual } from './mainVisualAdapters.js';
 // Recovered from the owner’s deployed first-three-lesson app; original DOM and classes retained.
-import { React as _, JSX as C, x, Lw, b, go, Ff, RC, UC, KC, tw, bo, w, Pw, Iw } from "./runtime.js";
+import { React as _, JSX as C, x, Lw, b, go, RC, UC, KC, tw, bo, w, Pw, Iw } from "./runtime.js";
 import { additionalLessons, AdditionalVisual, OriginalFeatureVisual, OriginalMethodVisual, AlgorithmHelpVisual, algorithmHelp } from "./registry.js";
 function Rw() { const id = window.location.hash.slice(1); return [
     "algorithm-e", "algorithm-features", "computational-methods", ...additionalLessons.map(entry => entry.id)
@@ -111,7 +112,7 @@ export function OriginalShell() {
                                 className: `visual-reading-column`, children: [(0, C.jsx)(`div`, {
                                         className: `visual-reading-diagram`, children: algorithmHelpOpen ? C.jsx(AlgorithmHelpVisual, {
                                             exampleId: algorithmHelp.id, frameIndex: algorithmHelpFrame, frame: algorithmHelp.frames[algorithmHelpFrame], visual: algorithmHelp.frames[algorithmHelpFrame].visual, paused: false
-                                        }) : (0, C.jsx)(Ff, {
+                                        }) : (0, C.jsx)(OriginalAlgorithmVisual, {
                                             step: N, viewType: D, playbackSpeed: ie, labels: n?.algorithm.visualization || Lw.algorithm.visualization
                                         })
                                     }), (0, C.jsxs)(`section`, {

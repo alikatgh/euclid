@@ -22,3 +22,48 @@ test('exact boundary identities and signed cancellation are preserved',()=>{asse
 class FakeElement{constructor(attrs){this.a=new Map(Object.entries(attrs));}getAttribute(k){return this.a.get(k)??null}setAttribute(k,v){this.a.set(k,String(v))}hasAttribute(k){return this.a.has(k)}}
 test('in-flight pause, resume, seek/reset and reduced motion are deterministic',()=>{let id=0,queue=new Map();global.requestAnimationFrame=f=>{queue.set(++id,f);return id};global.cancelAnimationFrame=id=>queue.delete(id);global.matchMedia=()=>({matches:false});const e=new FakeElement({'data-move':'unit','data-x':'0','data-y':'0','data-o':'1'});const svg={isConnected:true,querySelectorAll:()=>[e]};const step=t=>{const fs=[...queue.values()];queue.clear();fs.forEach(f=>f(t))};bindNumbersMotion(svg,'demo:false:0',false);e.setAttribute('data-x','100');bindNumbersMotion(svg,'demo:false:1',false);step(100);step(400);const mid=e.getAttribute('transform');assert.notEqual(mid,'translate(0 0)');assert.notEqual(mid,'translate(100 0)');bindNumbersMotion(svg,'demo:false:1',true);assert.equal(e.getAttribute('transform'),mid);step(1000);assert.equal(e.getAttribute('transform'),mid);bindNumbersMotion(svg,'demo:false:1',false);step(1100);step(1800);assert.equal(e.getAttribute('transform'),'translate(100 0)');e.setAttribute('data-x','0');bindNumbersMotion(svg,'demo:false:0',false);assert.equal(e.getAttribute('transform'),'translate(0 0)');global.matchMedia=()=>({matches:true});e.setAttribute('data-x','100');bindNumbersMotion(svg,'demo:false:1',false);assert.equal(e.getAttribute('transform'),'translate(100 0)');});
 process.on('exit',()=>rmSync(temp,{recursive:true,force:true}));
+
+test('number scenes conserve identities while coordinates, units, and signed counts tell the operation',()=>{
+ const moves=html=>new Map([...html.matchAll(/<g\s[^>]*data-move="([^"]+)"[^>]*>/g)].map(m=>[m[1],Object.fromEntries([...m[0].matchAll(/([\w-]+)="([^"]*)"/g)].map(a=>[a[1],a[2]]))]));
+ for(const help of [false,true]){
+  const old=moves(render('reindex-square-cards',0,help)),renamed=moves(render('reindex-square-cards',2,help));
+  for(let i=0;i<3;i++)assert.equal(old.get('fixed-term-'+i).transform,renamed.get('fixed-term-'+i).transform,'renaming must not move the values');
+ }
+ const signed=moves(render('signed-arithmetic-pairing',3));
+ assert.equal([...signed].filter(([id,a])=>id.startsWith('pair-unit-')&&a['data-o']==='1').length,12,'signed pairing leaves exactly 12 positive tokens, two copies of S=6');
+ const helpSigned=moves(render('signed-arithmetic-pairing',3,true));
+ assert.equal([...helpSigned].filter(([id,a])=>id.startsWith('pair-unit-')&&a['data-o']==='1').length,4);
+ const paired=moves(render('arithmetic-pairing',4));assert.equal([...paired].filter(([id,a])=>id.startsWith('pair-unit-')&&a['data-o']==='1').length,30);
+ const shifted=moves(render('geometric-shift',2));assert.equal(shifted.get('geometric-copy-0')['data-x'],'205');assert.equal(shifted.get('geometric-original-0')['data-x'],'105');
+ const canceled=moves(render('geometric-signed-cancellation',3));
+ assert.deepEqual([...canceled].filter(([id,a])=>/^geometric-(copy|original)-\d$/.test(id)&&a['data-o']==='1').map(([id])=>id),['geometric-original-0','geometric-copy-3']);
+ const root=moves(render('root-power-reciprocal',3));assert.equal([...root].filter(([id,a])=>id.startsWith('root-cell-')&&a['data-o']==='1').length,64);
+ assert(render('root-power-reciprocal',3).includes('1 selected piece / 64 equal pieces'));
+ assert(render('positive-root-square',2).includes('root-side-units'));
+});
+test('reciprocal, fractional log, and zoom scenes expose truthful scales and certificates',()=>{
+ for(let s=0;s<5;s++){
+  const html=render('reciprocal-exponent-track',s),width=Number(html.match(/data-move="power-length"[^>]*data-w="([^"]+)"/)[1]);
+  assert.equal(width,110*2**(2-s));assert(html.includes('Amount scale: 1 unit = one quarter of this bar'));
+ }
+ const log=render('log-exponent-interval',2);assert(log.includes('81 &lt; 128'));assert(log.includes('data-move="value-dot" data-x="174.375"'));
+ assert(render('decreasing-power-log',2).includes('Right on the exponent axis moves left on the value axis.'));
+ assert.equal((520-515.8)*100,420.00000000000455);
+ const rounding=render('exact-rounded-strips',2);assert(rounding.includes('0.99'));assert(rounding.includes('1.00'));assert(rounding.includes('100× magnified gap: 0.01'));
+ assert(render('fraction-refinement',1).includes('6 selected of 8 equal pieces'));
+ assert(render('fraction-refinement',1,true).includes('2 selected of 4 equal pieces'));
+});
+test('causal phases hide conclusions until objects settle, and pause freezes phase and result visibility',()=>{
+ let id=0,queue=new Map();global.requestAnimationFrame=f=>{queue.set(++id,f);return id};global.cancelAnimationFrame=id=>queue.delete(id);global.matchMedia=()=>({matches:false});
+ const source=new FakeElement({'data-move':'source','data-motion-phase':'source','data-x':'0'}),unit=new FakeElement({'data-move':'unit','data-x':'0'}),result=new FakeElement({'data-result':'true'}),attrs=new Map();
+ const svg={isConnected:true,setAttribute:(k,v)=>attrs.set(k,v),querySelectorAll:q=>q==='[data-move]'?[source,unit]:q==='[data-result]'?[result]:[]};
+ const step=t=>{const fs=[...queue.values()];queue.clear();fs.forEach(f=>f(t))};
+ bindNumbersMotion(svg,'phase:false:0');source.setAttribute('data-x','100');unit.setAttribute('data-x','100');bindNumbersMotion(svg,'phase:false:1');
+ assert.equal(result.getAttribute('opacity'),'0');assert.equal(attrs.get('data-motion-phase'),'select');step(100);step(180);
+ assert.notEqual(source.getAttribute('transform'),'translate(0 0)');assert.equal(unit.getAttribute('transform'),'translate(0 0)');
+ step(450);assert.equal(attrs.get('data-motion-phase'),'transform');const midpoint=unit.getAttribute('transform'),phase=attrs.get('data-motion-progress');bindNumbersMotion(svg,'phase:false:1',true);step(1000);
+ assert.equal(unit.getAttribute('transform'),midpoint);assert.equal(attrs.get('data-motion-progress'),phase);assert.equal(result.getAttribute('opacity'),'0');
+ bindNumbersMotion(svg,'phase:false:1',false);step(1100);step(1800);assert.equal(result.getAttribute('opacity'),'1');assert.equal(attrs.get('data-motion-phase'),'settled');assert.equal(unit.getAttribute('transform'),'translate(100 0)');
+ source.setAttribute('data-x','0');unit.setAttribute('data-x','0');bindNumbersMotion(svg,'phase:false:0');assert.equal(result.getAttribute('opacity'),'1');assert.equal(unit.getAttribute('transform'),'translate(0 0)');
+ global.matchMedia=()=>({matches:true});unit.setAttribute('data-x','100');bindNumbersMotion(svg,'phase:false:1');assert.equal(result.getAttribute('opacity'),'1');assert.equal(attrs.get('data-motion-phase'),'settled');
+});

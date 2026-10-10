@@ -43,3 +43,29 @@ test('parcel and letter identities move to the exact authored successor location
  assert.equal(moves(render(letters,1)).find(o=>o.id==='a1').x,272);
  assert.equal(moves(render(letters,1)).find(o=>o.id==='b1').x,176);
 });
+
+test('original helper arithmetic uses countable units and readable operation checks',()=>{
+ const division=entries.find(e=>e.helpExample.kind==='unit-division');
+ assert.match(render(division,2),/One interval = 1 unit/);assert.match(render(division,2),/2 &lt; 6: stop copying/);
+ const candidates=entries.find(e=>e.helpExample.kind==='remainder-candidates');
+ assert.match(render(candidates,1),/another 6/);assert.match(render(candidates,2),/Accept: 0 ≤ 2 &lt; 6/);
+ const divisor=entries.find(e=>e.helpExample.kind==='divisor-choice');
+ const html=render(divisor,1);
+ assert.equal([...html.matchAll(/data-unit="input18-/g)].length,18);
+ assert.equal([...html.matchAll(/data-unit="input12-/g)].length,12);
+ const arithmetic=entries.find(e=>e.helpExample.kind==='operation-effectiveness');
+ assert.match(render(arithmetic,1),/4 × 119 = 4 × 100 \+ 4 × 19 = 476/);
+ assert.match(render(arithmetic,2),/Exact check: 476 \+ 68 = 544/);
+ assert.doesNotMatch(render(arithmetic,3),/>not computed<\/text>/,'completed arithmetic remains visible when discussing the decimal tail');
+});
+
+test('rewriting preserves all four tile identities, and all helper labels specify target-state semantics',()=>{
+ const letters=entries.find(e=>e.helpExample.kind==='letter-rewrite');
+ for(let i=0;i<letters.helpExample.frames.length;i++){
+  const html=render(letters,i);
+  for(const id of ['a1','a2','b1','b2'])assert.match(html,new RegExp(`data-move="identity-${id}"`));
+ }
+ for(const entry of entries)for(let i=0;i<entry.helpExample.frames.length;i++){
+  const html=render(entry,i);assert.match(html,/Target values for this step/);assert.match(html,/data-label-semantics="destination-state"/);
+ }
+});

@@ -1,0 +1,30 @@
+.curriculum-scene { margin: 0; min-width: 0; color: var(--text-main); }
+.curriculum-scene__tools { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border-color); color: var(--text-muted); font-size: 12px; line-height: 1.45; }
+.curriculum-scene__tools button { flex-shrink: 0; border: 1px solid var(--border-color); border-radius: 5px; color: var(--text-main); background: var(--bg-surface-elevated); font: inherit; padding: 5px 9px; cursor: pointer; }
+.curriculum-scene__tools button[aria-pressed="true"] { border-color: var(--color-m); }
+.curriculum-scene__viewport { width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.curriculum-scene__svg { display: block; width: 100%; min-width: 570px; height: auto; overflow: visible; font-family: var(--font-sans, system-ui, sans-serif); }
+.curriculum-scene__viewport:focus-visible, .curriculum-scene button:focus-visible, .curriculum-scene svg [tabindex="0"]:focus-visible { outline: 2px solid var(--border-focus); outline-offset: 3px; }
+.curriculum-scene svg [tabindex="0"]:focus-visible { text-decoration: underline; }
+.curriculum-scene figcaption { padding: 14px 18px; background: var(--bg-surface-elevated); border-top: 1px solid var(--border-color); font-size: 14px; line-height: 1.65; }
+.curriculum-scene__keyboard-note { margin: 0; padding: 9px 16px; color: var(--text-muted); font-size: 11px; line-height: 1.5; }
+.curriculum-scene__scale-note { margin: 15px 0 0; color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+.curriculum-growth { padding: 20px; min-width: 550px; }
+.curriculum-growth__heading { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 24px; color: var(--text-muted); font-size: 14px; }
+.curriculum-growth__heading .linked-number { color: var(--text-main); font-weight: 600; }
+.curriculum-growth__stages { list-style: none; display: flex; gap: 38px; margin: 0; padding: 10px 2px; overflow-x: auto; }
+.curriculum-growth__stage { position: relative; flex: 0 0 135px; display: flex; flex-direction: column; align-items: center; padding: 12px 10px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--bg-surface-elevated); }
+.curriculum-growth__stage.is-active { border: 2px solid var(--color-n); padding: 11px 9px; }
+.curriculum-growth__stage svg { width: 116px; height: 134px; margin: 10px 0; }
+.curriculum-growth__label { min-height: 23px; text-align: center; color: var(--text-muted); font-size: 13px; }
+.curriculum-growth__value { max-width: 112px; overflow-wrap: anywhere; font-size: 21px; font-weight: 600; text-align: center; }
+.curriculum-growth__operation { position: absolute; left: -37px; top: 48%; color: var(--color-n); font-size: 12px; white-space: nowrap; }
+@media (max-width: 600px) {
+  .curriculum-scene__tools { flex-wrap: wrap; }
+  .curriculum-scene__tools > span { flex: 1 1 170px; }
+  .curriculum-scene__svg { min-width: 540px; }
+  .curriculum-scene figcaption { padding: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .curriculum-scene *, .curriculum-scene *::before, .curriculum-scene *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

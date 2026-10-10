@@ -1,10 +1,3 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+import { React, JSX, ReactDOM } from './recovered/runtime.js';
+import { OriginalShell } from './recovered/OriginalShell.js';
+ReactDOM.createRoot(document.getElementById('root')!).render(JSX.jsx(React.StrictMode, {children: JSX.jsx(OriginalShell, {})}));

@@ -1,0 +1,3613 @@
+{
+  "application": {
+    "name": "Euclid"
+  },
+  "algorithm": {
+    "id": "algorithm-e",
+    "title": "Algorithm E (Euclid's Algorithm)",
+    "subtitle": "Donald Knuth, The Art of Computer Programming, Vol. 1, §1.1",
+    "description": "Finds the Greatest Common Divisor (GCD) of two positive integers through repeated remainder division.",
+    "visualization": {
+      "target": "Target rod",
+      "measure": "Measuring stick",
+      "copies": "{q} copies of n = {n}",
+      "oneCopy": "1 copy of n = {n}",
+      "remainder": "Remainder · r = {r}",
+      "dummy": "No whole stick fits. The entire target remains.",
+      "next": "Next: m ← {n}, n ← {r}",
+      "exact": "Exact fit · r = 0",
+      "verification": "Both original inputs are multiples of {n}.",
+      "ready": "m ≥ n · ready to divide",
+      "grouped": "{q} equal pieces · n = {n}",
+      "tilingDummy": "No square of side {n} fits inside width {m}.",
+      "tilingNext": "Step E3 exchanges the dimensions.",
+      "tilingReduction": "Rotate the remainder to form the next rectangle.",
+      "rotate": "Rotate",
+      "reassignment": "The measuring stick becomes the target (m ← n). The remainder becomes the new measuring stick (n ← r).",
+      "swapExplanation": "m < n ({m} < {n}): exchange the rods before dividing, avoiding one wasted division pass.",
+      "fromStick": "From measuring stick",
+      "fromRemainder": "From remainder",
+      "fromTarget": "From target rod",
+      "newTarget": "New target rod",
+      "newMeasure": "New measuring stick",
+      "readyForDivision": "Ready for Step E1",
+      "nextPass": "Next pass: stick {n} fits into rod {m} {q} time(s).",
+      "predictedRemainder": "Predicted remainder: r = {r} · gcd invariant conserved.",
+      "invariant": "gcd({m}, {n}) = gcd({nextM}, {nextN})"
+    },
+    "codeWalkthrough": {
+      "title": "Algorithm E in code",
+      "intro": "Next and Play follow the highlighted code with the rods.",
+      "explanationTabLabel": "Explanation",
+      "continueLabel": "Continue in code",
+      "sourceLabel": "Complete program",
+      "executionLabel": "Current step",
+      "variablesLabel": "Variables",
+      "beforeAfterLabel": "Before → after",
+      "resultLabel": "Returned GCD",
+      "copyLabel": "Copy source",
+      "copiedLabel": "Copied",
+      "copyFailedLabel": "Clipboard unavailable. Select and copy the source below.",
+      "languageLabels": {
+        "c": "C",
+        "python": "Python"
+      },
+      "languages": {
+        "c": {
+          "lines": [
+            {
+              "id": "include",
+              "text": "#include <stdio.h>"
+            },
+            {
+              "id": "include-space",
+              "text": ""
+            },
+            {
+              "id": "function",
+              "text": "int gcd(int m, int n) {"
+            },
+            {
+              "id": "e0-condition",
+              "text": "    if (m < n) {",
+              "phase": "E0",
+              "operation": "e0-check",
+              "onlyWithE0": true
+            },
+            {
+              "id": "e0-temp",
+              "text": "        int temp = m;",
+              "phase": "E0",
+              "operation": "e0-save",
+              "onlyWithE0": true
+            },
+            {
+              "id": "e0-m",
+              "text": "        m = n;",
+              "phase": "E0",
+              "operation": "e0-swap",
+              "onlyWithE0": true
+            },
+            {
+              "id": "e0-n",
+              "text": "        n = temp;",
+              "phase": "E0",
+              "operation": "e0-swap",
+              "onlyWithE0": true
+            },
+            {
+              "id": "e0-end",
+              "text": "    }",
+              "phase": "E0",
+              "onlyWithE0": true
+            },
+            {
+              "id": "loop",
+              "text": "    while (1) {"
+            },
+            {
+              "id": "e1-q",
+              "text": "        int q = m / n;",
+              "phase": "E1",
+              "operation": "e1-divide"
+            },
+            {
+              "id": "e1-r",
+              "text": "        int r = m - q * n;",
+              "phase": "E1",
+              "operation": "e1-remainder"
+            },
+            {
+              "id": "e2-condition",
+              "text": "        if (r == 0) {",
+              "phase": "E2",
+              "operation": "e2-check"
+            },
+            {
+              "id": "e2-return",
+              "text": "            return n;",
+              "phase": "E2",
+              "operation": "e2-return"
+            },
+            {
+              "id": "e2-end",
+              "text": "        }",
+              "phase": "E2"
+            },
+            {
+              "id": "e3-m",
+              "text": "        m = n;",
+              "phase": "E3",
+              "operation": "e3-reduce"
+            },
+            {
+              "id": "e3-n",
+              "text": "        n = r;",
+              "phase": "E3",
+              "operation": "e3-reduce"
+            },
+            {
+              "id": "loop-end",
+              "text": "    }"
+            },
+            {
+              "id": "function-end",
+              "text": "}"
+            },
+            {
+              "id": "main-space",
+              "text": ""
+            },
+            {
+              "id": "main",
+              "text": "int main(void) {"
+            },
+            {
+              "id": "example",
+              "text": "    printf(\"%d\\n\", gcd({initialM}, {initialN}));"
+            },
+            {
+              "id": "main-return",
+              "text": "    return 0;"
+            },
+            {
+              "id": "main-end",
+              "text": "}"
+            }
+          ],
+          "explanations": {
+            "e0Swap": {
+              "title": "E0 · exchange the inputs",
+              "explanation": "The test {m} < {n} is true. Save m in temp = {temp}, then assign m: {m} → {nextM} and n: {n} → {nextN}. The temporary variable preserves the original m. The exchanged rods are ready for E1."
+            },
+            "e0Noop": {
+              "title": "E0 · keep the inputs",
+              "explanation": "The test {m} < {n} is false, so skip the swap block. m stays {m} → {nextM}, and n stays {n} → {nextN}. temp is never declared. The rods are already ordered; continue to E1."
+            },
+            "e1": {
+              "title": "E1 · division, pass {pass}",
+              "explanation": "For positive integers, division gives q = {q}; r = m − q × n = {r}, equivalent to m % n. Fresh C locals start uninitialized; m and n stay unchanged. The rods show {q} whole sticks and remainder {r}."
+            },
+            "e1Dummy": {
+              "title": "E1 · zero quotient, pass {pass}",
+              "explanation": "Stick {n} exceeds rod {m}. Fresh locals become q: uninitialized → 0 and r: uninitialized → {r}. Computing m − q × n leaves the entire rod. The next zero check fails, and E3 exchanges the inputs."
+            },
+            "e3": {
+              "title": "E2 → E3 · reduce, pass {pass}",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline combines that E2 check with E3. Assign m: {m} → {nextM}, then n: {n} → {nextN}. Sequential assignment preserves r. Repeat E1 with the new rods."
+            },
+            "e3Dummy": {
+              "title": "E2 → E3 · exchange by reduction",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline includes that check in E3. Assign m: {m} → {nextM}, then n: {n} → {nextN}. Since q was 0, this exchanges the rods. Repeat E1; optional E0 avoids this division."
+            },
+            "e2": {
+              "title": "E2 · return the GCD",
+              "explanation": "r == 0 is true. return n exits with {n}; skip E3. m stays {m} → {m}, and n stays {n} → {n}. The example prints {n}, the value of gcd({initialM}, {initialN}). The final stick divides both original inputs."
+            }
+          }
+        },
+        "python": {
+          "lines": [
+            {
+              "id": "function",
+              "text": "def gcd(m, n):"
+            },
+            {
+              "id": "e0-condition",
+              "text": "    if m < n:",
+              "phase": "E0",
+              "operation": "e0-check",
+              "onlyWithE0": true
+            },
+            {
+              "id": "e0-swap",
+              "text": "        m, n = n, m",
+              "phase": "E0",
+              "operation": "e0-swap",
+              "onlyWithE0": true
+            },
+            {
+              "id": "loop",
+              "text": "    while True:"
+            },
+            {
+              "id": "e1-divmod",
+              "text": "        q, r = divmod(m, n)",
+              "phase": "E1",
+              "operation": "e1-divide"
+            },
+            {
+              "id": "e2-condition",
+              "text": "        if r == 0:",
+              "phase": "E2",
+              "operation": "e2-check"
+            },
+            {
+              "id": "e2-return",
+              "text": "            return n",
+              "phase": "E2",
+              "operation": "e2-return"
+            },
+            {
+              "id": "e3-pair",
+              "text": "        m, n = n, r",
+              "phase": "E3",
+              "operation": "e3-reduce"
+            },
+            {
+              "id": "example-space",
+              "text": ""
+            },
+            {
+              "id": "example",
+              "text": "print(gcd({initialM}, {initialN}))"
+            }
+          ],
+          "explanations": {
+            "e0Swap": {
+              "title": "E0 · exchange the inputs",
+              "explanation": "The test {m} < {n} is true. Python evaluates n, m using both old values before assigning either variable: m: {m} → {nextM}, n: {n} → {nextN}. No temporary variable is needed. The exchanged rods are ready for E1."
+            },
+            "e0Noop": {
+              "title": "E0 · keep the inputs",
+              "explanation": "The test {m} < {n} is false, so skip the parallel assignment. m stays {m} → {nextM}, and n stays {n} → {nextN}. The rods are already ordered; continue to E1."
+            },
+            "e1": {
+              "title": "E1 · division, pass {pass}",
+              "explanation": "divmod({m}, {n}) assigns q = {q} and r = {r}, equivalent to m // n and m % n. The table shows their previous values; they start uninitialized. m and n stay unchanged. The rods show {q} whole sticks and remainder {r}."
+            },
+            "e1Dummy": {
+              "title": "E1 · zero quotient, pass {pass}",
+              "explanation": "Stick {n} exceeds rod {m}. divmod({m}, {n}) assigns q: uninitialized → 0 and r: uninitialized → {r}. The entire original rod remains. The next zero check fails, and E3 exchanges the inputs."
+            },
+            "e3": {
+              "title": "E2 → E3 · reduce, pass {pass}",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline combines that E2 check with E3. Python evaluates n, r before assigning m: {m} → {nextM} and n: {n} → {nextN} together. Repeat E1 with the new rods."
+            },
+            "e3Dummy": {
+              "title": "E2 → E3 · exchange by reduction",
+              "explanation": "r == 0 is false ({r} ≠ 0), so skip return. The timeline includes that check in E3. The parallel assignment changes m: {m} → {nextM}, n: {n} → {nextN}. Since q was 0, this exchanges the rods. Repeat E1; optional E0 avoids this division."
+            },
+            "e2": {
+              "title": "E2 · return the GCD",
+              "explanation": "r == 0 is true. return n exits with {n}; skip E3. m stays {m} → {m}, and n stays {n} → {n}. The example prints {n}, the value of gcd({initialM}, {initialN}). The final stick divides both original inputs."
+            }
+          }
+        }
+      }
+    },
+    "mathematicalReading": {
+      "title": "Worked example",
+      "currentStepTitle": "What is happening",
+      "sourceNote": "Following Algorithm E · The Art of Computer Programming, Vol. 1, §1.1.",
+      "intro": {
+        "standard": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We begin at E1 and follow the successive divisions. In each pass, the quotient and remainder determine either a new pair of integers or the answer.",
+        "withE0Swap": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We include the optional step E0 before E1. Since ${initialM}<{initialN}$, this comparison will exchange the inputs before the first division, avoiding the initial division with quotient zero.",
+        "withE0Noop": "To apply Algorithm E, let $m={initialM}$ and $n={initialN}$. We include the optional step E0 before E1. Since ${initialM}\\ge {initialN}$, its comparison will leave the inputs unchanged; the first division uses the given pair."
+      },
+      "division": {
+        "properFraction": "Dividing ${m}$ by ${n}$ gives the proper fraction $\\frac{{m}}{{n}}<1$. The quotient is therefore $q=0$, and we set $r\\leftarrow {r}$: indeed, ${m}=0\\cdot {n}+{r}$, with $0<{r}<{n}$.",
+        "mixedNumber": "The division $\\frac{{m}}{{n}}={q}\\frac{{r}}{{n}}$ gives quotient $q={q}$ and remainder $r\\leftarrow {r}$. Thus ${m}={q}\\cdot {n}+{r}$, where $0<{r}<{n}$.",
+        "exact": "The division is exact: $\\frac{{m}}{{n}}={q}$, or ${m}={q}\\cdot {n}$. We obtain quotient $q={q}$ and set the remainder $r\\leftarrow 0$."
+      },
+      "nextCheck": "Next, E2 tests whether $r=0$; this test determines whether to return the present value of $n$ or proceed to E3.",
+      "e0Swap": "Because ${m}<{n}$, E0 exchanges the inputs, giving $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$. Exchanging the arguments leaves their common divisors unchanged. We proceed to E1 with the pair $({nextM},{nextN})$.",
+      "e0Noop": "Here ${m}\\ge {n}$, so the condition $m<n$ is false. E0 leaves $m={m}$ and $n={n}$ unchanged, and we proceed to E1 with this pair.",
+      "reduction": "At E2 the test $r=0$ is false, since $r={r}\\ne 0$. E3 therefore assigns $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, then returns to E1. The new pair has the same greatest common divisor: $\\gcd({m},{n})=\\gcd({nextM},{nextN})$.",
+      "reductionDummy": "At E2 the test $r=0$ is false, since $r={r}\\ne 0$. E3 therefore assigns $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, then returns to E1. Since the quotient was zero and the remainder was ${m}$, these assignments exchange the pair: $({m},{n})$ becomes $({nextM},{nextN})$.",
+      "workedReduction": "Since $r={r}\\ne 0$, E2 does not terminate. E3 sets $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, preserving $\\gcd({m},{n})=\\gcd({nextM},{nextN})$, and we repeat E1.",
+      "workedReductionDummy": "Since $r={r}\\ne 0$, E2 does not terminate. E3 sets $m\\leftarrow {nextM}$ and $n\\leftarrow {nextN}$, exchanging the inputs before returning to E1.",
+      "e0Aside": "This suggests optional E0: if $m<n$, exchange $m\\leftrightarrow n$. The exchange preserves the greatest common divisor and skips precisely this initial division with quotient zero.",
+      "termination": "At E2 the remainder is zero, so the algorithm terminates with $n={n}$. Hence $\\gcd({initialM},{initialN})={n}$. Both original integers are multiples of this answer: ${initialM}={factorM}\\cdot {n}$ and ${initialN}={factorN}\\cdot {n}$.",
+      "principles": {
+        "title": "Why the calculation works",
+        "invariant": "If $d$ divides both $m$ and $n$, then it divides $r=m-qn$. Conversely, if $d$ divides both $n$ and $r$, then it divides $m=qn+r$. The two pairs therefore have exactly the same common divisors, and $\\gcd(m,n)=\\gcd(n,r)$.",
+        "termination": "Every remainder satisfies $0\\le r<n$. If $r>0$, E3 makes it the next value of $n$, so the positive values of $n$ strictly decrease. They cannot decrease indefinitely; eventually $r=0$. At that point $\\gcd(m,n)=\\gcd(n,0)=n$, and the preserved common divisors identify the answer for the original inputs."
+      }
+    },
+    "presets": [
+      {
+        "name": "119 & 544 (Knuth TAOCP)",
+        "m": 119,
+        "n": 544
+      },
+      {
+        "name": "144 & 89 (Lamé Fibonacci)",
+        "m": 144,
+        "n": 89
+      },
+      {
+        "name": "35 & 64 (Coprime, GCD=1)",
+        "m": 35,
+        "n": 64
+      },
+      {
+        "name": "48 & 18 (m > n)",
+        "m": 48,
+        "n": 18
+      },
+      {
+        "name": "252 & 105",
+        "m": 252,
+        "n": 105
+      },
+      {
+        "name": "2166 & 6099 (Large)",
+        "m": 2166,
+        "n": 6099
+      }
+    ],
+    "steps_definition": [
+      {
+        "id": "E0",
+        "name": "Ensure m ≥ n",
+        "description": "If m < n, exchange m ↔ n directly in memory.",
+        "rule": "If m < n, m ↔ n",
+        "is_optional": true
+      },
+      {
+        "id": "E1",
+        "name": "Find remainder",
+        "description": "Divide m by n and let r be the remainder (0 ≤ r < n).",
+        "rule": "m = q · n + r",
+        "is_optional": false
+      },
+      {
+        "id": "E2",
+        "name": "Is it zero?",
+        "description": "If r = 0, the algorithm terminates; n is the answer.",
+        "rule": "r == 0 ⟹ terminate, answer is n",
+        "is_optional": false
+      },
+      {
+        "id": "E3",
+        "name": "Reduce",
+        "description": "Set m ← n, n ← r, and go back to step E1.",
+        "rule": "m ← n, n ← r",
+        "is_optional": false
+      }
+    ],
+    "knuth_prose": {
+      "opening": "This explanation follows Knuth's Algorithm E. Track the pair of integers and its remainder through each phase to see how the computation reaches their greatest common divisor.",
+      "start_example": "For the worked example, begin with m = 119 and n = 544. Standard Algorithm E starts at E1; the optional E0 variant compares the inputs first.",
+      "e1_dummy": "When m < n, E1 gives q = 0 and r = m: m = 0 × n + m. E2 will test this unchanged remainder before execution continues.",
+      "e2_noop": "At E2, a nonzero remainder sends execution to E3. The current divisor is not yet the greatest common divisor, so another reduction is needed.",
+      "e3_swap": "With q = 0, the remainder equals the original m. The E3 assignments m ← n and n ← r therefore exchange the inputs. The next E1 divides the larger integer by the smaller one.",
+      "e0_proposal": "Optional E0 compares the inputs before division. When m < n, exchange m and n. This preserves gcd(m, n) while avoiding the initial division with quotient zero.",
+      "e2_terminate": "At E2, r = 0 means that n divides m exactly. Return n: the preceding reductions preserved the common divisors, so this value is also the greatest common divisor of the original inputs."
+    },
+    "pedagogical_notes": {
+      "dummy_pass_explanation": "Because m < n (119 < 544), stick 544 fits 0 times into rod 119. The remainder is the entire original 119. Step E3 then sets m to 544 and n to 119. This entire division pass was wasted solely on swapping the inputs.",
+      "e0_benefit": "Step E0 inspects both integers upfront. If m < n, it executes a simple variable swap, avoiding the expensive division operation completely and reducing total passes by 1.",
+      "geometric_intuition": "Euclid's algorithm measures rod m using stick n. What remains (r) becomes the new ruler to measure the previous stick n. When a ruler fits with 0 leftover, it divides both numbers perfectly and is their Greatest Common Divisor.",
+      "invariant_explanation": "Euclidean Invariant Lemma: gcd(m, n) = gcd(n, r). Any common divisor of m and n must divide the linear combination m - q·n = r. Therefore, the GCD is conserved at every single step.",
+      "verification_explanation": "Final Verification: The resulting GCD evenly divides both initial inputs without remainder."
+    }
+  },
+  "algorithmFeatures": {
+    "id": "algorithm-features",
+    "title": "What makes an algorithm?",
+    "subtitle": "Five features, examined through Euclid's algorithm",
+    "intro": "We have followed $119$ and $544$ to their greatest common divisor, $17$. Now use that calculation to ask what an algorithm must promise: an end, precise rules, a stated input domain, a meaningful output, and executable operations.",
+    "sourceNote": "Original explanation after Donald Knuth, The Art of Computer Programming, Vol. 1, §1.1, pp. 4–6.",
+    "navigationLabel": "Lesson 2 · What makes an algorithm?",
+    "previousLessonLabel": "Lesson 1 · Algorithm E",
+    "nextLessonLabel": "Next lesson: What makes an algorithm?",
+    "visualControls": {
+      "play": "Play demonstration",
+      "pause": "Pause demonstration",
+      "replay": "Replay demonstration",
+      "frame": "Show visual frame",
+      "read": "Select a passage to see it illustrated."
+    },
+    "labels": {
+      "contents": "Lesson contents",
+      "demonstration": "Worked demonstration",
+      "previous": "Previous",
+      "next": "Next",
+      "restart": "Restart demonstration",
+      "check": "Check your understanding",
+      "correct": "Correct",
+      "tryAgain": "Try again",
+      "complete": "Checked",
+      "summaryTitle": "Five promises to check",
+      "summary": "For every allowed input, an algorithm finishes after finitely many steps. Its rules are precise, its inputs have a stated domain, its outputs have a stated relation to those inputs, and each operation can be carried out exactly in finite time.",
+      "backToFirst": "Review from Finiteness"
+    },
+    "sections": [
+      {
+        "id": "finiteness",
+        "title": "Finiteness",
+        "question": "What guarantees that the calculation ends?",
+        "definition": "An algorithm terminates after finitely many steps for each input in its specified domain.",
+        "paragraphs": [
+          "There need not be one fixed step limit for all inputs. Each individual run must finish; larger inputs can require longer runs.",
+          "In Algorithm E, every continuing pass replaces $n$ with a smaller positive integer. Positive integers cannot descend forever. Merely shrinking a real quantity gives no such guarantee."
+        ],
+        "takeaway": "Prove that every allowed run ends. For Euclid, the proof is strict descent through positive integers.",
+        "visual": {
+          "definition": {
+            "exampleId": "integer-descent",
+            "frameIndex": 5
+          },
+          "paragraphs": [
+            {
+              "exampleId": "integer-descent",
+              "frameIndex": 5
+            },
+            {
+              "exampleId": "nonterminating-methods",
+              "frameIndex": 1
+            }
+          ],
+          "takeaway": {
+            "exampleId": "integer-descent",
+            "frameIndex": 5
+          }
+        },
+        "examples": [
+          {
+            "id": "integer-descent",
+            "label": "Five divisions",
+            "frames": [
+              {
+                "title": "Pass 1 · the larger divisor",
+                "formula": "$119=0\\cdot544+119$",
+                "explanation": "The remainder is $119$, so the next pair is $(544,119)$. Even this initial exchange lowers the positive divisor from $544$ to $119$.",
+                "rows": [
+                  {
+                    "label": "Current pair",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Next pair",
+                    "value": "$(544,119)$"
+                  }
+                ],
+                "bars": [
+                  {
+                    "label": "Current n",
+                    "value": 544
+                  },
+                  {
+                    "label": "Next n",
+                    "value": 119
+                  }
+                ],
+                "visual": {
+                  "title": "The shorter rod becomes the next divisor",
+                  "description": "No whole 544-unit stick fits into the 119-unit target, so all 119 units remain. The transfer arrows exchange the pair and lower the divisor from 544 to 119.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              },
+              {
+                "title": "Pass 2 · remainder 68",
+                "formula": "$544=4\\cdot119+68$",
+                "explanation": "Since $0<68<119$, continue with $(119,68)$. The new divisor is strictly smaller and remains a positive integer.",
+                "rows": [
+                  {
+                    "label": "Current pair",
+                    "value": "$(544,119)$"
+                  },
+                  {
+                    "label": "Next pair",
+                    "value": "$(119,68)$"
+                  }
+                ],
+                "bars": [
+                  {
+                    "label": "Current n",
+                    "value": 119
+                  },
+                  {
+                    "label": "Next n",
+                    "value": 68
+                  }
+                ],
+                "visual": {
+                  "title": "Four sticks leave a shorter remainder",
+                  "description": "Four 119-unit sticks fill 476 units of the 544-unit target, leaving 68. The next pair uses the old stick as its target and the leftover as its divisor.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              },
+              {
+                "title": "Pass 3 · remainder 51",
+                "formula": "$119=1\\cdot68+51$",
+                "explanation": "The remainder is positive, so continue with $(68,51)$. The descending divisor sequence is now $544,119,68,51$.",
+                "rows": [
+                  {
+                    "label": "Current pair",
+                    "value": "$(119,68)$"
+                  },
+                  {
+                    "label": "Next pair",
+                    "value": "$(68,51)$"
+                  }
+                ],
+                "bars": [
+                  {
+                    "label": "Current n",
+                    "value": 68
+                  },
+                  {
+                    "label": "Next n",
+                    "value": 51
+                  }
+                ],
+                "visual": {
+                  "title": "One stick leaves 51",
+                  "description": "One 68-unit stick fits into the 119-unit target, leaving 51. The new divisor is positive and shorter than the old one.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              },
+              {
+                "title": "Pass 4 · remainder 17",
+                "formula": "$68=1\\cdot51+17$",
+                "explanation": "Continue with $(51,17)$. Every continuing pass consumes another step in a strictly descending sequence of positive integers.",
+                "rows": [
+                  {
+                    "label": "Current pair",
+                    "value": "$(68,51)$"
+                  },
+                  {
+                    "label": "Next pair",
+                    "value": "$(51,17)$"
+                  }
+                ],
+                "bars": [
+                  {
+                    "label": "Current n",
+                    "value": 51
+                  },
+                  {
+                    "label": "Next n",
+                    "value": 17
+                  }
+                ],
+                "visual": {
+                  "title": "The divisor shrinks to 17",
+                  "description": "One 51-unit stick leaves 17 units of the 68-unit target. The leftover becomes the next divisor.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              },
+              {
+                "title": "Pass 5 · stop at zero",
+                "formula": "$51=3\\cdot17+0$",
+                "explanation": "The remainder is zero. E2 returns $n=17$ and stops; zero never becomes a divisor for another division.",
+                "rows": [
+                  {
+                    "label": "Final pair",
+                    "value": "$(51,17)$"
+                  },
+                  {
+                    "label": "Returned value",
+                    "value": "$17$"
+                  }
+                ],
+                "bars": [
+                  {
+                    "label": "Final n",
+                    "value": 17
+                  },
+                  {
+                    "label": "Remainder",
+                    "value": 0
+                  }
+                ],
+                "visual": {
+                  "title": "An exact fit closes the run",
+                  "description": "Three 17-unit sticks fill the 51-unit target exactly. The zero remainder selects stop, and the positive divisor 17 is returned.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              },
+              {
+                "title": "Why the end is inevitable",
+                "formula": "$544>119>68>51>17>0$",
+                "explanation": "A positive integer cannot keep decreasing forever. This proves termination for each positive-integer input pair, without imposing one fixed number of passes on all pairs.",
+                "rows": [
+                  {
+                    "label": "Continuing passes",
+                    "value": "$0<r<n$"
+                  },
+                  {
+                    "label": "Stopping pass",
+                    "value": "$r=0$"
+                  }
+                ],
+                "visual": {
+                  "title": "Positive integer divisors descend",
+                  "description": "The highlighted divisors follow 544, 119, 68, 51, and 17 before the remainder reaches zero. The number of passes varies with the inputs; a strictly decreasing positive-integer sequence cannot continue forever.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "stop": "Stop · r = 0"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "nonterminating-methods",
+            "label": "Shrinking is not enough",
+            "frames": [
+              {
+                "title": "Change the input domain",
+                "formula": "$\\sqrt2=1\\cdot1+(\\sqrt2-1)$",
+                "explanation": "Imagine applying remainder reduction to lengths $\\sqrt2$ and $1$. Their ratio is irrational: no positive length measures both in whole multiples. These inputs lie outside Algorithm E's positive-integer domain.",
+                "visual": {
+                  "title": "One unit leaves √2 − 1",
+                  "description": "The unit stick fits once into a length of √2, leaving √2 − 1. These incommensurable lengths lie outside the positive-integer input domain.",
+                  "labels": {
+                    "current": "Current lengths",
+                    "next": "Next lengths",
+                    "continue": "Continue",
+                    "read": "Read event",
+                    "respond": "Respond",
+                    "wait": "Wait"
+                  }
+                }
+              },
+              {
+                "title": "Smaller, still positive",
+                "formula": "$1=2(\\sqrt2-1)+(3-2\\sqrt2)$",
+                "explanation": "The next remainder is smaller but positive. An exact fit at any later stage would give a common measure of the original lengths, contradicting their irrational ratio. The reductions can continue forever.",
+                "visual": {
+                  "title": "A smaller remainder can still persist",
+                  "description": "Two sticks of length √2 − 1 fit into the unit target, leaving 3 − 2√2. The remainder is positive; an exact fit would imply a common measure that these lengths do not have.",
+                  "labels": {
+                    "current": "Current lengths",
+                    "next": "Next lengths",
+                    "continue": "Continue",
+                    "read": "Read event",
+                    "respond": "Respond",
+                    "wait": "Wait"
+                  }
+                }
+              },
+              {
+                "title": "A process designed to continue",
+                "formula": "$\\text{read event}\\;\\to\\;\\text{respond}\\;\\to\\;\\text{wait}$",
+                "explanation": "An ongoing event monitor can also have precise, executable rules and intentionally never halt. Knuth's broader term computational method allows such nontermination; an algorithm must satisfy finiteness.",
+                "visual": {
+                  "title": "The monitor keeps its cycle open",
+                  "description": "The flow returns from waiting to reading and responding to the next event. This ongoing computational method intentionally continues rather than satisfying an algorithm's finiteness requirement.",
+                  "labels": {
+                    "current": "Current lengths",
+                    "next": "Next lengths",
+                    "continue": "Continue",
+                    "read": "Read event",
+                    "respond": "Respond",
+                    "wait": "Wait"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Which fact proves that Algorithm E terminates on positive integers?",
+          "options": [
+            {
+              "id": "positive-integer-descent",
+              "text": "Each continuing pass makes the positive integer $n$ strictly smaller.",
+              "correct": true,
+              "feedback": "Yes. A strictly decreasing sequence of positive integers must end, so a zero remainder is eventually reached."
+            },
+            {
+              "id": "shrinking-real",
+              "text": "Any positive real quantity that keeps shrinking must reach zero.",
+              "correct": false,
+              "feedback": "A real quantity can shrink forever and stay positive: $1,\\frac12,\\frac14,\\ldots$. The integer domain is essential to this proof."
+            },
+            {
+              "id": "five-for-all",
+              "text": "The example takes five divisions, so every input takes at most five.",
+              "correct": false,
+              "feedback": "Five divisions describe this input pair. Finiteness requires each allowed run to finish, not a universal five-pass limit."
+            }
+          ]
+        }
+      },
+      {
+        "id": "definiteness",
+        "title": "Definiteness",
+        "question": "Does every instruction determine exactly what to do?",
+        "definition": "Every step must be stated precisely, with an unambiguous action for each situation it can encounter.",
+        "paragraphs": [
+          "For positive $m$ and $n$, E1 chooses the unique integers $q$ and $r$ satisfying $m=qn+r$ and $0\\le r<n$. E2 and E3 then specify exactly which branch and assignments follow.",
+          "The domain matters here too. A program implementing this version must reject zero, negative, or non-integer inputs before starting these positive-integer rules."
+        ],
+        "takeaway": "Specify the operation, its conditions, and what follows each possible result.",
+        "visual": {
+          "definition": {
+            "exampleId": "precise-reduction",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "precise-reduction",
+              "frameIndex": 2
+            },
+            {
+              "exampleId": "domain-guards",
+              "frameIndex": 1
+            }
+          ],
+          "takeaway": {
+            "exampleId": "precise-reduction",
+            "frameIndex": 3
+          }
+        },
+        "examples": [
+          {
+            "id": "precise-reduction",
+            "label": "Follow one precise pass",
+            "frames": [
+              {
+                "title": "Choose a whole quotient",
+                "formula": "$q=\\left\\lfloor\\frac{544}{119}\\right\\rfloor=4$",
+                "explanation": "Use the whole quotient, not a rounded decimal approximation. Four copies fit; five would exceed $544$.",
+                "rows": [
+                  {
+                    "label": "Four copies",
+                    "value": "$4\\cdot119=476$"
+                  },
+                  {
+                    "label": "Five copies",
+                    "value": "$5\\cdot119=595$"
+                  }
+                ],
+                "visual": {
+                  "title": "Four fit; a fifth crosses the boundary",
+                  "description": "The target boundary falls after four whole 119-unit sticks and before the end of a fifth. That comparison fixes the whole quotient at 4.",
+                  "labels": {
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "stop": "Stop · r = 0",
+                    "continue": "Continue · r ≠ 0",
+                    "current": "Before E3",
+                    "next": "After E3"
+                  }
+                }
+              },
+              {
+                "title": "Define the remainder",
+                "formula": "$r=544-4\\cdot119=68$",
+                "explanation": "The remainder is fixed by the quotient. It satisfies the required range $0\\le68<119$; there is no choice about which leftover to keep.",
+                "rows": [
+                  {
+                    "label": "E1 result",
+                    "value": "$q=4,\\ r=68$"
+                  }
+                ],
+                "visual": {
+                  "title": "Only the 68-unit tail remains",
+                  "description": "Removing four 119-unit sticks from 544 leaves exactly 68. The leftover is nonnegative and shorter than one 119-unit stick.",
+                  "labels": {
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "stop": "Stop · r = 0",
+                    "continue": "Continue · r ≠ 0",
+                    "current": "Before E3",
+                    "next": "After E3"
+                  }
+                }
+              },
+              {
+                "title": "Take the specified branch",
+                "formula": "$68\\ne0\\quad\\Rightarrow\\quad\\text{continue to E3}$",
+                "explanation": "E2 tests exact equality with zero. Since the test is false, return is skipped and E3 follows. A vague instruction such as 'stop when small enough' would define a different procedure.",
+                "visual": {
+                  "title": "The nonzero remainder selects one branch",
+                  "description": "The 68-unit remainder follows the nonzero path to E3. The return path requires an exact zero remainder.",
+                  "labels": {
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "stop": "Stop · r = 0",
+                    "continue": "Continue · r ≠ 0",
+                    "current": "Before E3",
+                    "next": "After E3"
+                  }
+                }
+              },
+              {
+                "title": "Assign the next pair",
+                "formula": "$m\\leftarrow119,\\qquad n\\leftarrow68$",
+                "explanation": "E3 first copies the old $n$ into $m$, then copies $r$ into $n$. The next E1 therefore uses exactly $(119,68)$.",
+                "rows": [
+                  {
+                    "label": "Before E3",
+                    "value": "$m=544,\\ n=119,\\ r=68$"
+                  },
+                  {
+                    "label": "After E3",
+                    "value": "$m=119,\\ n=68$"
+                  }
+                ],
+                "visual": {
+                  "title": "Copy n to m, then r to n",
+                  "description": "The arrows move the old 119-unit divisor into m and the 68-unit remainder into n. The next division therefore uses the exact pair (119, 68).",
+                  "labels": {
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "stop": "Stop · r = 0",
+                    "continue": "Continue · r ≠ 0",
+                    "current": "Before E3",
+                    "next": "After E3"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "domain-guards",
+            "label": "Guard the domain",
+            "frames": [
+              {
+                "title": "Accept a valid pair",
+                "formula": "$m,n\\in\\mathbb Z_{>0}$",
+                "explanation": "$119$ and $544$ are positive integers. They meet the contract even though $m<n$; standard Algorithm E permits that order.",
+                "rows": [
+                  {
+                    "label": "Input",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Decision",
+                    "value": "Accept and begin E1"
+                  }
+                ],
+                "visual": {
+                  "title": "Both inputs pass the positive-integer gate",
+                  "description": "The pair (119, 544) enters the allowed set. The shorter value may appear first; order does not restrict this domain.",
+                  "labels": {
+                    "allowed": "Positive integers",
+                    "rejected": "Outside the domain",
+                    "input": "Supplied pair"
+                  }
+                }
+              },
+              {
+                "title": "Reject a zero divisor",
+                "formula": "$n=0\\quad\\Rightarrow\\quad\\text{reject before E1}$",
+                "explanation": "Division by zero is undefined. A precise implementation checks its input contract before attempting division.",
+                "rows": [
+                  {
+                    "label": "Input",
+                    "value": "$(119,0)$"
+                  },
+                  {
+                    "label": "Decision",
+                    "value": "Outside this domain"
+                  }
+                ],
+                "visual": {
+                  "title": "Zero cannot enter as a divisor",
+                  "description": "The pair (119, 0) is stopped at the input gate. Its second value is outside the positive-integer domain and must be rejected before division.",
+                  "labels": {
+                    "allowed": "Positive integers",
+                    "rejected": "Outside the domain",
+                    "input": "Supplied pair"
+                  }
+                }
+              },
+              {
+                "title": "State any wider rules",
+                "formula": "$(-119,544)\\notin\\mathbb Z_{>0}^{2}$",
+                "explanation": "A program could support signed integers by defining extra normalization rules. This version instead rejects the pair; it must not silently assume that the positive-integer rules cover it.",
+                "rows": [
+                  {
+                    "label": "Input",
+                    "value": "$(-119,544)$"
+                  },
+                  {
+                    "label": "Decision",
+                    "value": "Outside this domain"
+                  }
+                ],
+                "visual": {
+                  "title": "A negative input needs different rules",
+                  "description": "The pair (−119, 544) is stopped outside the positive-integer domain. Supporting signed values would require additional specified normalization rules.",
+                  "labels": {
+                    "allowed": "Positive integers",
+                    "rejected": "Outside the domain",
+                    "input": "Supplied pair"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Which instruction makes the remainder step definite for positive integers?",
+          "options": [
+            {
+              "id": "approximate-division",
+              "text": "Divide approximately, then choose a small leftover.",
+              "correct": false,
+              "feedback": "Neither the approximation nor 'small' fixes a unique action. The quotient and remainder need exact rules."
+            },
+            {
+              "id": "euclidean-division",
+              "text": "Choose integers $q,r$ with $m=qn+r$ and $0\\le r<n$.",
+              "correct": true,
+              "feedback": "Yes. For positive $n$, these conditions specify a unique whole quotient and remainder."
+            },
+            {
+              "id": "small-stop",
+              "text": "Keep dividing until the numbers seem small enough.",
+              "correct": false,
+              "feedback": "'Seem small enough' gives no exact stopping condition. E2 instead asks whether $r=0$."
+            }
+          ]
+        }
+      },
+      {
+        "id": "input",
+        "title": "Input",
+        "question": "What information is supplied, and which values are allowed?",
+        "definition": "An algorithm has zero or more inputs, each drawn from a specified set of allowed values.",
+        "paragraphs": [
+          "Algorithm E receives two positive integers. The domain is part of its promise: the same written steps are not automatically an algorithm for arbitrary numbers or physical lengths.",
+          "Inputs may be supplied before execution or arrive while it runs. An algorithm can also have no external input, with its data fixed in the instructions."
+        ],
+        "takeaway": "State the input domain and how data enters; do not assume that every algorithm needs a form filled out at the start.",
+        "visual": {
+          "definition": {
+            "exampleId": "euclid-input-contract",
+            "frameIndex": 1
+          },
+          "paragraphs": [
+            {
+              "exampleId": "euclid-input-contract",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "input-count-and-timing",
+              "frameIndex": 1
+            }
+          ],
+          "takeaway": {
+            "exampleId": "input-count-and-timing",
+            "frameIndex": 0
+          }
+        },
+        "examples": [
+          {
+            "id": "euclid-input-contract",
+            "label": "Euclid's input contract",
+            "frames": [
+              {
+                "title": "Two supplied values",
+                "formula": "$(m_0,n_0)=(119,544)$",
+                "explanation": "The caller supplies the original pair. Store it separately if you want to verify the returned result after the working variables change.",
+                "rows": [
+                  {
+                    "label": "Original m",
+                    "value": "$119$"
+                  },
+                  {
+                    "label": "Original n",
+                    "value": "$544$"
+                  }
+                ],
+                "visual": {
+                  "title": "The caller supplies two original values",
+                  "description": "The two input paths carry 119 and 544 into the calculation. Their original values remain available for checking the answer after working variables change.",
+                  "labels": {
+                    "input": "Original inputs",
+                    "output": "GCD · 17",
+                    "allowed": "Allowed pairs",
+                    "rejected": "Outside the domain",
+                    "current": "Supplied order",
+                    "next": "Exchanged order"
+                  }
+                }
+              },
+              {
+                "title": "A domain, not just an example",
+                "formula": "$(m_0,n_0)\\in\\mathbb Z_{>0}\\times\\mathbb Z_{>0}$",
+                "explanation": "The allowed set includes every pair of positive integers, not only $(119,544)$. Termination and correctness must hold throughout that domain.",
+                "rows": [
+                  {
+                    "label": "Also allowed",
+                    "value": "$(544,119),\\ (48,18),\\ (1,1)$"
+                  },
+                  {
+                    "label": "Outside this domain",
+                    "value": "$(119,0),\\ (1.5,2)$"
+                  }
+                ],
+                "visual": {
+                  "title": "The gate describes a whole input domain",
+                  "description": "Positive-integer pairs such as (544, 119), (48, 18), and (1, 1) pass the gate. Zero or noninteger inputs fall outside the stated domain.",
+                  "labels": {
+                    "input": "Original inputs",
+                    "output": "GCD · 17",
+                    "allowed": "Allowed pairs",
+                    "rejected": "Outside the domain",
+                    "current": "Supplied order",
+                    "next": "Exchanged order"
+                  }
+                }
+              },
+              {
+                "title": "Order is not a restriction",
+                "formula": "$\\gcd(119,544)=\\gcd(544,119)=17$",
+                "explanation": "Either input order is valid. Optional E0 changes the starting work by exchanging the values when needed; it does not change the input domain or the requested answer.",
+                "visual": {
+                  "title": "Exchange the order; preserve the answer",
+                  "description": "The two input paths exchange 119 and 544. Both orders lead to the same GCD, 17, while optional E0 changes the starting work.",
+                  "labels": {
+                    "input": "Original inputs",
+                    "output": "GCD · 17",
+                    "allowed": "Allowed pairs",
+                    "rejected": "Outside the domain",
+                    "current": "Supplied order",
+                    "next": "Exchanged order"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "input-count-and-timing",
+            "label": "Zero inputs or later inputs",
+            "frames": [
+              {
+                "title": "A calculation with no external input",
+                "formula": "$\\text{return }\\gcd(119,544)$",
+                "explanation": "If $119$ and $544$ are built into the instructions, this particular procedure receives no external input. It still performs a calculation and produces $17$.",
+                "rows": [
+                  {
+                    "label": "External inputs",
+                    "value": "Zero"
+                  },
+                  {
+                    "label": "Fixed data",
+                    "value": "$119,\\ 544$"
+                  }
+                ],
+                "visual": {
+                  "title": "Fixed data needs no external input",
+                  "description": "The values 119 and 544 originate inside the instructions and feed the calculation. This fixed-data procedure receives zero external inputs and returns 17.",
+                  "labels": {
+                    "fixed": "Fixed data",
+                    "received": "Received",
+                    "waiting": "n required",
+                    "input": "External input",
+                    "output": "Return · 17"
+                  }
+                }
+              },
+              {
+                "title": "An interactive version reads the first value",
+                "formula": "$\\text{read }m\\quad\\Rightarrow\\quad m=119$",
+                "explanation": "A different version starts by requesting $m$. Its first input arrives during execution; the second has not yet been supplied. This interactive contract requires both requested values to arrive.",
+                "rows": [
+                  {
+                    "label": "Received",
+                    "value": "$m=119$"
+                  },
+                  {
+                    "label": "Still required",
+                    "value": "$n$"
+                  }
+                ],
+                "visual": {
+                  "title": "One value arrives; another is still required",
+                  "description": "The first input path has delivered m = 119 while the n path remains waiting. This interactive contract requires both requested values to arrive.",
+                  "labels": {
+                    "fixed": "Fixed data",
+                    "received": "Received",
+                    "waiting": "n required",
+                    "input": "External input",
+                    "output": "Return · 17"
+                  }
+                }
+              },
+              {
+                "title": "Then the second value arrives",
+                "formula": "$\\text{read }n\\quad\\Rightarrow\\quad n=544$",
+                "explanation": "Once both valid values arrive, run Algorithm E and return $17$. The input timing is different, but the domain and output relation are the same.",
+                "visual": {
+                  "title": "The second delivery completes the pair",
+                  "description": "The n path delivers 544 alongside the received m = 119. With both valid inputs supplied, Algorithm E can run and return 17.",
+                  "labels": {
+                    "fixed": "Fixed data",
+                    "received": "Received",
+                    "waiting": "Both values received",
+                    "input": "External input",
+                    "output": "Return · 17"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Which statement correctly describes an algorithm's inputs?",
+          "options": [
+            {
+              "id": "must-have-two",
+              "text": "Every algorithm must receive at least two values.",
+              "correct": false,
+              "feedback": "Euclid uses two inputs, but that is specific to this task. An algorithm may have zero or more inputs."
+            },
+            {
+              "id": "all-at-start",
+              "text": "Every input must be supplied before the first instruction runs.",
+              "correct": false,
+              "feedback": "An instruction can read input during execution. Its allowed domain must still be specified."
+            },
+            {
+              "id": "specified-domain",
+              "text": "There may be zero or more inputs, with a stated domain; some may arrive during execution.",
+              "correct": true,
+              "feedback": "Yes. Input count, allowed values, and arrival during execution can vary across algorithms."
+            }
+          ]
+        }
+      },
+      {
+        "id": "output",
+        "title": "Output",
+        "question": "How do we know that the returned value answers the input question?",
+        "definition": "An algorithm produces one or more outputs with a specified relation to its inputs.",
+        "paragraphs": [
+          "Algorithm E must return the greatest common divisor of the original pair. Showing that $17$ divides both inputs proves it is a common divisor; we must also establish that it is greatest.",
+          "Each reduction preserves all common divisors in both directions. At termination, that preserved set has a greatest member: the final positive divisor $n$."
+        ],
+        "takeaway": "Define what makes an output correct, then connect the final state to the original inputs.",
+        "visual": {
+          "definition": {
+            "exampleId": "gcd-output-proof",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "wrong-output-candidates",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "gcd-output-proof",
+              "frameIndex": 2
+            }
+          ],
+          "takeaway": {
+            "exampleId": "gcd-output-proof",
+            "frameIndex": 5
+          }
+        },
+        "examples": [
+          {
+            "id": "gcd-output-proof",
+            "label": "Why the output is the GCD",
+            "frames": [
+              {
+                "title": "State the required relation",
+                "formula": "$g=\\gcd(m_0,n_0)$",
+                "explanation": "The output must be the greatest positive integer dividing both original inputs. Returning a number is not enough; it must meet this relation.",
+                "rows": [
+                  {
+                    "label": "Original inputs",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Candidate output",
+                    "value": "$17$"
+                  }
+                ],
+                "visual": {
+                  "title": "A candidate must measure both original rods",
+                  "description": "The same 17-unit stick is compared with the original 119- and 544-unit rods. Exact fits establish a common divisor; the following reductions establish that it is greatest.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              },
+              {
+                "title": "Common divisors survive forward",
+                "formula": "$d\\mid m,\\ d\\mid n\\quad\\Rightarrow\\quad d\\mid(m-qn)=r$",
+                "explanation": "If $d$ divides $544$ and $119$, it divides $544-4\\cdot119=68$. Thus every common divisor of the old pair also divides the new pair $(119,68)$.",
+                "rows": [
+                  {
+                    "label": "For d = 17",
+                    "value": "$544=32\\cdot17,\\ 119=7\\cdot17$"
+                  },
+                  {
+                    "label": "Remainder",
+                    "value": "$68=4\\cdot17$"
+                  }
+                ],
+                "visual": {
+                  "title": "Removing whole sticks preserves common units",
+                  "description": "Four 119-unit sticks are removed from 544, leaving 68. A 17-unit measure divides the removed sticks and the leftover, illustrating the forward common-divisor argument.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              },
+              {
+                "title": "Common divisors survive backward",
+                "formula": "$d\\mid n,\\ d\\mid r\\quad\\Rightarrow\\quad d\\mid(qn+r)=m$",
+                "explanation": "Conversely, any divisor of $119$ and $68$ divides $4\\cdot119+68=544$. No new common divisor is introduced. The two pairs have exactly the same common divisors.",
+                "rows": [
+                  {
+                    "label": "Reduction rule",
+                    "value": "$m=qn+r$"
+                  },
+                  {
+                    "label": "Preserved relation",
+                    "value": "$\\gcd(m,n)=\\gcd(n,r)$"
+                  }
+                ],
+                "visual": {
+                  "title": "Reassemble the target from the same units",
+                  "description": "Four copies of 119 and the 68-unit remainder rebuild 544. Any unit that measures both 119 and 68 must also measure their reconstructed target.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              },
+              {
+                "title": "Carry the relation through the run",
+                "formula": "$\\gcd(119,544)=\\gcd(51,17)$",
+                "explanation": "Apply the same two-way argument to each reduction, including the initial exchange. The final pair keeps exactly the common divisors of the original pair.",
+                "rows": [
+                  {
+                    "label": "Pairs along the way",
+                    "value": "$(544,119)\\to(119,68)\\to(68,51)\\to(51,17)$"
+                  }
+                ],
+                "visual": {
+                  "title": "Carry the same measure through each pair",
+                  "description": "The linked pairs reduce from (544, 119) to (119, 68), (68, 51), and (51, 17). Each link preserves exactly the same common divisors as the original pair.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              },
+              {
+                "title": "Use the stopping condition",
+                "formula": "$51=3\\cdot17\\quad\\Rightarrow\\quad\\gcd(51,17)=17$",
+                "explanation": "At the zero remainder, $17$ divides both final values. Every common divisor must divide $17$ itself, so none can be greater than $17$. The invariant proves it is also the original GCD.",
+                "visual": {
+                  "title": "The final divisor is the greatest measure",
+                  "description": "Three 17-unit sticks fill 51 with no remainder. Any common divisor of this final pair must divide 17 itself, so it cannot be greater than 17.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              },
+              {
+                "title": "Check the original inputs",
+                "formula": "$119=7\\cdot17,\\qquad544=32\\cdot17$",
+                "explanation": "These exact products confirm that the returned $17$ divides both original inputs. Together with the preserved common-divisor set and final stopping condition, they establish the promised output.",
+                "rows": [
+                  {
+                    "label": "Returned answer",
+                    "value": "$\\gcd(119,544)=17$"
+                  }
+                ],
+                "visual": {
+                  "title": "Return the measure and check the originals",
+                  "description": "Seven 17-unit sticks fill 119, and thirty-two fill 544. These exact fits check the original inputs after the invariant and stopping condition establish the GCD.",
+                  "labels": {
+                    "current": "Current pair",
+                    "next": "Next pair",
+                    "unit": "Unit · 17",
+                    "output": "Returned GCD · 17"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "wrong-output-candidates",
+            "label": "Test other answers",
+            "frames": [
+              {
+                "title": "Seven fails one input",
+                "formula": "$119=17\\cdot7,\\qquad544=77\\cdot7+5$",
+                "explanation": "$7$ divides $119$, but not $544$. It fails even the common-divisor part of the output relation.",
+                "rows": [
+                  {
+                    "label": "Candidate",
+                    "value": "$7$"
+                  },
+                  {
+                    "label": "Verdict",
+                    "value": "Not a common divisor"
+                  }
+                ],
+                "visual": {
+                  "title": "Seven leaves an uncovered tail",
+                  "description": "Seventeen 7-unit sticks fill 119 exactly, but seventy-seven fill only 539 of 544. The uncovered 5-unit tail rejects 7 as a common divisor.",
+                  "labels": {
+                    "unit": "Candidate · 7",
+                    "remaining": "Remainder · 5",
+                    "common": "Common divisors",
+                    "greatest": "Greatest · 17",
+                    "rejected": "Not a common divisor"
+                  }
+                }
+              },
+              {
+                "title": "One is common, but too small",
+                "formula": "$119=119\\cdot1,\\qquad544=544\\cdot1$",
+                "explanation": "$1$ divides both inputs. Yet $17$ also divides both and is larger, so returning $1$ would fail the word greatest.",
+                "rows": [
+                  {
+                    "label": "Candidate",
+                    "value": "$1$"
+                  },
+                  {
+                    "label": "Verdict",
+                    "value": "Common, but not greatest"
+                  }
+                ],
+                "visual": {
+                  "title": "Unit lengths fit, but 17 is larger",
+                  "description": "One-unit sticks fill both original rods. A 17-unit stick also fills both, so the smaller common divisor 1 does not satisfy greatest.",
+                  "labels": {
+                    "unit": "Candidate · 1",
+                    "remaining": "Remainder",
+                    "common": "Common divisors",
+                    "greatest": "Greatest · 17",
+                    "rejected": "Common; not greatest"
+                  }
+                }
+              },
+              {
+                "title": "The required maximum",
+                "formula": "$\\{d>0:d\\mid119\\text{ and }d\\mid544\\}=\\{1,17\\}$",
+                "explanation": "The positive divisors of $119$ are $1,7,17,119$. Of these, only $1$ and $17$ divide $544$. The larger one is exactly the required output.",
+                "rows": [
+                  {
+                    "label": "Greatest common divisor",
+                    "value": "$17$"
+                  }
+                ],
+                "visual": {
+                  "title": "Choose the greatest shared measure",
+                  "description": "Among the positive divisors 1, 7, 17, and 119 of the first rod, only 1 and 17 also divide the second. The shared set's greater member is 17.",
+                  "labels": {
+                    "unit": "Common units",
+                    "remaining": "Remainder",
+                    "common": "Shared · 1 and 17",
+                    "greatest": "Greatest · 17",
+                    "rejected": "Candidate fails"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Why does checking that $17$ divides both inputs need a further argument?",
+          "options": [
+            {
+              "id": "greatest-still-needed",
+              "text": "It establishes a common divisor; the invariant and stopping condition establish that it is greatest.",
+              "correct": true,
+              "feedback": "Yes. Divisibility checks membership in the common-divisor set. The two-way invariant and final exact division identify its greatest member."
+            },
+            {
+              "id": "any-common-sufficient",
+              "text": "Any common divisor is automatically the greatest common divisor.",
+              "correct": false,
+              "feedback": "$1$ divides both $119$ and $544$, but $17$ is greater. The output relation requires more than common divisibility."
+            },
+            {
+              "id": "termination-alone",
+              "text": "A terminating procedure always returns the right answer.",
+              "correct": false,
+              "feedback": "A procedure can stop and return $7$ or $1$. Finiteness does not by itself establish the promised output relation."
+            }
+          ]
+        }
+      },
+      {
+        "id": "effectiveness",
+        "title": "Effectiveness",
+        "question": "Can each instruction actually be carried out?",
+        "definition": "Each operation must be executable exactly in finite time, in principle by a person using pencil and paper.",
+        "paragraphs": [
+          "Algorithm E uses finite integer arithmetic, comparisons, and assignments. Each has an exact procedure; no step asks us to perform an undefined miracle.",
+          "Effective does not mean efficient. Long division on a very large finite integer may be slow, while still being an effective operation. Finiteness separately concerns whether the whole run ends."
+        ],
+        "takeaway": "Give finite, exact instructions for each operation. A vague oracle or an instruction to inspect infinitely many digits is not enough.",
+        "visual": {
+          "definition": {
+            "exampleId": "effective-integer-division",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "effective-integer-division",
+              "frameIndex": 3
+            },
+            {
+              "exampleId": "effective-integer-division",
+              "frameIndex": 1
+            }
+          ],
+          "takeaway": {
+            "exampleId": "ineffective-instructions",
+            "frameIndex": 1
+          }
+        },
+        "examples": [
+          {
+            "id": "effective-integer-division",
+            "label": "Do the operation on paper",
+            "frames": [
+              {
+                "title": "Start with finite data",
+                "formula": "$m=544,\\qquad n=119$",
+                "explanation": "Both integers have finite digit strings. We can write them down and perform ordinary whole-number arithmetic without approximating an infinite expansion.",
+                "rows": [
+                  {
+                    "label": "Dividend",
+                    "value": "$544$"
+                  },
+                  {
+                    "label": "Divisor",
+                    "value": "$119$"
+                  }
+                ],
+                "visual": {
+                  "title": "Finite digits specify exact rod lengths",
+                  "description": "The digit strings 544 and 119 specify the target and measuring stick exactly. Both can be written and manipulated with finite whole-number operations.",
+                  "labels": {
+                    "input": "Finite integers",
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "current": "Current pair",
+                    "next": "Next pair"
+                  }
+                }
+              },
+              {
+                "title": "Find the whole quotient exactly",
+                "formula": "$4\\cdot119=476<544<595=5\\cdot119$",
+                "explanation": "Finite multiplication and comparison show that four copies fit and five do not. Thus the whole quotient is exactly $4$.",
+                "rows": [
+                  {
+                    "label": "Whole quotient",
+                    "value": "$q=4$"
+                  }
+                ],
+                "visual": {
+                  "title": "Compare four copies with five",
+                  "description": "Four 119-unit sticks end at 476, inside the 544-unit target; a fifth ends at 595, beyond it. Finite multiplication and comparison fix q = 4.",
+                  "labels": {
+                    "input": "Finite integers",
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "current": "Current pair",
+                    "next": "Next pair"
+                  }
+                }
+              },
+              {
+                "title": "Subtract to obtain the remainder",
+                "formula": "$544-476=68$",
+                "explanation": "Finite subtraction gives the exact remainder. Checking $0\\le68<119$ confirms the Euclidean division condition.",
+                "rows": [
+                  {
+                    "label": "Remainder",
+                    "value": "$r=68$"
+                  }
+                ],
+                "visual": {
+                  "title": "Finite subtraction exposes the tail",
+                  "description": "Removing the 476-unit filled portion leaves exactly 68. Its length lies between zero and the 119-unit divisor.",
+                  "labels": {
+                    "input": "Finite integers",
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "current": "Current pair",
+                    "next": "Next pair"
+                  }
+                }
+              },
+              {
+                "title": "Compare and copy",
+                "formula": "$68\\ne0,\\qquad(m,n)\\leftarrow(119,68)$",
+                "explanation": "Testing equality and copying these integers are also finite operations. Repeating executable steps proves a complete algorithm only when we also prove that repetition eventually stops.",
+                "visual": {
+                  "title": "Compare, then copy the next values",
+                  "description": "The nonzero 68-unit tail triggers the transfer to (119, 68). Equality testing and copying are finite operations; the separate descent argument proves the repeated run ends.",
+                  "labels": {
+                    "input": "Finite integers",
+                    "fits": "Four copies fit",
+                    "exceeds": "Five copies exceed m",
+                    "remaining": "Remainder · 68",
+                    "current": "Current pair",
+                    "next": "Next pair"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "ineffective-instructions",
+            "label": "When an instruction is missing",
+            "frames": [
+              {
+                "title": "An endless digit inspection",
+                "formula": "$x=0.a_1a_2a_3\\ldots,\\qquad y=0.b_1b_2b_3\\ldots$",
+                "explanation": "For arbitrary endless decimal streams, 'read every digit, then decide whether the streams match' is not a finite operation. A first differing digit could lie beyond any finite portion inspected.",
+                "visual": {
+                  "title": "A finite inspection leaves more digits",
+                  "description": "The highlighted prefix covers only finitely many digits of each endless stream. Uninspected digits remain, so reading every digit cannot finish before deciding equality.",
+                  "labels": {
+                    "inspected": "Inspected prefix",
+                    "unread": "Uninspected digits",
+                    "oracle": "Unspecified oracle",
+                    "output": "Requested answer",
+                    "exact": "Exact symbolic rule"
+                  }
+                }
+              },
+              {
+                "title": "An unspecified oracle",
+                "formula": "$g\\leftarrow\\text{ask a perfect GCD oracle}$",
+                "explanation": "This names the desired answer without giving a way to obtain it. Unless the oracle is replaced by a specified executable procedure, it does not establish an effective step.",
+                "visual": {
+                  "title": "The missing procedure breaks the path",
+                  "description": "The input reaches a box naming a perfect GCD oracle, but no executable steps connect it to the answer. Naming the desired result does not specify an effective operation.",
+                  "labels": {
+                    "inspected": "Inspected prefix",
+                    "unread": "Uninspected digits",
+                    "oracle": "Unspecified oracle",
+                    "output": "Requested answer",
+                    "exact": "Exact symbolic rule"
+                  }
+                }
+              },
+              {
+                "title": "Representations can supply exact rules",
+                "formula": "$\\sqrt2\\cdot\\sqrt2=2$",
+                "explanation": "An infinite decimal expansion does not automatically make a number unusable. A finite symbolic representation with specified exact rules can be effective. The operation and representation, not just the symbol, need justification.",
+                "visual": {
+                  "title": "A finite symbol can support an exact rule",
+                  "description": "The two finite √2 symbols combine through the specified identity √2 × √2 = 2. An infinite decimal expansion can still have a useful finite representation when its exact operations are justified.",
+                  "labels": {
+                    "inspected": "Inspected prefix",
+                    "unread": "Uninspected digits",
+                    "oracle": "Unspecified oracle",
+                    "output": "Requested answer",
+                    "exact": "Exact symbolic rule"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Which instruction is effective as stated?",
+          "options": [
+            {
+              "id": "read-all-digits",
+              "text": "Read every digit of an arbitrary infinite decimal before continuing.",
+              "correct": false,
+              "feedback": "Reading infinitely many digits cannot finish in finite time. A finite representation or a different justified operation is needed."
+            },
+            {
+              "id": "finite-subtraction",
+              "text": "Multiply $4$ by $119$, then subtract the product from $544$.",
+              "correct": true,
+              "feedback": "Yes. Finite integer multiplication and subtraction give the exact answer $68$ using ordinary pencil-and-paper procedures."
+            },
+            {
+              "id": "ask-oracle",
+              "text": "Ask an unspecified perfect oracle for the GCD.",
+              "correct": false,
+              "feedback": "Naming an oracle supplies no executable instructions. We need a specified procedure for obtaining the answer."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "computationalMethods": {
+    "id": "computational-methods",
+    "title": "Computational methods",
+    "subtitle": "States, sequences, and effective rules",
+    "intro": "An informal instruction becomes easier to examine when we state exactly what a computation can remember, how one step changes it, and which states count as outputs. Build that model, use it to formalize Algorithm E, then test a finite string-rewriting method.",
+    "sourceNote": "Original explanatory paraphrase after Donald Knuth, The Art of Computer Programming, Vol. 1, §1.1, pp. 7–9. The worked traces and knowledge checks are authored for this lesson.",
+    "navigationLabel": "Lesson 3 · Computational methods",
+    "previousLessonLabel": "Lesson 2 · What makes an algorithm?",
+    "nextLessonLabel": "Review computational methods",
+    "visualControls": {
+      "play": "Play demonstration",
+      "pause": "Pause demonstration",
+      "replay": "Replay demonstration",
+      "frame": "Show visual frame",
+      "read": "Select a passage to see its state or transition."
+    },
+    "labels": {
+      "contents": "Lesson contents",
+      "demonstration": "State demonstration",
+      "previous": "Previous",
+      "next": "Next",
+      "restart": "Restart demonstration",
+      "check": "Check your understanding",
+      "correct": "Correct",
+      "tryAgain": "Try again",
+      "complete": "Checked",
+      "summaryTitle": "A precise method, an effective algorithm",
+      "summary": "A computational method specifies states $Q$, inputs $I$, outputs $\\Omega$, and a total next-state function $f$ that fixes outputs. A run terminates at its first output; an algorithm must terminate for every allowed input. Effective string operations explain how individual steps can be carried out, but do not by themselves prove that every run ends.",
+      "backToFirst": "Review from Analysis and theory"
+    },
+    "sections": [
+      {
+        "id": "analysis-and-theory",
+        "title": "Analysis and theory",
+        "question": "Which question are we trying to answer?",
+        "definition": "Analysis of an algorithm studies its use of resources. Theory of algorithms studies the possibilities and limits of precisely specified procedures.",
+        "paragraphs": [
+          "An analysis can count operations, compare input sizes, and study running time or storage. Its conclusions depend on what counts as one operation and how the input is represented.",
+          "A theory question can ask whether an effective procedure exists for a stated problem on every admissible input. A performance measurement of one program is not an answer to that existence question.",
+          "Formalizing a procedure gives us a common object to reason about. We can then distinguish correctness, termination, effectiveness, and cost instead of treating one successful execution as evidence for all four."
+        ],
+        "takeaway": "First say what the procedure must accomplish. Then state how its behavior and its cost will be judged.",
+        "visual": {
+          "definition": {
+            "exampleId": "analysis-theory",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "analysis-theory",
+              "frameIndex": 0
+            },
+            {
+              "exampleId": "analysis-theory",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "analysis-theory",
+              "frameIndex": 2
+            }
+          ],
+          "takeaway": {
+            "exampleId": "analysis-theory",
+            "frameIndex": 2
+          }
+        },
+        "examples": [
+          {
+            "id": "analysis-theory",
+            "label": "Two kinds of question",
+            "frames": [
+              {
+                "title": "Analysis asks how much work",
+                "formula": "$\\text{Algorithm E: }5\\text{ divisions; }15\\text{ applications of }f$",
+                "explanation": "For the pair $(119,544)$, the familiar Euclid walkthrough performs five remainder divisions. The formal state model below counts initialization, division, testing, and reduction separately, giving fifteen transitions to the output. A work count must specify which operations it counts.",
+                "visual": {
+                  "title": "Analysis asks how much work",
+                  "description": "For the pair $(119,544)$, the familiar Euclid walkthrough performs five remainder divisions. The formal state model below counts initialization, division, testing, and reduction separately, giving fifteen transitions to the output. A work count must specify which operations it counts.",
+                  "labels": {
+                    "kind": "comparison",
+                    "beforeLabel": "Question",
+                    "afterLabel": "Focus",
+                    "ruleLabel": "What to establish",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "Analysis of an algorithm",
+                    "after": "Measure its work on specified inputs",
+                    "rule": "Choose a cost model before comparing counts.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Input",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Remainder divisions",
+                    "value": "$5$"
+                  },
+                  {
+                    "label": "Formal transitions",
+                    "value": "$15$"
+                  }
+                ]
+              },
+              {
+                "title": "Theory asks about possible procedures",
+                "formula": "$\\forall x\\in I,\\ \\exists k\\geq0:\\ x_k\\in\\Omega$",
+                "explanation": "Theory of algorithms studies what a precisely specified procedure can accomplish and the limits of such procedures. Asking whether some effective method solves a problem for every admissible input is different from timing a particular implementation.",
+                "visual": {
+                  "title": "Theory asks about possible procedures",
+                  "description": "Theory of algorithms studies what a precisely specified procedure can accomplish and the limits of such procedures. Asking whether some effective method solves a problem for every admissible input is different from timing a particular implementation.",
+                  "labels": {
+                    "kind": "comparison",
+                    "beforeLabel": "Question",
+                    "afterLabel": "Focus",
+                    "ruleLabel": "What to establish",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "Theory of algorithms",
+                    "after": "Study existence, scope, and limits",
+                    "rule": "A claim about every input requires reasoning beyond one execution.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "Separate the questions",
+                "formula": "$\\text{correctness}\\quad\\text{termination}\\quad\\text{cost}$",
+                "explanation": "A termination argument establishes that each admissible input eventually reaches an output. An analysis of cost then asks how much work that takes under a stated model. A short observed run alone establishes neither universal termination nor a general cost bound.",
+                "visual": {
+                  "title": "Separate the questions",
+                  "description": "A termination argument establishes that each admissible input eventually reaches an output. An analysis of cost then asks how much work that takes under a stated model. A short observed run alone establishes neither universal termination nor a general cost bound.",
+                  "labels": {
+                    "kind": "comparison",
+                    "beforeLabel": "Question",
+                    "afterLabel": "Focus",
+                    "ruleLabel": "What to establish",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "Does it work for every input?",
+                    "after": "How much work does it take?",
+                    "rule": "State the input domain and what one step means.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "Which question belongs primarily to analysis of an algorithm?",
+          "options": [
+            {
+              "id": "cost",
+              "text": "How many remainder operations does this implementation perform for inputs of a given size?",
+              "correct": true,
+              "feedback": "This measures the work of a specified algorithm under an operation-counting model."
+            },
+            {
+              "id": "existence",
+              "text": "Does any effective procedure solve a particular problem for every allowed input?",
+              "correct": false,
+              "feedback": "This asks about the existence and scope of algorithms, rather than the cost of a specified one."
+            },
+            {
+              "id": "one-run",
+              "text": "Did the example on the screen reach an output?",
+              "correct": false,
+              "feedback": "That describes one execution. It is not yet a general resource analysis or a universal guarantee."
+            }
+          ]
+        }
+      },
+      {
+        "id": "state-model",
+        "title": "A computational method",
+        "question": "What exactly determines the next step?",
+        "definition": "A computational method is a quadruple $(Q,I,\\Omega,f)$: a set of states $Q$, subsets $I$ and $\\Omega$ of inputs and outputs, and a total function $f:Q\\to Q$ such that $f(q)=q$ for every $q\\in\\Omega$.",
+        "paragraphs": [
+          "A state must contain enough information to determine its successor. Stored values and the next instruction can both be necessary. The method does not need to remember its history separately if the current state already determines what happens next.",
+          "The function $f$ is defined throughout $Q$, not only on reachable states. One state has one successor. At this level, specifying a function precisely does not automatically supply an effective way to calculate it.",
+          "Inputs and outputs are distinguished subsets of the state space. The definition does not require $I$ and $\\Omega$ to be disjoint: an allowed input already in $\\Omega$ is finished at transition zero.",
+          "Outputs are absorbing: $f(q)=q$ for $q\\in\\Omega$. The condition is one-way. A fixed point outside $\\Omega$ is a nonterminating trap, not an output."
+        ],
+        "takeaway": "The state contains the memory and control needed by $f$; membership in $\\Omega$ determines whether the computation has finished.",
+        "visual": {
+          "definition": {
+            "exampleId": "state-model",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "state-model",
+              "frameIndex": 3
+            },
+            {
+              "exampleId": "state-model",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "state-model",
+              "frameIndex": 0
+            },
+            {
+              "exampleId": "state-model",
+              "frameIndex": 2
+            }
+          ],
+          "takeaway": {
+            "exampleId": "state-model",
+            "frameIndex": 0
+          }
+        },
+        "examples": [
+          {
+            "id": "state-model",
+            "label": "The four objects",
+            "frames": [
+              {
+                "title": "The whole method in four objects",
+                "formula": "$(Q,I,\\Omega,f),\\qquad I\\subseteq Q,\\quad\\Omega\\subseteq Q$",
+                "explanation": "$Q$ contains all possible states. $I$ identifies the states allowed at the start; $\\Omega$ identifies outputs. A state includes every piece of information needed to determine the next state, including control information.",
+                "visual": {
+                  "title": "The whole method in four objects",
+                  "description": "$Q$ contains all possible states. $I$ identifies the states allowed at the start; $\\Omega$ identifies outputs. A state includes every piece of information needed to determine the next state, including control information.",
+                  "labels": {
+                    "kind": "sets",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$q\\in Q$",
+                    "after": "$f(q)\\in Q$",
+                    "rule": "$f:Q\\to Q$",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false",
+                    "stateSet": "$Q$",
+                    "inputSet": "$I\\subseteq Q$",
+                    "outputSet": "$\\Omega\\subseteq Q$",
+                    "transition": "$f:Q\\to Q$"
+                  }
+                }
+              },
+              {
+                "title": "One total next-state function",
+                "formula": "$\\forall q\\in Q,\\quad f(q)\\in Q$",
+                "explanation": "Total means that $f$ is defined for every state in $Q$, including states that no allowed input actually reaches. Deterministic means that each state has one prescribed successor. A mathematical specification alone does not yet show that the successor can be found by effective operations.",
+                "visual": {
+                  "title": "One total next-state function",
+                  "description": "Total means that $f$ is defined for every state in $Q$, including states that no allowed input actually reaches. Deterministic means that each state has one prescribed successor. A mathematical specification alone does not yet show that the successor can be found by effective operations.",
+                  "labels": {
+                    "kind": "sets",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$q$",
+                    "after": "$f(q)$",
+                    "rule": "Every state has one specified successor.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false",
+                    "stateSet": "$Q$",
+                    "inputSet": "$I$",
+                    "outputSet": "$\\Omega$",
+                    "transition": "$f:Q\\to Q$"
+                  }
+                }
+              },
+              {
+                "title": "Outputs are absorbing",
+                "formula": "$q\\in\\Omega\\ \\Longrightarrow\\ f(q)=q$",
+                "explanation": "Once the computation reaches an output, another formal application of $f$ leaves that output unchanged. This convention makes $f$ total without requiring the computation to perform further work after its first arrival.",
+                "visual": {
+                  "title": "Outputs are absorbing",
+                  "description": "Once the computation reaches an output, another formal application of $f$ leaves that output unchanged. This convention makes $f$ total without requiring the computation to perform further work after its first arrival.",
+                  "labels": {
+                    "kind": "sets",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$q\\in\\Omega$",
+                    "after": "$q\\in\\Omega$",
+                    "rule": "$f(q)=q$",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "true",
+                    "stateSet": "$Q$",
+                    "inputSet": "$I$",
+                    "outputSet": "$\\Omega$",
+                    "transition": "$f(q)=q\\quad(q\\in\\Omega)$"
+                  }
+                }
+              },
+              {
+                "title": "Memory and instruction belong to the state",
+                "formula": "$(119,544,0,1)\\ \\ne\\ (119,544,0,2)$",
+                "explanation": "These states have the same stored numbers, but their final coordinates select different next instructions. Phase $1$ computes a remainder; phase $2$ tests the stored remainder. Omitting the instruction coordinate would lose information needed to define $f$.",
+                "visual": {
+                  "title": "Memory and instruction belong to the state",
+                  "description": "These states have the same stored numbers, but their final coordinates select different next instructions. Phase $1$ computes a remainder; phase $2$ tests the stored remainder. Omitting the instruction coordinate would lose information needed to define $f$.",
+                  "labels": {
+                    "kind": "sets",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544,0,1)$",
+                    "after": "$(119,544,0,2)$",
+                    "rule": "Equal memory can require different next instructions.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false",
+                    "stateSet": "$Q=\\text{memory and control states}$",
+                    "inputSet": "$I=\\text{allowed starts}$",
+                    "outputSet": "$\\Omega=\\text{finished states}$",
+                    "transition": "$f=\\text{next-state function}$"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "A state satisfies $f(q)=q$. What can you conclude?",
+          "options": [
+            {
+              "id": "fixed",
+              "text": "It is a fixed point; it is an output only if it also belongs to $\\Omega$.",
+              "correct": true,
+              "feedback": "Every output is fixed, but the definition does not say that every fixed point is an output."
+            },
+            {
+              "id": "output",
+              "text": "It must be an output.",
+              "correct": false,
+              "feedback": "The required implication goes from output membership to being fixed, not in the reverse direction."
+            },
+            {
+              "id": "invalid",
+              "text": "The next-state function is invalid because it did not change the state.",
+              "correct": false,
+              "feedback": "Fixed states are allowed, and are required for outputs. Their membership in the output set matters."
+            }
+          ]
+        }
+      },
+      {
+        "id": "sequences-and-termination",
+        "title": "Sequences and termination",
+        "question": "When does a run count as finished?",
+        "definition": "For an input $x\\in I$, define $x_0=x$ and $x_{k+1}=f(x_k)$. The run terminates if some $x_k$ lies in $\\Omega$; its termination time is the smallest such index $k$.",
+        "paragraphs": [
+          "The sequence records states, while $k$ counts transitions. An initial input is $x_0$, before any application of $f$. After the first hit in $\\Omega$, all later states are equal because outputs are fixed.",
+          "A computational method qualifies as an algorithm on its stated domain only if every input in $I$ has a finite first-hit time. The quantifiers are $\\forall x\\in I\\,\\exists k_x\\geq0$ with $x_{k_x}\\in\\Omega$; the finite bound may depend on the input.",
+          "A method may have exact, effective instructions and still diverge. In the increasing-number example, $x_k=k$ never becomes the distinct output marker. This invariant proves divergence; seeing a few steps without an output would not prove it.",
+          "A finite trace is evidence about the prefix it displays. Reaching a configured step limit means that no output was seen within that limit; it does not by itself establish nontermination."
+        ],
+        "takeaway": "Distinguish a first output, a finite observation, and a guarantee for every input.",
+        "visual": {
+          "definition": {
+            "exampleId": "terminating-sequence",
+            "frameIndex": 4
+          },
+          "paragraphs": [
+            {
+              "exampleId": "terminating-sequence",
+              "frameIndex": 5
+            },
+            {
+              "exampleId": "divergent-sequence",
+              "frameIndex": 2
+            },
+            {
+              "exampleId": "divergent-sequence",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "divergent-sequence",
+              "frameIndex": 0
+            }
+          ],
+          "takeaway": {
+            "exampleId": "terminating-sequence",
+            "frameIndex": 4
+          }
+        },
+        "examples": [
+          {
+            "id": "terminating-sequence",
+            "label": "A first-hit time",
+            "frames": [
+              {
+                "title": "Start at the input",
+                "formula": "$x_0=3$",
+                "explanation": "For this small method, let $Q=\\mathbb{N}_0\\cup\\{\\mathsf{done}\\}$, $I=\\mathbb{N}_0$, and $\\Omega=\\{\\mathsf{done}\\}$. A positive number decreases by one, zero goes to the output marker, and that marker is fixed.",
+                "visual": {
+                  "title": "Start at the input",
+                  "description": "For this small method, let $Q=\\mathbb{N}_0\\cup\\{\\mathsf{done}\\}$, $I=\\mathbb{N}_0$, and $\\Omega=\\{\\mathsf{done}\\}$. A positive number decreases by one, zero goes to the output marker, and that marker is fixed.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_0=3$",
+                    "after": "$x_0=3$",
+                    "rule": "$f(n)=n-1\\ (n>0)$",
+                    "step": "$k=0$",
+                    "phase": "",
+                    "terminal": "false",
+                    "stateSet": "$Q=\\mathbb{N}_0\\cup\\{\\mathsf{done}\\}$"
+                  }
+                }
+              },
+              {
+                "title": "Apply exactly one transition",
+                "formula": "$x_1=f(3)=2$",
+                "explanation": "The sequence is generated by repeated application of the same function. The index records applications of $f$, beginning with the unprocessed input at index zero.",
+                "visual": {
+                  "title": "Apply exactly one transition",
+                  "description": "The sequence is generated by repeated application of the same function. The index records applications of $f$, beginning with the unprocessed input at index zero.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_0=3$",
+                    "after": "$x_1=2$",
+                    "rule": "$f(n)=n-1\\ (n>0)$",
+                    "step": "$k=1$",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "Continue through positive states",
+                "formula": "$x_2=f(2)=1$",
+                "explanation": "The state $1$ is still outside $\\Omega$. Being close to an output is different from belonging to the output set.",
+                "visual": {
+                  "title": "Continue through positive states",
+                  "description": "The state $1$ is still outside $\\Omega$. Being close to an output is different from belonging to the output set.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_1=2$",
+                    "after": "$x_2=1$",
+                    "rule": "$f(n)=n-1\\ (n>0)$",
+                    "step": "$k=2$",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "Zero is not this method's output",
+                "formula": "$x_3=f(1)=0\\notin\\Omega$",
+                "explanation": "The chosen output set contains only the marker $\\mathsf{done}$. Therefore reaching the number zero has not yet terminated this particular computation.",
+                "visual": {
+                  "title": "Zero is not this method's output",
+                  "description": "The chosen output set contains only the marker $\\mathsf{done}$. Therefore reaching the number zero has not yet terminated this particular computation.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_2=1$",
+                    "after": "$x_3=0$",
+                    "rule": "$f(1)=0$",
+                    "step": "$k=3$",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "First arrival determines the time",
+                "formula": "$x_4=f(0)=\\mathsf{done}\\in\\Omega,\\qquad k=4$",
+                "explanation": "The smallest index at which this run is in $\\Omega$ is four. The run terminates at that first arrival, regardless of the infinite fixed tail that the formal sequence could have.",
+                "visual": {
+                  "title": "First arrival determines the time",
+                  "description": "The smallest index at which this run is in $\\Omega$ is four. The run terminates at that first arrival, regardless of the infinite fixed tail that the formal sequence could have.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_3=0$",
+                    "after": "$x_4=\\mathsf{done}$",
+                    "rule": "$f(0)=\\mathsf{done}$",
+                    "step": "$k=4$",
+                    "phase": "",
+                    "terminal": "true"
+                  }
+                }
+              },
+              {
+                "title": "The formal sequence stays fixed",
+                "formula": "$x_5=f(\\mathsf{done})=\\mathsf{done};\\qquad x_t=\\mathsf{done}\\ (t\\geq4)$",
+                "explanation": "This absorbing transition illustrates the convention for outputs. It does not increase the first-hit termination time from four to five. An allowed start already in $\\Omega$ would have termination time zero.",
+                "visual": {
+                  "title": "The formal sequence stays fixed",
+                  "description": "This absorbing transition illustrates the convention for outputs. It does not increase the first-hit termination time from four to five. An allowed start already in $\\Omega$ would have termination time zero.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_4=\\mathsf{done}$",
+                    "after": "$x_5=\\mathsf{done}$",
+                    "rule": "$f(\\mathsf{done})=\\mathsf{done}$",
+                    "step": "$k=5$",
+                    "phase": "",
+                    "terminal": "true"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "divergent-sequence",
+            "label": "A sequence without an output",
+            "frames": [
+              {
+                "title": "A precise method can continue forever",
+                "formula": "$f(n)=n+1\\quad(n\\in\\mathbb{N}_0),\\qquad f(\\mathsf{done})=\\mathsf{done}$",
+                "explanation": "Keep $Q=\\mathbb{N}_0\\cup\\{\\mathsf{done}\\}$, $I=\\mathbb{N}_0$, and $\\Omega=\\{\\mathsf{done}\\}$, but replace decrease with increase. The method is fully specified and all of its individual operations are effective.",
+                "visual": {
+                  "title": "A precise method can continue forever",
+                  "description": "Keep $Q=\\mathbb{N}_0\\cup\\{\\mathsf{done}\\}$, $I=\\mathbb{N}_0$, and $\\Omega=\\{\\mathsf{done}\\}$, but replace decrease with increase. The method is fully specified and all of its individual operations are effective.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$x_0=0$",
+                    "after": "$x_1=1$",
+                    "rule": "$f(n)=n+1$",
+                    "step": "$k=1$",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "A prefix and a proof are different",
+                "formula": "$0\\to1\\to2\\to3\\to\\cdots,\\qquad x_k=k\\notin\\Omega$",
+                "explanation": "The displayed prefix alone could not prove divergence. Here the formula $x_k=k$ proves that every state remains a number and never becomes the distinct marker $\\mathsf{done}$. No finite first-hit index exists for this input.",
+                "visual": {
+                  "title": "A prefix and a proof are different",
+                  "description": "The displayed prefix alone could not prove divergence. Here the formula $x_k=k$ proves that every state remains a number and never becomes the distinct marker $\\mathsf{done}$. No finite first-hit index exists for this input.",
+                  "labels": {
+                    "kind": "sequence",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$0,1,2,3$",
+                    "after": "$x_k=k$",
+                    "rule": "$\\forall k\\geq0,\\ x_k\\notin\\Omega$",
+                    "step": "$k=0,1,2,\\ldots$",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "Every input is a universal requirement",
+                "formula": "$\\forall x\\in I,\\ \\exists k_x\\geq0:\\ x_{k_x}\\in\\Omega$",
+                "explanation": "To qualify as an algorithm on $I$, a computational method must terminate for every input in $I$. The successful indices may differ with the input; the definition does not demand one constant time bound for the entire domain.",
+                "visual": {
+                  "title": "Every input is a universal requirement",
+                  "description": "To qualify as an algorithm on $I$, a computational method must terminate for every input in $I$. The successful indices may differ with the input; the definition does not demand one constant time bound for the entire domain.",
+                  "labels": {
+                    "kind": "comparison",
+                    "beforeLabel": "Question",
+                    "afterLabel": "Focus",
+                    "ruleLabel": "What to establish",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "A run reaches an output",
+                    "after": "Every admissible run reaches an output",
+                    "rule": "One successful example cannot establish a universal claim.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "A run first enters $\\Omega$ at $x_4$ and stays there at $x_5$. What is its termination time?",
+          "options": [
+            {
+              "id": "four",
+              "text": "$4$",
+              "correct": true,
+              "feedback": "Four applications of f lead from the initial state x₀ to its first output x₄. The fixed tail does not change that first-hit index."
+            },
+            {
+              "id": "five",
+              "text": "$5$",
+              "correct": false,
+              "feedback": "The later fixed output is already past the first arrival. It is not part of the work needed to reach an output."
+            },
+            {
+              "id": "infinite",
+              "text": "Infinite, because the formal sequence continues.",
+              "correct": false,
+              "feedback": "The sequence can be extended by fixed states after termination. Termination is defined by the first output, not by the end of that extension."
+            }
+          ]
+        }
+      },
+      {
+        "id": "formal-euclid",
+        "title": "Algorithm E as a method",
+        "question": "How do Euclid’s instructions become a function?",
+        "definition": "Let $Q$ contain the singletons $(n)$, pairs $(m,n)$, quadruples $(m,n,r,1)$ and $(m,n,r,2)$, and quadruples $(m,n,p,3)$, where $m,n,p$ are positive integers and $r$ is a nonnegative integer. Let $I$ be all pairs and $\\Omega$ all singletons.",
+        "paragraphs": [
+          "Initialization and fixed outputs are specified by $f(m,n)=(m,n,0,1)$ and $f(n)=(n)$. The last coordinate of a working quadruple selects the next Euclid instruction. The initial zero is a placeholder that E1 will overwrite.",
+          "E1 is $f(m,n,r,1)=(m,n,m\\bmod n,2)$. Since $n>0$, the remainder is defined and satisfies $0\\leq m\\bmod n<n$. E1 preserves $m$ and $n$ and selects E2.",
+          "E2 has two branches: $f(m,n,r,2)=(n)$ when $r=0$, and $f(m,n,r,2)=(m,n,r,3)$ when $r>0$. The positive remainder permits the phase-3 state to use the symbol $p>0$.",
+          "E3 is $f(m,n,p,3)=(n,p,p,1)$. This is one transition of the formal method, even if a program uses several assignment statements to implement it. The retained third coordinate is overwritten at the next E1.",
+          "These cases define $f$ on every kind of state in $Q$, including working states that a particular input never visits. The trace for $(119,544)$ reaches $(17)$ first at $k=15$: one initialization, five E1 transitions, five E2 transitions, and four E3 transitions.",
+          "The trace proves the result for this input. Universal termination follows separately: every continuing pass replaces the positive divisor $n$ with a strictly smaller positive remainder. Such a descending sequence cannot continue forever."
+        ],
+        "takeaway": "Count complete applications of $f$. The first-hit time is $15$, while the returned value is $17$ and the number of remainder divisions is $5$.",
+        "visual": {
+          "definition": {
+            "exampleId": "euclid-states",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 2
+            },
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 15
+            },
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 4
+            },
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 15
+            },
+            {
+              "exampleId": "euclid-states",
+              "frameIndex": 13
+            }
+          ],
+          "takeaway": {
+            "exampleId": "euclid-states",
+            "frameIndex": 15
+          }
+        },
+        "examples": [
+          {
+            "id": "euclid-states",
+            "label": "All formal transitions",
+            "frames": [
+              {
+                "title": "The input is a pair",
+                "formula": "$x_0=(119,544)\\in I$",
+                "explanation": "The input contains two positive integers. The pair is a state in $Q$, but it is not yet a working quadruple and has no stored remainder or instruction coordinate.",
+                "visual": {
+                  "title": "The input is a pair",
+                  "description": "The input contains two positive integers. The pair is a state in $Q$, but it is not yet a working quadruple and has no stored remainder or instruction coordinate.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544)$",
+                    "after": "$(119,544)$",
+                    "rule": "$I=\\{(m,n):m,n\\in\\mathbb{Z}_{>0}\\}$",
+                    "step": "$k=0$",
+                    "phase": "input",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "State",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$0$"
+                  }
+                ]
+              },
+              {
+                "title": "Initialize memory and control",
+                "formula": "$x_{1}=(119,544,0,1)$",
+                "explanation": "Initialization adds a placeholder remainder $0$ and selects E1. This is one application of $f$, so it contributes to the formal transition count.",
+                "visual": {
+                  "title": "Initialize memory and control",
+                  "description": "Initialization adds a placeholder remainder $0$ and selects E1. This is one application of $f$, so it contributes to the formal transition count.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544)$",
+                    "after": "$(119,544,0,1)$",
+                    "rule": "$f(m,n)=(m,n,0,1)$",
+                    "step": "$k=1$",
+                    "phase": "1",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,544)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,544,0,1)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$1$"
+                  }
+                ]
+              },
+              {
+                "title": "E1 · calculate the remainder",
+                "formula": "$x_{2}=(119,544,119,2)$",
+                "explanation": "E1 computes $119\\bmod 544=119$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                "visual": {
+                  "title": "E1 · calculate the remainder",
+                  "description": "E1 computes $119\\bmod 544=119$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544,0,1)$",
+                    "after": "$(119,544,119,2)$",
+                    "rule": "$f(m,n,r,1)=(m,n,m\\bmod n,2)$",
+                    "step": "$k=2$",
+                    "phase": "2",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,544,0,1)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,544,119,2)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$2$"
+                  }
+                ]
+              },
+              {
+                "title": "E2 · choose the continuing branch",
+                "formula": "$x_{3}=(119,544,119,3)$",
+                "explanation": "The stored remainder $119$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                "visual": {
+                  "title": "E2 · choose the continuing branch",
+                  "description": "The stored remainder $119$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544,119,2)$",
+                    "after": "$(119,544,119,3)$",
+                    "rule": "$f(m,n,r,2)=(m,n,r,3)\\quad(r>0)$",
+                    "step": "$k=3$",
+                    "phase": "3",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,544,119,2)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,544,119,3)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$3$"
+                  }
+                ]
+              },
+              {
+                "title": "E3 · reduce in one transition",
+                "formula": "$x_{4}=(544,119,119,1)$",
+                "explanation": "E3 takes the old $n=544$ and the positive remainder $p=119$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                "visual": {
+                  "title": "E3 · reduce in one transition",
+                  "description": "E3 takes the old $n=544$ and the positive remainder $p=119$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,544,119,3)$",
+                    "after": "$(544,119,119,1)$",
+                    "rule": "$f(m,n,p,3)=(n,p,p,1)$",
+                    "step": "$k=4$",
+                    "phase": "1",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,544,119,3)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(544,119,119,1)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$4$"
+                  }
+                ]
+              },
+              {
+                "title": "E1 · calculate the remainder",
+                "formula": "$x_{5}=(544,119,68,2)$",
+                "explanation": "E1 computes $544\\bmod 119=68$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                "visual": {
+                  "title": "E1 · calculate the remainder",
+                  "description": "E1 computes $544\\bmod 119=68$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(544,119,119,1)$",
+                    "after": "$(544,119,68,2)$",
+                    "rule": "$f(m,n,r,1)=(m,n,m\\bmod n,2)$",
+                    "step": "$k=5$",
+                    "phase": "2",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(544,119,119,1)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(544,119,68,2)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$5$"
+                  }
+                ]
+              },
+              {
+                "title": "E2 · choose the continuing branch",
+                "formula": "$x_{6}=(544,119,68,3)$",
+                "explanation": "The stored remainder $68$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                "visual": {
+                  "title": "E2 · choose the continuing branch",
+                  "description": "The stored remainder $68$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(544,119,68,2)$",
+                    "after": "$(544,119,68,3)$",
+                    "rule": "$f(m,n,r,2)=(m,n,r,3)\\quad(r>0)$",
+                    "step": "$k=6$",
+                    "phase": "3",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(544,119,68,2)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(544,119,68,3)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$6$"
+                  }
+                ]
+              },
+              {
+                "title": "E3 · reduce in one transition",
+                "formula": "$x_{7}=(119,68,68,1)$",
+                "explanation": "E3 takes the old $n=119$ and the positive remainder $p=68$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                "visual": {
+                  "title": "E3 · reduce in one transition",
+                  "description": "E3 takes the old $n=119$ and the positive remainder $p=68$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(544,119,68,3)$",
+                    "after": "$(119,68,68,1)$",
+                    "rule": "$f(m,n,p,3)=(n,p,p,1)$",
+                    "step": "$k=7$",
+                    "phase": "1",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(544,119,68,3)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,68,68,1)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$7$"
+                  }
+                ]
+              },
+              {
+                "title": "E1 · calculate the remainder",
+                "formula": "$x_{8}=(119,68,51,2)$",
+                "explanation": "E1 computes $119\\bmod 68=51$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                "visual": {
+                  "title": "E1 · calculate the remainder",
+                  "description": "E1 computes $119\\bmod 68=51$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,68,68,1)$",
+                    "after": "$(119,68,51,2)$",
+                    "rule": "$f(m,n,r,1)=(m,n,m\\bmod n,2)$",
+                    "step": "$k=8$",
+                    "phase": "2",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,68,68,1)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,68,51,2)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$8$"
+                  }
+                ]
+              },
+              {
+                "title": "E2 · choose the continuing branch",
+                "formula": "$x_{9}=(119,68,51,3)$",
+                "explanation": "The stored remainder $51$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                "visual": {
+                  "title": "E2 · choose the continuing branch",
+                  "description": "The stored remainder $51$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,68,51,2)$",
+                    "after": "$(119,68,51,3)$",
+                    "rule": "$f(m,n,r,2)=(m,n,r,3)\\quad(r>0)$",
+                    "step": "$k=9$",
+                    "phase": "3",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,68,51,2)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(119,68,51,3)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$9$"
+                  }
+                ]
+              },
+              {
+                "title": "E3 · reduce in one transition",
+                "formula": "$x_{10}=(68,51,51,1)$",
+                "explanation": "E3 takes the old $n=68$ and the positive remainder $p=51$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                "visual": {
+                  "title": "E3 · reduce in one transition",
+                  "description": "E3 takes the old $n=68$ and the positive remainder $p=51$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(119,68,51,3)$",
+                    "after": "$(68,51,51,1)$",
+                    "rule": "$f(m,n,p,3)=(n,p,p,1)$",
+                    "step": "$k=10$",
+                    "phase": "1",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(119,68,51,3)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(68,51,51,1)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$10$"
+                  }
+                ]
+              },
+              {
+                "title": "E1 · calculate the remainder",
+                "formula": "$x_{11}=(68,51,17,2)$",
+                "explanation": "E1 computes $68\\bmod 51=17$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                "visual": {
+                  "title": "E1 · calculate the remainder",
+                  "description": "E1 computes $68\\bmod 51=17$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(68,51,51,1)$",
+                    "after": "$(68,51,17,2)$",
+                    "rule": "$f(m,n,r,1)=(m,n,m\\bmod n,2)$",
+                    "step": "$k=11$",
+                    "phase": "2",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(68,51,51,1)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(68,51,17,2)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$11$"
+                  }
+                ]
+              },
+              {
+                "title": "E2 · choose the continuing branch",
+                "formula": "$x_{12}=(68,51,17,3)$",
+                "explanation": "The stored remainder $17$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                "visual": {
+                  "title": "E2 · choose the continuing branch",
+                  "description": "The stored remainder $17$ is positive. E2 preserves all three numbers and changes only the instruction coordinate to $3$. The next transition will perform E3.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(68,51,17,2)$",
+                    "after": "$(68,51,17,3)$",
+                    "rule": "$f(m,n,r,2)=(m,n,r,3)\\quad(r>0)$",
+                    "step": "$k=12$",
+                    "phase": "3",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(68,51,17,2)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(68,51,17,3)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$12$"
+                  }
+                ]
+              },
+              {
+                "title": "E3 · reduce in one transition",
+                "formula": "$x_{13}=(51,17,17,1)$",
+                "explanation": "E3 takes the old $n=51$ and the positive remainder $p=17$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                "visual": {
+                  "title": "E3 · reduce in one transition",
+                  "description": "E3 takes the old $n=51$ and the positive remainder $p=17$ to form the next working pair. The complete change is one application of $f$, with the remainder slot retained and E1 selected.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(68,51,17,3)$",
+                    "after": "$(51,17,17,1)$",
+                    "rule": "$f(m,n,p,3)=(n,p,p,1)$",
+                    "step": "$k=13$",
+                    "phase": "1",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(68,51,17,3)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(51,17,17,1)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$13$"
+                  }
+                ]
+              },
+              {
+                "title": "E1 · calculate the remainder",
+                "formula": "$x_{14}=(51,17,0,2)$",
+                "explanation": "E1 computes $51\\bmod 17=0$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                "visual": {
+                  "title": "E1 · calculate the remainder",
+                  "description": "E1 computes $51\\bmod 17=0$ and selects E2. The input numbers stay unchanged; the old remainder slot is overwritten. Computing the remainder is one transition.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(51,17,17,1)$",
+                    "after": "$(51,17,0,2)$",
+                    "rule": "$f(m,n,r,1)=(m,n,m\\bmod n,2)$",
+                    "step": "$k=14$",
+                    "phase": "2",
+                    "terminal": "false"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(51,17,17,1)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(51,17,0,2)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$14$"
+                  }
+                ]
+              },
+              {
+                "title": "E2 · enter the output set",
+                "formula": "$x_{15}=(17)$",
+                "explanation": "The stored remainder is zero, so E2 produces the singleton $(17)\\in\\Omega$. This is the first output, at $k=15$, and $\\gcd(119,544)=17$.",
+                "visual": {
+                  "title": "E2 · enter the output set",
+                  "description": "The stored remainder is zero, so E2 produces the singleton $(17)\\in\\Omega$. This is the first output, at $k=15$, and $\\gcd(119,544)=17$.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(51,17,0,2)$",
+                    "after": "$(17)$",
+                    "rule": "$f(m,n,0,2)=(n)$",
+                    "step": "$k=15$",
+                    "phase": "output",
+                    "terminal": "true"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(51,17,0,2)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(17)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$15$"
+                  }
+                ]
+              },
+              {
+                "title": "The output remains fixed",
+                "formula": "$x_{16}=(17)$",
+                "explanation": "The output singleton is absorbing. This optional extra transition displays the fixed-point convention; the first-hit termination time remains $15$.",
+                "visual": {
+                  "title": "The output remains fixed",
+                  "description": "The output singleton is absorbing. This optional extra transition displays the fixed-point convention; the first-hit termination time remains $15$.",
+                  "labels": {
+                    "kind": "euclid",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(17)$",
+                    "after": "$(17)$",
+                    "rule": "$f(n)=(n)$",
+                    "step": "$k=16$",
+                    "phase": "output",
+                    "terminal": "true"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Previous state",
+                    "value": "$(17)$"
+                  },
+                  {
+                    "label": "Current state",
+                    "value": "$(17)$"
+                  },
+                  {
+                    "label": "Applications of f",
+                    "value": "$16$"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "What is the single successor of $(544,119,68,3)$?",
+          "options": [
+            {
+              "id": "reduce",
+              "text": "$(119,68,68,1)$",
+              "correct": true,
+              "feedback": "E3 uses the old n and positive remainder together, retains the remainder slot, and selects E1 in one transition."
+            },
+            {
+              "id": "partial",
+              "text": "$(119,119,68,3)$",
+              "correct": false,
+              "feedback": "That would be only a partial assignment in an implementation. The formal E3 successor performs the complete reduction at once."
+            },
+            {
+              "id": "output",
+              "text": "$(68)$",
+              "correct": false,
+              "feedback": "A positive remainder selects a continuing pass. Only the zero-remainder branch of E2 produces a singleton output."
+            }
+          ]
+        }
+      },
+      {
+        "id": "effective-rewriting",
+        "title": "Effective string rewriting",
+        "question": "What makes an individual step executable?",
+        "definition": "Choose a finite alphabet $A$ and let $A^*$ be all finite words over $A$, including $\\varepsilon$. For a fixed nonnegative integer $N$, use states $(\\sigma,j)$ with $\\sigma\\in A^*$ and $0\\leq j\\leq N$; inputs have $j=0$ and outputs have $j=N$.",
+        "paragraphs": [
+          "For every instruction $j<N$, specify words $\\theta_j,\\phi_j\\in A^*$ and destinations $a_j,b_j\\in\\{0,\\ldots,N\\}$. This is a finite list of exact instructions over a finite alphabet.",
+          "If $\\theta_j$ does not occur in $\\sigma$, set $f(\\sigma,j)=(\\sigma,a_j)$. The word stays unchanged; the absent-pattern destination determines the next instruction.",
+          "If it does occur, write $\\sigma=\\alpha\\theta_j\\omega$ with $\\alpha$ as short as possible. Set $f(\\sigma,j)=(\\alpha\\phi_j\\omega,b_j)$. Choosing the shortest prefix specifies the leftmost occurrence and removes any ambiguity between matches.",
+          "For $j=N$, set $f(\\sigma,N)=(\\sigma,N)$. Finite search, copying, and replacement explain how each step can be performed. They do not require the word to shrink or the run to terminate.",
+          "The example repeatedly replaces the leftmost $ab$ by $ba$ and halts when $ab$ is absent. It moves the $b$ letters to the left. For every finite input word, each replacement reduces the number of pairs in which an $a$ precedes a $b$ by exactly one, so this particular method terminates.",
+          "An empty pattern is also a word in $A^*$. Its leftmost occurrence has the empty prefix, so replacement inserts $\\phi_j$ at the beginning. This case is defined rather than left to an informal interpretation of “find a pattern.”"
+        ],
+        "takeaway": "An effective transition specifies a finite search, one exact replacement or missing-pattern branch, and a valid next instruction.",
+        "visual": {
+          "definition": {
+            "exampleId": "leftmost-rewrite",
+            "frameIndex": 0
+          },
+          "paragraphs": [
+            {
+              "exampleId": "leftmost-rewrite",
+              "frameIndex": 0
+            },
+            {
+              "exampleId": "leftmost-rewrite",
+              "frameIndex": 4
+            },
+            {
+              "exampleId": "leftmost-rewrite",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "leftmost-rewrite",
+              "frameIndex": 5
+            },
+            {
+              "exampleId": "leftmost-rewrite",
+              "frameIndex": 3
+            },
+            {
+              "exampleId": "empty-pattern",
+              "frameIndex": 0
+            }
+          ],
+          "takeaway": {
+            "exampleId": "leftmost-rewrite",
+            "frameIndex": 1
+          }
+        },
+        "examples": [
+          {
+            "id": "leftmost-rewrite",
+            "label": "Replace the leftmost ab",
+            "frames": [
+              {
+                "title": "An indexed rewriting program",
+                "formula": "$A=\\{a,b\\},\\quad N=1,\\quad(\\theta_0,\\phi_0,a_0,b_0)=(ab,ba,1,0)$",
+                "explanation": "There is one nonterminal instruction, numbered zero. If $ab$ occurs, replace its leftmost occurrence by $ba$ and return to instruction zero. If no $ab$ occurs, keep the word and go to output instruction one. The input word is $abab$.",
+                "visual": {
+                  "title": "An indexed rewriting program",
+                  "description": "There is one nonterminal instruction, numbered zero. If $ab$ occurs, replace its leftmost occurrence by $ba$ and return to instruction zero. If no $ab$ occurs, keep the word and go to output instruction one. The input word is $abab$.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{abab},0)$",
+                    "after": "$(\\mathtt{abab},0)$",
+                    "rule": "$ab\\mapsto ba;\\quad b_0=0,\\quad a_0=1$",
+                    "step": "$k=0$",
+                    "phase": "0",
+                    "terminal": "false",
+                    "prefix": "",
+                    "match": "ab",
+                    "suffix": "ab",
+                    "replacement": "ba"
+                  }
+                },
+                "rows": [
+                  {
+                    "label": "Alphabet",
+                    "value": "$A=\\{a,b\\}$"
+                  },
+                  {
+                    "label": "Input",
+                    "value": "$(\\mathtt{abab},0)$"
+                  },
+                  {
+                    "label": "Output instruction",
+                    "value": "$N=1$"
+                  }
+                ]
+              },
+              {
+                "title": "Choose the first occurrence",
+                "formula": "$\\underbrace{\\varepsilon}_{\\alpha}\\,\\underbrace{ab}_{\\theta_0}\\,\\underbrace{ab}_{\\omega}\\ \\longmapsto\\ baab$",
+                "explanation": "The word $abab$ contains two copies of $ab$. The required factorization has the shortest possible prefix $\\alpha$, so the occurrence beginning at the left edge is selected. Only that occurrence is replaced.",
+                "visual": {
+                  "title": "Choose the first occurrence",
+                  "description": "The word $abab$ contains two copies of $ab$. The required factorization has the shortest possible prefix $\\alpha$, so the occurrence beginning at the left edge is selected. Only that occurrence is replaced.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{abab},0)$",
+                    "after": "$(\\mathtt{baab},0)$",
+                    "rule": "$\\alpha\\theta_0\\omega\\mapsto\\alpha\\phi_0\\omega$",
+                    "step": "$k=1$",
+                    "phase": "0",
+                    "terminal": "false",
+                    "prefix": "",
+                    "match": "ab",
+                    "suffix": "ab",
+                    "replacement": "ba"
+                  }
+                }
+              },
+              {
+                "title": "Find the next leftmost occurrence",
+                "formula": "$\\underbrace{ba}_{\\alpha}\\,\\underbrace{ab}_{\\theta_0}\\,\\underbrace{\\varepsilon}_{\\omega}\\ \\longmapsto\\ baba$",
+                "explanation": "In $baab$, the only $ab$ begins after the prefix $ba$. Replacing it gives $baba$. The branch destination $b_0=0$ keeps the same instruction active.",
+                "visual": {
+                  "title": "Find the next leftmost occurrence",
+                  "description": "In $baab$, the only $ab$ begins after the prefix $ba$. Replacing it gives $baba$. The branch destination $b_0=0$ keeps the same instruction active.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{baab},0)$",
+                    "after": "$(\\mathtt{baba},0)$",
+                    "rule": "$ab\\mapsto ba;\\quad j\\leftarrow b_0=0$",
+                    "step": "$k=2$",
+                    "phase": "0",
+                    "terminal": "false",
+                    "prefix": "ba",
+                    "match": "ab",
+                    "suffix": "",
+                    "replacement": "ba"
+                  }
+                }
+              },
+              {
+                "title": "Replace one occurrence again",
+                "formula": "$\\underbrace{b}_{\\alpha}\\,\\underbrace{ab}_{\\theta_0}\\,\\underbrace{a}_{\\omega}\\ \\longmapsto\\ bbaa$",
+                "explanation": "The leftmost $ab$ in $baba$ has prefix $b$ and suffix $a$. Replacing that pair yields $bbaa$, preserving the number of each letter.",
+                "visual": {
+                  "title": "Replace one occurrence again",
+                  "description": "The leftmost $ab$ in $baba$ has prefix $b$ and suffix $a$. Replacing that pair yields $bbaa$, preserving the number of each letter.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{baba},0)$",
+                    "after": "$(\\mathtt{bbaa},0)$",
+                    "rule": "$ab\\mapsto ba;\\quad j\\leftarrow0$",
+                    "step": "$k=3$",
+                    "phase": "0",
+                    "terminal": "false",
+                    "prefix": "b",
+                    "match": "ab",
+                    "suffix": "a",
+                    "replacement": "ba"
+                  }
+                }
+              },
+              {
+                "title": "Absence changes only control",
+                "formula": "$f(\\mathtt{bbaa},0)=(\\mathtt{bbaa},1)$",
+                "explanation": "No $ab$ is present. The missing-pattern branch preserves $\\sigma$ and selects $a_0=1=N$. This is the first output of the run, at transition four.",
+                "visual": {
+                  "title": "Absence changes only control",
+                  "description": "No $ab$ is present. The missing-pattern branch preserves $\\sigma$ and selects $a_0=1=N$. This is the first output of the run, at transition four.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{bbaa},0)$",
+                    "after": "$(\\mathtt{bbaa},1)$",
+                    "rule": "$\\theta_0\\text{ absent}:\\ (\\sigma,a_0)$",
+                    "step": "$k=4$",
+                    "phase": "1",
+                    "terminal": "true"
+                  }
+                }
+              },
+              {
+                "title": "Output control is fixed",
+                "formula": "$f(\\mathtt{bbaa},1)=(\\mathtt{bbaa},1)$",
+                "explanation": "Instruction $N$ needs no rewriting rule: it fixes every word. No search or replacement happens after this output. The first-hit termination time is still four.",
+                "visual": {
+                  "title": "Output control is fixed",
+                  "description": "Instruction $N$ needs no rewriting rule: it fixes every word. No search or replacement happens after this output. The first-hit termination time is still four.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{bbaa},1)$",
+                    "after": "$(\\mathtt{bbaa},1)$",
+                    "rule": "$j=N:\\quad f(\\sigma,N)=(\\sigma,N)$",
+                    "step": "$k=5$",
+                    "phase": "1",
+                    "terminal": "true"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "empty-pattern",
+            "label": "The empty pattern",
+            "frames": [
+              {
+                "title": "The empty pattern occurs at the start",
+                "formula": "$\\theta_0=\\varepsilon,\\quad\\phi_0=b,\\quad a_0=b_0=1$",
+                "explanation": "$A^*$ includes the empty word $\\varepsilon$. Every word has an empty occurrence at its left boundary, so the shortest prefix is $\\alpha=\\varepsilon$. With input $aa$, this rule inserts $b$ at the beginning and goes to output instruction one.",
+                "visual": {
+                  "title": "The empty pattern occurs at the start",
+                  "description": "$A^*$ includes the empty word $\\varepsilon$. Every word has an empty occurrence at its left boundary, so the shortest prefix is $\\alpha=\\varepsilon$. With input $aa$, this rule inserts $b$ at the beginning and goes to output instruction one.",
+                  "labels": {
+                    "kind": "rewrite",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{aa},0)$",
+                    "after": "$(\\mathtt{baa},1)$",
+                    "rule": "$\\varepsilon\\mapsto b;\\quad j\\leftarrow1$",
+                    "step": "$k=1$",
+                    "phase": "1",
+                    "terminal": "true",
+                    "prefix": "",
+                    "match": "",
+                    "suffix": "aa",
+                    "replacement": "b"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "At instruction zero, replace the leftmost $ab$ by $ba$ in $abab$. What word is produced by one transition?",
+          "options": [
+            {
+              "id": "leftmost",
+              "text": "$baab$",
+              "correct": true,
+              "feedback": "The first occurrence starts at the left boundary. Replacing that occurrence alone gives baab."
+            },
+            {
+              "id": "rightmost",
+              "text": "$abba$",
+              "correct": false,
+              "feedback": "This replaces the rightmost occurrence. The rule requires the shortest prefix before the match."
+            },
+            {
+              "id": "all",
+              "text": "$baba$",
+              "correct": false,
+              "feedback": "That replaces both original occurrences at once. A single transition replaces exactly one leftmost occurrence."
+            }
+          ]
+        }
+      },
+      {
+        "id": "effectiveness-and-finiteness",
+        "title": "Effectiveness and finiteness",
+        "question": "Can exact finite steps still run forever?",
+        "definition": "Effectiveness concerns how individual operations are carried out. Finiteness concerns whether their repetition eventually reaches $\\Omega$ for every input. Neither a precise function nor an effective rule alone supplies that termination guarantee.",
+        "paragraphs": [
+          "The rule $a\\mapsto a$ with destination zero leaves $(a,0)$ unchanged. Its instruction is still nonterminal, so it diverges despite doing only finite, exact work at each step. On the empty word, the same rule takes its absent-pattern branch and can terminate.",
+          "A computational method can therefore have both terminating and nonterminating inputs. Calling it an algorithm requires a stated input domain on which every run terminates, as well as effective operations. Restricting a domain is a change to the claim, not a proof for the original domain.",
+          "Turing machines make tape contents, a control state, and local read/write actions explicit. Markov-style procedures use ordered string-replacement rules and termination conventions. The indexed rewriting method here similarly exposes finite symbols, control, and exact local operations; it is not itself a definition of either of those other models.",
+          "Comparisons between formal models ask whether one can simulate the computations of another. Such equivalence results require their own constructions and proofs. A shared ability to express effective procedures does not assert equal step counts or equal running time, and no equivalence theorem is proved by the examples in this lesson."
+        ],
+        "takeaway": "Specify the model, show how its steps are effective, and prove termination on the promised input domain.",
+        "visual": {
+          "definition": {
+            "exampleId": "effective-loop",
+            "frameIndex": 3
+          },
+          "paragraphs": [
+            {
+              "exampleId": "effective-loop",
+              "frameIndex": 1
+            },
+            {
+              "exampleId": "effective-loop",
+              "frameIndex": 2
+            },
+            {
+              "exampleId": "effective-loop",
+              "frameIndex": 3
+            },
+            {
+              "exampleId": "effective-loop",
+              "frameIndex": 3
+            }
+          ],
+          "takeaway": {
+            "exampleId": "effective-loop",
+            "frameIndex": 3
+          }
+        },
+        "examples": [
+          {
+            "id": "effective-loop",
+            "label": "Exact operations, different outcomes",
+            "frames": [
+              {
+                "title": "An effective rule can return to itself",
+                "formula": "$N=1,\\quad(\\theta_0,\\phi_0,a_0,b_0)=(a,a,1,0)$",
+                "explanation": "This finite instruction searches for $a$. If found, it replaces $a$ by the same letter and stays at instruction zero. If absent, it selects output instruction one. The rule is precise and executable even though some inputs never terminate.",
+                "visual": {
+                  "title": "An effective rule can return to itself",
+                  "description": "This finite instruction searches for $a$. If found, it replaces $a$ by the same letter and stays at instruction zero. If absent, it selects output instruction one. The rule is precise and executable even though some inputs never terminate.",
+                  "labels": {
+                    "kind": "loop",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{a},0)$",
+                    "after": "$(\\mathtt{a},0)$",
+                    "rule": "$a\\mapsto a;\\quad b_0=0$",
+                    "step": "$k=1$",
+                    "phase": "0",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "A fixed state need not be an output",
+                "formula": "$f(\\mathtt{a},0)=(\\mathtt{a},0)\\notin\\Omega$",
+                "explanation": "The whole state is unchanged, but its instruction is zero rather than $N=1$. Thus a fixed point outside $\\Omega$ does not terminate. The unchanged nonterminal state repeats forever, proving divergence for input $a$.",
+                "visual": {
+                  "title": "A fixed state need not be an output",
+                  "description": "The whole state is unchanged, but its instruction is zero rather than $N=1$. Thus a fixed point outside $\\Omega$ does not terminate. The unchanged nonterminal state repeats forever, proving divergence for input $a$.",
+                  "labels": {
+                    "kind": "loop",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\mathtt{a},0)$",
+                    "after": "$(\\mathtt{a},0)$",
+                    "rule": "$x_k=(\\mathtt{a},0)\\quad\\text{for every }k$",
+                    "step": "$k=0,1,2,\\ldots$",
+                    "phase": "0",
+                    "terminal": "false"
+                  }
+                }
+              },
+              {
+                "title": "The same program can finish another input",
+                "formula": "$f(\\varepsilon,0)=(\\varepsilon,1)\\in\\Omega$",
+                "explanation": "On the empty input, $a$ is absent, so the very same program reaches its output instruction in one transition. This successful run does not make the program an algorithm on all words in $\\{a\\}^*$.",
+                "visual": {
+                  "title": "The same program can finish another input",
+                  "description": "On the empty input, $a$ is absent, so the very same program reaches its output instruction in one transition. This successful run does not make the program an algorithm on all words in $\\{a\\}^*$.",
+                  "labels": {
+                    "kind": "loop",
+                    "beforeLabel": "Before",
+                    "afterLabel": "After",
+                    "ruleLabel": "Transition rule",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "$(\\varepsilon,0)$",
+                    "after": "$(\\varepsilon,1)$",
+                    "rule": "$a\\text{ absent}:\\quad j\\leftarrow1$",
+                    "step": "$k=1$",
+                    "phase": "1",
+                    "terminal": "true"
+                  }
+                }
+              },
+              {
+                "title": "Finite local work and finite runs",
+                "formula": "$\\text{effective step}\\ \\not\\Longrightarrow\\ \\text{finite computation}$",
+                "explanation": "Each search and replacement on a finite word can be performed in finite time. Repeating those finite operations forever is still possible. If the input domain is all words, a separate argument must establish termination for every one of them.",
+                "visual": {
+                  "title": "Finite local work and finite runs",
+                  "description": "Each search and replacement on a finite word can be performed in finite time. Repeating those finite operations forever is still possible. If the input domain is all words, a separate argument must establish termination for every one of them.",
+                  "labels": {
+                    "kind": "comparison",
+                    "beforeLabel": "Question",
+                    "afterLabel": "Focus",
+                    "ruleLabel": "What to establish",
+                    "stepLabel": "Transition index",
+                    "phaseLabel": "Next instruction",
+                    "matchLabel": "Leftmost occurrence",
+                    "replacementLabel": "Replacement",
+                    "terminalLabel": "Output state",
+                    "before": "Effectiveness: carry out one step",
+                    "after": "Termination: reach an output",
+                    "rule": "Establish both properties for the stated input domain.",
+                    "step": "",
+                    "phase": "",
+                    "terminal": "false"
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "check": {
+          "prompt": "The rule $a\\mapsto a$ returns to instruction zero when it matches and goes to output instruction one when absent. On all words over $\\{a\\}$, is it an algorithm?",
+          "options": [
+            {
+              "id": "no",
+              "text": "No: the effective rule loops on every nonempty word.",
+              "correct": true,
+              "feedback": "Each matched state repeats with j=0, outside Ω. The empty input terminates, but the all-input requirement fails."
+            },
+            {
+              "id": "yes-empty",
+              "text": "Yes: the empty input reaches instruction one.",
+              "correct": false,
+              "feedback": "One terminating input does not establish termination for every input in the domain."
+            },
+            {
+              "id": "no-effective",
+              "text": "No: replacing a letter by itself is not effective.",
+              "correct": false,
+              "feedback": "The operation is perfectly executable. Its nonterminal self-loop, rather than its effectiveness, prevents universal termination."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
